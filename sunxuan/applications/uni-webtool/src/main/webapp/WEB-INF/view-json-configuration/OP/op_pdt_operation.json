@@ -1,0 +1,318 @@
+{"operations":
+{
+  "create":
+  {
+    "ALL":
+    [{
+      "conditionFields":{"is_self":true},
+      "beanStr":"tyDatasource.product.Product_Info"
+
+    }]
+  },
+  "delete":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.product.Product_Info"
+    }]
+  },
+  "disabledFields":
+  {
+    "ALL":["id"]
+  },
+  "search":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.product.Product_Info",
+      "sortCondition":" id desc "
+    }]
+  },
+  "update":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.product.Product_Info"
+    }]
+  }
+},
+  "baseBeanStr":"tyDatasource.product.Product_Info",
+  "infoFormPanel":
+  {
+    "id": "new_pdt_panel",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "operationType":"create",
+    "title": "新商品添加",
+    "layout":"hbox",
+    "orig_fields":[{
+      "name": "基本信息(必填)",
+      "items":[
+        {"fieldLabel":"商品名称",
+          "name": "name",
+          "notNull":true},
+        {"fieldLabel":"标题",
+          "name": "title",
+          "notNull":true},
+        {"fieldLabel":"地址",
+          "name": "address",
+          "notNull":true},
+        {"fieldLabel":"城市",
+          "name": "city",
+          "xtype":"combobox",
+          "dataModel":"common_city",
+          "notNull":true},
+        {"fieldLabel":"来源类型",
+          "name": "type",
+          "notNull":true,
+          "xtype":"combobox",
+          "dataModel":"op_source_type"},
+        {"fieldLabel":"商品状态",
+          "name": "status",
+          "xtype":"combobox",
+          "dataModel":"op_product_status"}
+      ]},
+      {
+        "name": "展示内容",
+        "items":[
+          {"fieldLabel":"商品详情",
+            "name": "content",
+            "xtype": "textareafield"},
+          {"fieldLabel":"链接地址",
+            "name": "link",
+            "xtype": "textareafield"},
+          {"fieldLabel":"年龄段",
+            "name": "ages"} ,
+          {"fieldLabel":"关联商户id",
+            "name": "merchant_id"}
+        ]},
+      {"name":"交易信息","items":[
+        {"fieldLabel":"原价",
+          "name": "price",
+          "xtype":"numberfield",
+          "notNull":true
+        },
+        {"fieldLabel":"折扣",
+          "name": "discount",
+          "xtype":"numberfield"
+        },
+        {"fieldLabel":"上架时间",
+          "name": "start_time",
+          "xtype": "datefield",
+          "format"   : "Y-m-d",
+          "notNull":true
+        },
+        {"fieldLabel":"下架时间",
+          "name": "end_time",
+          "xtype": "datefield",
+          "format"   : "Y-m-d",
+          "notNull":true
+        },
+        {"fieldLabel":"到期时间",
+          "name": "expiry_time",
+          "xtype": "datefield",
+          "format"   : "Y-m-d",
+          "notNull":true
+        }
+
+      ]}]
+
+  } ,
+  "infoFormWindow":
+  {
+    "id": "product_detail_win",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "operationType":"update",
+    "title": "商品详细信息",
+    "layout":"hbox",
+    "orig_fields":[{
+      "name": "基本信息",
+      "items":[
+        {"fieldLabel":"商品名称",
+          "name": "name",
+          "notNull":true},
+        {"fieldLabel":"标题",
+          "name": "title",
+          "notNull":true},
+        {"fieldLabel":"地址",
+          "name": "address",
+          "notNull":true},
+        {"fieldLabel":"城市",
+          "name": "city",
+          "xtype":"combobox",
+          "dataModel":"common_city",
+          "notNull":true},
+        {"fieldLabel":"来源类型",
+          "name": "type",
+          "notNull":true,
+          "xtype":"combobox",
+          "dataModel":"op_source_type"},
+        {"fieldLabel":"商品状态",
+          "name": "status",
+          "xtype":"combobox",
+          "dataModel":"op_product_status"}
+      ]},
+      {
+        "name": "展示内容",
+        "items":[
+          {"fieldLabel":"商品详情",
+            "name": "content",
+            "xtype": "textareafield"},
+          {"fieldLabel":"链接地址",
+            "name": "link",
+            "xtype": "textareafield"},
+          {"fieldLabel":"年龄段",
+            "name": "ages"},
+          {"fieldLabel":"关联商户id",
+            "name": "merchant_id"}
+        ]},
+      {"name":"交易信息","items":[
+        {"fieldLabel":"原价",
+          "name": "price",
+          "xtype":"numberfield",
+          "notNull":true
+        },
+        {"fieldLabel":"折扣",
+          "name": "discount",
+          "xtype":"numberfield"
+        },
+        {"fieldLabel":"上架时间",
+          "name": "start_time",
+          "xtype": "datefield",
+          "format"   : "Y-m-d",
+          "notNull":true
+        },
+        {"fieldLabel":"下架时间",
+          "name": "end_time",
+          "xtype": "datefield",
+          "format"   : "Y-m-d",
+          "notNull":true
+        },
+        {"fieldLabel":"到期时间",
+          "name": "expiry_time",
+          "xtype": "datefield",
+          "format"   : "Y-m-d",
+          "notNull":true
+        }
+
+      ]},
+      {"name":"其他操作","items":[
+              {"fieldLabel":"置顶",
+                "name": "is_top",
+                "xtype":"combobox",
+                "dataModel":"common_boolean_status"
+              },
+        {
+                "name":"is_self",
+                "fieldLabel": "是否自营",
+                "xtype":"combobox",
+                "dataModel":"common_oppo_boolean_status"
+              },
+              {"fieldLabel":"审核状态",
+                "name": "audit_status",
+                        "xtype":"combobox",
+                        "dataModel":"op_audit_status"
+              },
+              {"fieldLabel":"views",
+                "name": "views"
+              }
+
+            ]}
+    ]
+
+  } ,
+  "searchPanel":{
+    "id": "pdt_op_searchpanel",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "title": "查询条件",
+    "orig_fields":[
+
+      {
+        "name":"id",
+        "fieldLabel": "商品id"
+      },
+      {
+        "name":"name",
+        "fieldLabel": "商品名称"
+      },
+      {
+        "name":"merchant_id",
+        "fieldLabel": "商户id"
+      },
+      {
+        "name":"is_self",
+        "fieldLabel": "是否自营",
+        "xtype":"combobox",
+        "dataModel":"common_oppo_boolean_status"
+      },
+      {
+        "name":"is_top",
+        "fieldLabel": "是否置顶",
+        "xtype":"combobox",
+        "dataModel":"common_boolean_status"
+      },
+
+      {
+        "name":"audit_status",
+        "fieldLabel": "审核状态",
+        "xtype":"combobox",
+        "dataModel":"op_audit_status"
+      },
+      {
+        "name":"city",
+        "fieldLabel": "城市",
+        "xtype":"combobox",
+        "dataModel":"common_city"
+      },
+      {
+        "name":"type",
+        "fieldLabel": "来源类型",
+        "xtype":"combobox",
+        "dataModel":"op_source_type"
+      },
+      {
+        "name":"status",
+        "fieldLabel": "商品状态",
+        "xtype":"combobox",
+        "dataModel":"op_product_status"
+      }
+    ]
+  },
+  "resultGridPanel":{
+    "id": "product_info_panel",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "title": "商品列表",
+    "orig_fields":[
+
+      {"fieldLabel": "商品id",
+        "name": "id"},
+      {"fieldLabel":"商品名称",
+        "name": "name"},
+      {"fieldLabel": "商品类型",
+        "name": "type"},
+      {"fieldLabel":"销售标题",
+        "name": "title"},
+      {"fieldLabel":"价格",
+        "name": "price"},
+      {"fieldLabel":"折扣",
+        "name": "discount"},
+      {"fieldLabel":"置顶",
+        "name": "is_top"},
+      {"fieldLabel":"自营",
+        "name": "is_self"},
+      {"fieldLabel": "审核状态",
+        "name": "audit_status"}
+    ]
+  }
+}

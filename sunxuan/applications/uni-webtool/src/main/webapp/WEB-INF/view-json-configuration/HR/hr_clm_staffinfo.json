@@ -1,0 +1,298 @@
+{"operations":
+{
+  "create":
+  {
+    "HR_BASE":
+    [{
+      "beanStr":"uwtDatasource.hr_Columns.User_Base_Info"
+    }]
+  },
+  "delete":
+  {
+    "ALL":
+    [{
+      "beanStr":"uwtDatasource.hr_Columns.User_Base_Info"
+    }]
+  },
+  "disabledFields":
+  {
+    "ALL":["id","uuid","handle","name","identity_number","birth",
+      "nationality","nation","birth_place"]
+  },
+  "search":
+  {
+    "HR_BASE":
+    [{
+      "beanStr":"uwtDatasource.hr_Columns.User_Base_Info",
+      "sortCondition":" id desc "
+    }]
+  },
+  "update":
+  {
+    "ALL":
+    [{
+      "beanStr":"uwtDatasource.hr_Columns.User_Base_Info"
+    }]
+  }
+},
+  "baseBeanStr":"uwtDatasource.hr_Columns.User_Base_Info",
+  "infoFormPanel":
+  {
+    "id": "newstaff_panel",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "operationType":"create",
+    "title": "新员工添加",
+    "layout":"hbox",
+    "orig_fields":[{
+      "name": "基本信息(必填,创建后不可更改)",
+      "items":[
+        {"fieldLabel":"内部系统号Handle",
+          "name": "handle",
+          "notNull":true},
+
+        {"fieldLabel":"姓名",
+          "name": "name",
+          "notNull":true},
+        {"fieldLabel":"身份证号码",
+          "name": "identity_number",
+          "xtype": "numberfield",
+          "notNull":true},
+        {"fieldLabel":"出生年月日(YYYY-MM-DD)",
+          "xtype": "datefield",
+          "format"   : "Y-m-d",
+          "notNull":true,
+          "name": "birth"},
+        {"fieldLabel":"国籍",
+          "notNull":true,
+          "name": "nationality"},
+        {"fieldLabel":"民族",
+          "notNull":true,
+          "name": "nation"},
+        {"fieldLabel":"出生地",
+          "name": "birth_place",
+          "notNull":true}
+      ]},
+      {
+        "name": "个人信息(每项必填)",
+        "items":[
+          {"fieldLabel":"电话",
+            "name": "phone",
+            "xtype": "numberfield",
+            "notNull":true},
+          {"fieldLabel":"婚姻状况",
+            "name": "marital_status",
+            "xtype":"combobox",
+            "dataModel":"marital_status",
+            "notNull":true},
+          {"fieldLabel":"紧急联系人",
+            "name": "emergency",
+            "notNull":true},
+          {"fieldLabel":"紧急联系人电话",
+            "xtype": "numberfield",
+            "name": "emergency_telephone",
+            "notNull":true}     ,
+          {"fieldLabel":"常用地址",
+            "name": "home_address",
+            "notNull":true}
+        ]},
+      {"name":"工作信息(每项必填)","items":[
+        {"fieldLabel":"部门",
+          "name": "department",
+          "xtype":"combobox",
+          "dataModel":"User_Class_Department",
+          "notNull":true
+        },
+        {"fieldLabel":"职位",
+          "name": "actor",
+          "xtype":"combobox",
+          "dataModel":"User_Class_Actor",
+          "notNull":true
+        },
+        {"fieldLabel":"上级Handle",
+          "name": "superior_handle"
+        },
+        {"fieldLabel":"邮箱",
+          "name": "email",
+          "notNull":true
+        },
+        {"fieldLabel":"户籍",
+          "name": "origin_place",
+          "notNull":true},
+
+        {"fieldLabel":"档案保管机构",
+          "name": "archives_location",
+          "notNull":true},
+        {"fieldLabel":"政治面貌",
+          "name": "political",
+          "notNull":true},
+        {"fieldLabel":"最高学历",
+          "name": "highest_diploma",
+          "notNull":true},
+        {"fieldLabel":"最后毕业院校",
+          "name": "last_university",
+          "notNull":true},
+        {"fieldLabel":"专业",
+          "name": "major",
+          "notNull":true},
+        {"fieldLabel":"本科毕业院校",
+          "name": "university"}
+
+      ]}]
+
+  } ,
+  "infoFormWindow":
+  {
+    "id": "staff_detail_win",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "operationType":"update",
+    "title": "员工详细信息",
+    "layout":"hbox",
+    "orig_fields":[{
+      "name": "基本信息(不可更改)",
+      "items":[
+        {"fieldLabel":"内部系统号Handle",
+          "name": "handle",
+          "notNull":true},
+
+        {"fieldLabel":"姓名",
+          "name": "name",
+          "notNull":true},
+        {"fieldLabel":"身份证号码",
+          "name": "identity_number",
+          "xtype": "numberfield",
+          "notNull":true},
+        {"fieldLabel":"出生年月日(YYYY-MM-DD)",
+          "xtype": "datefield",
+          "format"   : "Y-m-d",
+          "notNull":true,
+          "name": "birth"},
+        {"fieldLabel":"国籍",
+          "notNull":true,
+          "name": "nationality"},
+        {"fieldLabel":"民族",
+          "notNull":true,
+          "name": "nation"},
+        {"fieldLabel":"出生地",
+          "name": "birth_place",
+          "notNull":true}
+      ]},
+      {
+        "name": "个人信息",
+        "items":[
+          {"fieldLabel":"电话",
+            "name": "phone",
+            "xtype": "numberfield",
+            "notNull":true},
+          {"fieldLabel":"婚姻状况",
+            "name": "marital_status",
+            "xtype":"combobox",
+            "dataModel":"marital_status",
+            "notNull":true},
+          {"fieldLabel":"紧急联系人",
+            "name": "emergency",
+            "notNull":true},
+          {"fieldLabel":"紧急联系人电话",
+            "xtype": "numberfield",
+            "name": "emergency_telephone",
+            "notNull":true}     ,
+          {"fieldLabel":"常用地址",
+            "name": "home_address",
+            "notNull":true}
+        ]},
+      {"name":"工作信息","items":[
+        {"fieldLabel":"部门",
+          "name": "department",
+          "xtype":"combobox",
+          "dataModel":"User_Class_Department",
+          "notNull":true
+        },
+        {"fieldLabel":"职位",
+          "name": "actor",
+          "xtype":"combobox",
+          "dataModel":"User_Class_Actor",
+          "notNull":true
+        },
+        {"fieldLabel":"上级Handle",
+          "name": "superior_handle"
+        },
+        {"fieldLabel":"邮箱",
+          "name": "email",
+          "notNull":true
+        },
+        {"fieldLabel":"户籍",
+          "name": "origin_place",
+          "notNull":true},
+
+        {"fieldLabel":"档案保管机构",
+          "name": "archives_location",
+          "notNull":true},
+        {"fieldLabel":"政治面貌",
+          "name": "political",
+          "notNull":true},
+        {"fieldLabel":"最高学历",
+          "name": "highest_diploma",
+          "notNull":true},
+        {"fieldLabel":"最后毕业院校",
+          "name": "last_university",
+          "notNull":true},
+        {"fieldLabel":"专业",
+          "name": "major",
+          "notNull":true},
+        {"fieldLabel":"本科毕业院校",
+          "name": "university"},
+        {"fieldLabel":"简历上传",
+          "xtype": "filedisplay",
+          "name": "resume_file_id"}
+
+      ]}]
+
+  } ,
+  "searchPanel":{
+    "id": "newstaff_searchpanel",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "title": "查询条件",
+    "orig_fields":[
+
+      {
+        "name":"id",
+        "fieldLabel": "工号id"
+      },
+      {
+        "name":"handle",
+        "fieldLabel": "内部系统号Handle"
+      },
+      {
+        "name":"name",
+        "fieldLabel": "姓名"
+      }]
+  },
+  "resultGridPanel":{
+    "id": "staffs_info_panel",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "title": "员工列表",
+    "orig_fields":[
+      {"fieldLabel":"姓名",
+        "name": "name"},
+      {"fieldLabel": "工号id",
+        "name": "id"},
+      {"fieldLabel": "内部号Handle",
+        "name": "handle"},
+      {"fieldLabel":"电话",
+        "name": "phone"},
+      {"fieldLabel": "部门",
+        "name": "department"}
+    ]
+  }
+}

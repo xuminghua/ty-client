@@ -1,0 +1,145 @@
+<!-- =================================================================== -->
+<!-- $Id: build.xml,v 1.35.2.7.4.14 2007/02/06  $              -->
+<!-- =================================================================== -->
+
+<project name="oa-uwt" default="core" basedir="">
+    <target name="init">
+        <!-- include top-level common properties -->
+        <!--<property file="mybuild.properties"/>-->
+
+        <!--third part lib, for compile only-->
+        <property name="thirdpart.lib" value="../../../../../../lib"/>
+
+        <!--<property name="lib.axis-schema" value="${thirdpart.lib}/axis-1.4/axis-schema.jar"/>-->
+
+        <path id="master-classpath">
+            <fileset file="${thirdpart.lib}/*.jar"/>
+
+        </path>
+
+        <!--our lib-->
+        <!--<property name="lib.compub" value="${our.lib}/compub.jar"/>-->
+        <!--<property name="lib.uwt" value="uwt-client.jar"/>-->
+        <property name="uwt.application.name" value="oa-uwt"/>
+        <property name="uwt.home" value=".."/>
+
+        <property name="uwt.build" value="${uwt.home}/../../target"/>
+        <property name="uwt.build.war" value="${uwt.build}/war"/>
+
+        <property name="uwt.src" value="${uwt.home}/java"/>
+        <property name="uwt.lib" value="../../../lib"/>
+
+        <property name="uwt.classbindir" value="${uwt.build}/classes"/>
+        <property name="uwt.resourcedir" value="${uwt.home}/resources"/>
+
+        <property name="uwt.docroot" value="${uwt.home}/webapp"/>
+        <property name="uwt.war.lib" value="${uwt.build.war}/WEB-INF/lib"/>
+        <property name="uwt.war.classes" value="${uwt.build.war}/WEB-INF/classes"/>
+
+        <property name="uwt.javadocs.dir" value="${uwt.build}/docs/api"/>
+
+        <property name="uwt.war" value="oa-uwt.war"/>
+
+        <!-- The root directory of all the components. -->
+        <property name="components.basedir" value="../../../../../../components"/>
+
+        <!-- The root directory of mamplatform components. -->
+        <!--<property name="mamplatform.basedir" value="../../../dmam/mamplatform3.ifolder/mamplatform3"/>-->
+
+        <!--  model Component -->
+        <!--<property name="model.home" value="${mamplatform.basedir}/model"/>-->
+        <!--<property name="model.classbindir" value="${model.home}/build/classes"/>-->
+
+        <!-- util Component -->
+        <!--<property name="view.home" value="${mamplatform.basedir}/view"/>-->
+        <!--<property name="view.classbindir" value="${view.home}/build/classes"/>-->
+
+        <!-- util Component -->
+        <!--<property name="util.home" value="${mamplatform.basedir}/util"/>-->
+        <!--<property name="util.classbindir" value="${util.home}/build/classes"/>-->
+
+        <!--	condition Component -->
+        <!--<property name="condition.home" value="${mamplatform.basedir}/condition"/>-->
+        <!--<property name="condition.classbindir" value="${condition.home}/build/classes"/>-->
+
+        <!--	dao Component -->
+        <!--<property name="dao.home" value="${mamplatform.basedir}/dao"/>-->
+        <!--<property name="dao.classbindir" value="${dao.home}/build/classes"/>-->
+
+        <!-- The classpath for J2EE classes. -->
+
+        <!-- Classpaths -->
+        <property name="uwt.classpath"
+                  value="master-classpath"/>
+        <!--value="${lib.commons-collections}:${lib-->
+        <!--.commons-beanutils}:${lib.commons-lang}:${lib.commons-logging}:${lib.commons-fileupload}:${lib.ezmorph}:${lib.uwt}:${lib.ldap}:${lib.ibatis}:${lib.comutil}:${lib.compub}:${lib.jdom}:${lib.log4j}:${lib.xerces}:${lib.json}:${lib.jcommon}:${lib.jfreechart}"/>-->
+    </target>
+
+    <target name="compile" depends="init">
+        <!--<echo message="${uwt.classpath}"/>-->
+        <mkdir dir="${uwt.classbindir}"/>
+
+        <javac srcdir="${uwt.src}"
+               destdir="${uwt.classbindir}"
+               classpath="${uwt.classpath}"
+               includes="com/**">
+            <classpath refid="master-classpath"/>
+        </javac>
+    </target>
+
+    <target name="fakewar" depends="init">
+        <!-- Combine the basequeryweb docroots -->
+        <mkdir dir="${uwt.build.war}"/>
+        <copy todir="${uwt.build.war}">
+            <fileset dir="${uwt.docroot}"/>
+        </copy>
+
+
+        <!--combine the library-->
+
+        <!--<copy file="${lib.axis-schema}" todir="${uwt.war.lib}"/>-->
+
+        <mkdir dir="${uwt.war.lib}"/>
+        <copy todir="${uwt.war.lib}">
+            <fileset dir="../../../lib"/>
+        </copy>
+        <!--combine the classes-->
+        <mkdir dir="${uwt.war.classes}"/>
+        <copy todir="${uwt.war.classes}">
+            <fileset dir="${uwt.classbindir}"/>
+        </copy>
+        <copy todir="${uwt.war.classes}">
+            <fileset dir="${uwt.resourcedir}"/>
+        </copy>
+        <!-- combination complete -->
+    </target>
+
+
+    <target name="war" depends="fakewar">
+        <delete file="${uwt.build}/${uwt.war}" quiet="true"/>
+        <jar jarfile="${uwt.build}/${uwt.war}" basedir="${uwt.build.war}" excludes=".DS_Store"/>
+    </target>
+
+    <target name="webcopy" depends="init">
+        <mkdir dir="${uwt.build.war}"/>
+        <copy todir="${uwt.build.war}">
+            <fileset dir="${uwt.docroot}"/>
+        </copy>
+    </target>
+
+    <target name="clean" depends="init">
+        <delete dir="${uwt.build}"/>
+        <delete dir="${uwt.javadocs.dir}"/>
+    </target>
+
+    <target name="bulidlnumber">
+        <buildnumber file="mybuild.properties"/>
+    </target>
+
+    <target name="lightcore" depends="bulidlnumber,compile, fakewar"/>
+    <target name="core" depends="bulidlnumber, war">
+    </target>
+
+
+</project>
+

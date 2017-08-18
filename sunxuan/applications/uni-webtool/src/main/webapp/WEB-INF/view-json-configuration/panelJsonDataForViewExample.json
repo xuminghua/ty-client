@@ -1,0 +1,194 @@
+{
+  "htmlPanel":
+  {
+    "id": "panel11",
+    "title": "html面板2",
+    "html":"883333, </br> dddeee,</br> 0000999"
+  },
+  "infoFormPanel":
+  {
+    "id": "panel12",
+    "title": "infoForm面板3",
+    "layout":"hbox",
+    "fieldsMap": {
+      "fields": [
+        {
+          "title": "基本信息",
+          "items": [
+            {
+              "fieldLabel": "FID",
+              "name": "FID"
+            },
+            {
+              "fieldLabel": "标题",
+              "xtype": "textareafield",
+              "name": "F_Title"
+            },
+            {
+              "fieldLabel": "当前状态",
+              "name": "F_Status"
+            },
+            {
+              "fieldLabel": "版本",
+              "name": "F_Release"
+            },
+            {
+              "fieldLabel": "创建日期",
+              "name": "F_CreatedDay"
+            },
+            {
+              "fieldLabel": "UT截止日期",
+              "name": "F_UT_DeadlineDay"
+            },
+            {
+              "fieldLabel": "DFT截止日期",
+              "name": "F_DFT_DeadlineDay"
+            },
+            {
+              "fieldLabel": "上线日期",
+              "name": "F_DeliverDay"
+            },
+            {
+              "fieldLabel": "E0",
+              "name": "F_E0"
+            }
+          ]
+        },
+        {
+          "title": "成员信息",
+          "items": [
+            {
+              "fieldLabel": "Dev MGER",
+              "name": "F_Dev_MGER"
+            },
+            {
+              "fieldLabel": "PE MGER",
+              "name": "F_PE_MGER"
+            },
+            {
+              "fieldLabel": "TE MGER",
+              "name": "F_TE_MGER"
+            },
+            {
+              "fieldLabel": "NLE",
+              "name": "F_NLE"
+            },
+            {
+              "fieldLabel": "PE",
+              "name": "F_PE"
+            },
+            {
+              "fieldLabel": "FE",
+              "name": "F_FE"
+            },
+            {
+              "fieldLabel": "FTE",
+              "name": "F_FTE"
+            },
+            {
+              "fieldLabel": "Producters",
+              "xtype": "textareafield",
+              "name": "F_Producters"
+            },
+            {
+              "fieldLabel": "Devs",
+              "xtype": "textareafield",
+              "name": "F_Devs"
+            },
+            {
+              "fieldLabel": "Testers",
+              "xtype": "textareafield",
+              "name": "F_Testers"
+            },
+            {
+              "fieldLabel": "Others",
+              "xtype": "textareafield",
+              "name": "F_Others"
+            }
+          ]
+        }
+      ]
+    }
+  } ,
+  "searchPanel":{
+    "id": "panel14",
+    "title": "search面板4",
+    "fieldsMap":{
+    "fields":[
+
+      {
+        "name":"FID",
+        "fieldLabel": "Feature ID"
+      },
+      {
+        "name":"FE_Handle",
+        "fieldLabel": "FE Handle"
+      },
+      {
+        "name":"Manager_Handle",
+        "fieldLabel": "Manager Handle"
+      },
+      {
+        "name":"Feature_Status",
+        "fieldLabel": "Feature状态" ,
+        "store":["c","d"],
+        "xtype":"combobox"
+      }]
+    }
+  },
+  "resultGridPanel":
+  {"readOnly":false,
+    "id": "panel15",
+    "title": "result面板5",
+    "fieldsMap":{    "columns": [
+          {"text":"FID",
+            "dataIndex": "FID"},
+          {"text": "标题",
+            "dataIndex": "F_Title"},
+          {"text": "当前状态",
+            "dataIndex": "F_Status"},
+          {"text":"版本",
+            "dataIndex": "F_Release"},
+          {"text": "创建日期",
+            "xtype"    : "datecolumn",
+            "format"   : "Y-m-d",
+            "dataIndex": "F_CreatedDay"},
+          {"text": "上线日期",
+            "xtype"    : "datecolumn",
+            "format"   : "Y/m/d",
+            "dataIndex": "F_DeliverDay"},
+          {"text":"E0",
+            "dataIndex": "F_E0"}
+        ],
+        "fields":
+        [
+          {
+          "name": "FID"
+        },
+          {
+            "name": "F_Title"
+          },
+          {
+            "name": "F_Status"
+          },
+          {
+            "name": "F_Release"
+          },
+          {
+            "name": "F_CreatedDay"
+          },
+          {
+            "name": "F_DeliverDay"
+          },
+          {
+            "name": "F_E0"
+          },
+          {
+            "name": "F_History"
+          }
+        ],
+        "data":[{"FID":1001,"F_Status":"未开始", "F_Release":"R0", "F_CreatedDay":"2016/10/01",
+          "F_DeliverDay":"2017/03/01","F_E0":5,"F_History": []}]}
+
+  }
+}

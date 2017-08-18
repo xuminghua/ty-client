@@ -1,0 +1,5 @@
+del resource_zh_TW.js
+set JAVA_HOME=C:\j2sdk1.4.2_08
+%JAVA_HOME%\bin\native2ascii -encoding big5 original_resource_zh_TW.js resource_zh_TW.js
+
+pause

@@ -1,0 +1,13 @@
+{
+  "gender":[["male","男"],["female","女"]],
+  "marital_status":[["未婚","未婚"],["已婚","已婚"],["离异","离异"]],
+  "common_boolean_status":[[false,"否"],[true,"是"]],
+  "common_oppo_boolean_status":[[false,"是"],[true,"否"]] ,
+  "common_city":[["北京","北京"]],
+  "op_audit_status":[[0,"待审核"],[1,"审核通过"],[2,"审核不通过"]],
+  "op_product_status":[[0,"正常"],[1,"促销"],[2,"秒杀"],[3,"下架"]],
+  "op_source_type":[[0,"用户上传"],[1,"自有"]],
+  "op_carrousel_type":[[0,"游记"],[1,"商品"],[2,"专题"],[3,"免费资格"],[4,"信任度"]],
+  "op_carrousel_status":[[0,"无效"],[1,"有效"]]
+
+}

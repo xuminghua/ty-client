@@ -1,0 +1,9 @@
+{"htmlPanel":
+{
+  "id": "panel11",
+  "privilege":{"readPrivilege": "ALL", "writePrivilege": "ALL"
+  }
+,"html":"fffeeghhh, </br> dddeee",
+  "title": "html面板1"
+}
+}

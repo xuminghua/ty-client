@@ -1,0 +1,146 @@
+<!-- =================================================================== -->
+<!-- $Id: build.xml,v 1.35.2.7.4.14 2007/02/06  $              -->
+<!-- =================================================================== -->
+
+<project name="oa-sso" default="core" basedir="">
+    <target name="init">
+        <!-- include top-level common properties -->
+        <!--<property file="mybuild.properties"/>-->
+
+        <!--third part lib-->
+        <property name="thirdpart.lib" value="../../../../../../lib"/>
+
+        <!--<property name="lib.axis-schema" value="${thirdpart.lib}/axis-1.4/axis-schema.jar"/>-->
+
+        <path id="master-classpath">
+            <fileset file="${thirdpart.lib}/*.jar"/>
+
+        </path>
+
+        <!--our lib-->
+        <!--<property name="lib.compub" value="${our.lib}/compub.jar"/>-->
+        <!--<property name="lib.sso" value="sso-client.jar"/>-->
+        <property name="sso.application.name" value="oa-sso"/>
+        <property name="sso.home" value=".."/>
+
+        <property name="sso.build" value="${sso.home}/../../target"/>
+        <property name="sso.build.war" value="${sso.build}/war"/>
+
+        <property name="sso.src" value="${sso.home}/java"/>
+        <property name="sso.lib" value="../../../lib"/>
+
+        <property name="sso.classbindir" value="${sso.build}/classes"/>
+        <property name="sso.resourcedir" value="${sso.home}/resources"/>
+
+        <property name="sso.docroot" value="${sso.home}/webapp"/>
+        <property name="sso.war.lib" value="${sso.build.war}/WEB-INF/lib"/>
+        <property name="sso.war.classes" value="${sso.build.war}/WEB-INF/classes"/>
+
+        <property name="sso.javadocs.dir" value="${sso.build}/docs/api"/>
+
+        <property name="sso.war" value="oa-sso.war"/>
+
+        <!-- The root directory of all the components. -->
+        <property name="components.basedir" value="../../../../../../components"/>
+
+        <!-- The root directory of mamplatform components. -->
+        <!--<property name="mamplatform.basedir" value="../../../dmam/mamplatform3.ifolder/mamplatform3"/>-->
+
+        <!--  model Component -->
+        <!--<property name="model.home" value="${mamplatform.basedir}/model"/>-->
+        <!--<property name="model.classbindir" value="${model.home}/build/classes"/>-->
+
+        <!-- util Component -->
+        <!--<property name="view.home" value="${mamplatform.basedir}/view"/>-->
+        <!--<property name="view.classbindir" value="${view.home}/build/classes"/>-->
+
+        <!-- util Component -->
+        <!--<property name="util.home" value="${mamplatform.basedir}/util"/>-->
+        <!--<property name="util.classbindir" value="${util.home}/build/classes"/>-->
+
+        <!--	condition Component -->
+        <!--<property name="condition.home" value="${mamplatform.basedir}/condition"/>-->
+        <!--<property name="condition.classbindir" value="${condition.home}/build/classes"/>-->
+
+        <!--	dao Component -->
+        <!--<property name="dao.home" value="${mamplatform.basedir}/dao"/>-->
+        <!--<property name="dao.classbindir" value="${dao.home}/build/classes"/>-->
+
+        <!-- The classpath for J2EE classes. -->
+
+        <!-- Classpaths -->
+        <property name="sso.classpath"
+                  value="master-classpath"/>
+                  <!--value="${lib.commons-collections}:${lib-->
+        <!--.commons-beanutils}:${lib.commons-lang}:${lib.commons-logging}:${lib.commons-fileupload}:${lib.ezmorph}:${lib.sso}:${lib.ldap}:${lib.ibatis}:${lib.comutil}:${lib.compub}:${lib.jdom}:${lib.log4j}:${lib.xerces}:${lib.json}:${lib.jcommon}:${lib.jfreechart}"/>-->
+    </target>
+
+    <target name="compile" depends="init">
+        <!--<echo message="${sso.classpath}"/>-->
+        <mkdir dir="${sso.classbindir}"/>
+
+        <javac srcdir="${sso.src}"
+               destdir="${sso.classbindir}"
+               classpath="${sso.classpath}"
+               includes="**">
+            <classpath refid="master-classpath"/>
+        </javac>
+    </target>
+
+    <target name="fakewar" depends="init">
+        <!-- Combine the basequeryweb docroots -->
+        <mkdir dir="${sso.build.war}"/>
+        <copy todir="${sso.build.war}">
+            <fileset dir="${sso.docroot}"/>
+        </copy>
+
+
+        <!--combine the library-->
+
+        <!--<copy file="${lib.axis-schema}" todir="${sso.war.lib}"/>-->
+
+        <mkdir dir="${sso.war.lib}"/>
+        <copy todir="${sso.war.lib}">
+            <fileset dir="../../../lib"/>
+        </copy>
+        <!--combine the classes-->
+        <mkdir dir="${sso.war.classes}"/>
+        <copy todir="${sso.war.classes}">
+            <fileset dir="${sso.classbindir}"/>
+        </copy>
+        <copy todir="${sso.war.classes}">
+            <fileset dir="${sso.resourcedir}"/>
+        </copy>
+        <!-- combination complete -->
+    </target>
+
+
+    <target name="war" depends="fakewar">
+        <delete file="${sso.build}/${sso.war}" quiet="true"/>
+        <jar jarfile="${sso.build}/${sso.war}" basedir="${sso.build.war}" excludes=".DS_Store"/>
+    </target>
+
+    <target name="webcopy" depends="init">
+        <mkdir dir="${sso.build.war}"/>
+        <copy todir="${sso.build.war}">
+            <fileset dir="${sso.docroot}"/>
+        </copy>
+    </target>
+
+    <target name="clean" depends="init">
+        <delete dir="${sso.classbindir}"/>
+        <delete dir="${sso.build.war}"/>
+        <delete dir="${sso.javadocs.dir}"/>
+    </target>
+
+    <target name="bulidlnumber">
+        <buildnumber file="mybuild.properties"/>
+    </target>
+
+    <target name="lightcore" depends="bulidlnumber,compile, fakewar"/>
+    <target name="core" depends="lightcore, war">
+    </target>
+
+
+</project>
+

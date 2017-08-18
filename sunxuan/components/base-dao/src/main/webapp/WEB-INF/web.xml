@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<display-name></display-name>
+	<!-- log4j -->
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+        <param-value>log4j.properties</param-value>
+	</context-param>
+	<!-- Spring监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- Spring配置文件位置 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	<welcome-file-list>
+		<welcome-file>MyJsp.jsp</welcome-file>
+	</welcome-file-list>
+	<!--======================== druid config ========================-->
+ <servlet>
+   <servlet-name>DruidStatView</servlet-name>
+      <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+       <init-param>
+        <param-name>resetEnable</param-name>
+        <param-value>false</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>DruidStatView</servlet-name>
+      <url-pattern>/druid/*</url-pattern>
+  </servlet-mapping>
+	<!--  具体哪些是不需要纳入监控范围，需要过滤的   -->
+	<filter>
+	        <filter-name>DruidWebStatFilter</filter-name>
+	        <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+	        <init-param>
+	        <param-name>exclusions</param-name>
+	        <param-value>weburi.json,.html,.js,.gif,.jpg,.png,.css,.ico,/druid/*</param-value>
+	        </init-param>
+	        <init-param>
+	        <param-name>sessionStatMaxCount</param-name>
+	        <param-value>1000</param-value>
+	        </init-param>
+	        <init-param>
+	        <param-name>principalSessionName</param-name>
+	        <param-value>FRONT_USER</param-value>
+	        </init-param>
+	    </filter>
+
+	    <filter-mapping>
+	        <filter-name>DruidWebStatFilter</filter-name>
+	        <url-pattern>*.action</url-pattern>
+	    </filter-mapping>
+	    <filter-mapping>
+	        <filter-name>DruidWebStatFilter</filter-name>
+	        <url-pattern>*.jsp</url-pattern>
+	    </filter-mapping>
+ <!--======================== druid config ends ========================-->
+
+</web-app>

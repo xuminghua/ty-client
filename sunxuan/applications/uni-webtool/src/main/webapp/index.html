@@ -1,0 +1,59 @@
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>统一工作平台</title>
+    <link rel="stylesheet" href="css/uwt.css" />
+    <!--[if lt IE 9]>
+    <![endif]-->
+
+
+</head>
+<body id="uwt">
+  <div id="container">
+
+      <div id="mainbd">
+          <link rel="stylesheet" type="text/css" href="ext4/resources/css/ext-all.css"/>
+          <script type="text/javascript" src="ext4/ext-all.js" ></script>
+
+
+          <script type="text/javascript" src="js/uwt/dictionary/original_resource_zh_CN.js" ></script>
+          <script type="text/javascript" src="js/uwt/UWTConfiguration.js" ></script>
+
+          <script type="text/javascript">
+              var tabs = {"tabCategories":[{"id":"RD","readOnly":false,"title":"研发"},{"id":"HR","readOnly":false,"title":"人力"}]};
+              var init_TreeColumnMap = [{"children":[],"columnId":"rd_tasklist","leaf":true,"readOnly":false,"text":"我的工作单"},{"children":[],"columnId":"rd_projectInfo","leaf":true,"readOnly":false,"text":"项目信息"},{"children":[],"columnId":"rd_meetings","leaf":true,"readOnly":false,"text":"会议管理"},{"children":[],"columnId":"rd_projectDeclare","leaf":true,"readOnly":false,"text":"项目申报单"},{"children":[],"columnId":"rd_requirement","leaf":true,"readOnly":false,"text":"需求设计"},{"children":[],"columnId":"rd_effort","leaf":true,"readOnly":false,"text":"E0E1"},{"children":[],"columnId":"rd_development","leaf":true,"readOnly":false,"text":"开发"},{"children":[],"columnId":"rd_qualityTest","leaf":true,"readOnly":false,"text":"测试"},{"children":[],"columnId":"rd_serviceTest","leaf":true,"readOnly":false,"text":"业务测试"},{"children":[],"columnId":"rd_versionControl","leaf":true,"readOnly":false,"text":"版本控制"},{"children":[],"columnId":"rd_training","leaf":true,"readOnly":false,"text":"培训"},{"children":[],"columnId":"rd_docAndTool","leaf":true,"readOnly":false,"text":"文档和工具"},{"children":[],"columnId":"rd_FAQ","leaf":true,"readOnly":false,"text":"FAQ"}];
+              var init_panelWorkspace = [{"id":"panel11","readOnly":false,"subfields":[{"fielddefaultvalue":"","fieldid":"text1","fieldtext":"字段1","fieldtype":"text","readOnly":false,"subFieldType":"Text"}],"subxtype":"panel","title":"面板1"},{"id":"panel22","readOnly":false,"subfields":[{"fielddefaultvalue":"","fieldid":"text2","fieldtext":"字段2","fieldtype":"text","readOnly":false,"subFieldType":"Text"}],"subxtype":"panel","title":"面板2"}];
+              UWTConfiguration.initFromJsp('aaa', tabs.tabCategories, init_TreeColumnMap,init_panelWorkspace);
+//              UWTConfiguration.setUserinfo('username1', 'userhandle1', 'useractorname1','useractorNo1', 'usersuperiorname1', 'usersuperiorhandle1', 'userdepartmentname1','userdepartmentNo1');
+          </script>
+
+          <script type="text/javascript" src="js/uwt/app/view/Windows.js" ></script>
+          <script type="text/javascript" src="js/uwt/main.js" ></script>
+
+      </div>
+      <header>
+        <a id="logo" href="http://www.songouhe.com" title="进入公司主页">B游</a>
+        <h1>统一工作平台</h1>
+      </header>
+      <div id="content">
+        <div id="mainpanel"/>
+
+
+
+
+      </div> <!-- END #content -->
+
+      <footer>
+        <div id="copyright">
+          <p>Powered by <a href="http://www.byou.com">TONGYOUSHU 1.0.0</a></p>
+        </div>
+      </footer>
+
+    </div> <!-- END #container -->
+
+    <!--<script type="text/javascript" src="<c:url value="${byouJavascriptJqueryFile}" />"></script>-->
+    <!--<script type="text/javascript" src="<c:url value="${byouJavascriptJUIFile}" />"></script>-->
+
+
+  </body>
+</html>

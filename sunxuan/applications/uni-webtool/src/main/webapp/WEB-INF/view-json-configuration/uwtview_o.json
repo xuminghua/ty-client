@@ -1,0 +1,367 @@
+{"tabCategories":
+[
+  {
+    "id":"RD",
+    "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+    "title":"研发",
+    "treeColumnMap":
+    [
+      {
+        "children":[],
+        "columnId":"rd_tasklist",
+        "leaf":true,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"我的工作单"
+      },
+
+      {
+        "children":[],
+        "columnId":"rd_projectInfo",
+        "leaf":true,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"项目信息"
+      },
+
+      {
+        "children":[],
+        "columnId":"rd_meetings",
+        "leaf":true,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"会议管理"
+      },
+
+      {
+        "children":[],
+        "columnId":"rd_projectDeclare",
+        "leaf":true,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"项目申报单"
+      },
+
+      {
+        "children":[],
+        "columnId":"rd_requirement",
+        "leaf":true,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"需求设计"
+      },
+
+      {
+        "children":[],
+        "columnId":"rd_effort",
+        "leaf":true,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"E0E1"
+      },
+
+      {
+        "children":[],
+        "columnId":"rd_development",
+        "leaf":true,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"开发"
+      },
+      {
+        "children":[],
+        "columnId":"rd_qualityTest",
+        "leaf":true,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"测试"
+      },
+      {
+        "children":[],
+        "columnId":"rd_serviceTest",
+        "leaf":true,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"业务测试"
+      },
+      {
+        "children":[],
+        "columnId":"rd_versionControl",
+        "leaf":true,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"版本控制"
+      },
+      {
+        "children":[],
+        "columnId":"rd_training",
+        "leaf":true,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"培训"
+      },
+      {
+        "children":[],
+        "columnId":"rd_docAndTool",
+        "leaf":true,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"文档和工具"
+      },
+      {
+        "children":[],
+        "columnId":"rd_FAQ",
+        "leaf":true,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"FAQ"
+      }
+    ]
+  },
+  {
+    "id":"HR",
+    "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+    "title":"人力",
+    "treeColumnMap":[
+      {
+        "children":[
+          {
+            "columnId":"hr_pri_tasklist",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"工作单"
+          } ,
+          {
+            "columnId":"hr_pri_effort",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"生产价值管理"
+          } ,
+          {
+            "children":[
+              {
+                "children":[],
+                "columnId":"hr_pri_info_password",
+                "leaf":true,
+                "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+                "text":"密码管理"
+              } ,
+              {
+                "children":[],
+                "columnId":"hr_pri_info_base",
+                "leaf":true,
+                "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+                "text":"基本信息"
+              } ,
+              {
+                "children":[],
+                "columnId":"hr_pri_info_staff",
+                "leaf":true,
+                "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+                "text":"人事信息"
+              }
+            ],
+            "columnId":"hr_pri_privateinfo",
+            "leaf":false,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"个人信息"
+          } ,
+          {
+            "children":[],
+            "columnId":"hr_pri_salary",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"薪资福利"
+          } ,
+          {
+            "children":[],
+            "columnId":"hr_pri_subordinate",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"下级管理"
+          } ,
+          {
+            "children":[],
+            "columnId":"hr_pri_entry",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"入职"
+          } ,
+          {
+            "children":[],
+            "columnId":"hr_pri_dimission",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"离职"
+          } ,
+          {
+            "children":[],
+            "columnId":"hr_pri_vacation",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"假期管理"
+          } ,
+          {
+            "children":[],
+            "columnId":"hr_pri_assets",
+            "leaf":true,
+
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"资产管理"
+          } ,
+          {
+            "children":[],
+            "columnId":"hr_pri_reimbursement",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"报销系统"
+          } ,
+          {
+            "children":[],
+            "columnId":"hr_pri_stafflist",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"通讯录"
+          } ,
+          {
+            "children":[],
+            "columnId":"hr_pri_recommend",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"荐才"
+          } ,
+          {
+            "children":[],
+            "columnId":"hr_pri_helpdocs",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"帮助文档"
+          },
+          {
+            "children":[],
+            "columnId":"hr_pri_FAQ",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"FAQ"
+          }
+
+        ],
+        "columnId":"hr_privates",
+        "leaf":false,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"个人"
+      } ,
+      {
+        "children":[
+          {
+            "children":[],
+            "columnId":"hr_Clm_newstaff",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"新员工录入"
+          } ,
+          {
+            "children":[],
+            "columnId":"hr_Clm_staffinfo",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"员工信息"
+          } ,
+          {
+            "children":[],
+            "columnId":"hr_Clm_salary",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"工资管理"
+          } ,
+          {
+            "children":[],
+            "columnId":"hr_Clm_benefits",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"福利管理"
+          } ,
+          {
+            "children":[],
+            "columnId":"hr_Clm_effort",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"绩效管理"
+          } ,
+          {
+            "children":[],
+            "columnId":"hr_Clm_helpdocs",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"帮助文档"
+          } ,
+          {
+            "children":[],
+            "columnId":"hr_Clm_FAQ",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"FAQ"
+          }
+        ],
+        "columnId":"hr_Columns",
+        "leaf":false,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"HR"
+      } ,
+      {
+        "children":[
+          {
+            "children":[],
+            "columnId":"hr_staff_effort",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"绩效管理"
+          },
+          {
+            "children":[],
+            "columnId":"hr_staff_fair",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"招聘申请"
+          },
+          {
+            "children":[],
+            "columnId":"hr_staff_helpdocs",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"帮助文档"
+          },
+          {
+            "children":[],
+            "columnId":"hr_staff_FAQ",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"FAQ"
+          }
+        ],
+        "columnId":"staff",
+        "leaf":false,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"人员管理"
+      } ,
+      {
+        "children":[
+          {
+            "children":[],
+            "columnId":"hr_dpt_modify",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"部门修改"
+          },
+
+          {
+            "children":[],
+            "columnId":"hr_dpt_helpdocs",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"帮助文档"
+          },
+          {
+            "children":[],
+            "columnId":"hr_dpt_FAQ",
+            "leaf":true,
+            "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+            "text":"FAQ"
+          }
+        ],
+        "columnId":"departments",
+        "leaf":false,
+        "privilege":{"readPrivilege":"ALL","writePrivilege":"ALL"},
+        "text":"部门管理"
+      }
+    ]
+  }
+]
+}
