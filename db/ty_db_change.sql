@@ -25,7 +25,13 @@ ALTER TABLE `product_coupon` CHANGE `total` `total` INT(11) NOT NULL DEFAULT '0'
 -- 20170906
 --
 --
--- 修改原因：价格类型的decimal都没有规定小数位数，改为decimal(10,2)
+-- 修改原因：价格类型的decimal都没有规定小数位数，改为decimal(10,2);
+-- product_coupon的status改为和其他table一致的定义方式：免费卷状态： 0：无效 1：有效; 
+-- product_coupon 的type由boolean改为int
+-- user_blacklist的reason由boolean改为int;reason,remove_time可以为null
+--
 --
 ALTER TABLE `product_info` CHANGE `price` `price` DECIMAL(10,2) NOT NULL COMMENT '价格', CHANGE `discount` `discount` DECIMAL(10,2) NULL DEFAULT NULL COMMENT '折扣价格';
-
+ALTER TABLE `product_coupon` CHANGE `status` `status` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '免费卷状态： 0：无效 1：有效';
+ALTER TABLE `product_coupon` CHANGE `type` `type` TINYINT(4) NULL DEFAULT NULL COMMENT '免费卷类型';
+ALTER TABLE `user_blacklist` CHANGE `reason` `reason` TINYINT(4) NULL DEFAULT '0' COMMENT '加入黑名单原因 0： 1：', CHANGE `remove_time` `remove_time` DATETIME NULL COMMENT '移出黑名单时间';
