@@ -1,4 +1,4 @@
-package com.songouhe.internal.uwt.action;
+package com.songouhe.internal.uwt.service;
 
 import com.songouhe.base.dao.BaseDao;
 import com.songouhe.base.dao.DaoSysException;
@@ -7,8 +7,8 @@ import com.songouhe.base.dao.tool.DatabaseContextHolder;
 import com.songouhe.internal.uwt.model.entity.daoentity.classes.AbstractCommonClass;
 import com.songouhe.internal.uwt.model.entity.daoentity.classes.User_Class_Actor;
 import com.songouhe.internal.uwt.model.entity.daoentity.classes.User_Class_Department;
-import com.songouhe.internal.uwt.model.utils.ConfigUtil;
-import com.songouhe.internal.uwt.model.utils.JsonFileUtil;
+import com.songouhe.internal.uwt.utils.ConfigUtil;
+import com.songouhe.internal.uwt.utils.JsonFileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +37,6 @@ public class CommonPrepareAction {
         combosForView.put("User_Class_Actor", actorList);
 
         ConfigUtil.setCombosForView(combosForView);
-
 
     }
 

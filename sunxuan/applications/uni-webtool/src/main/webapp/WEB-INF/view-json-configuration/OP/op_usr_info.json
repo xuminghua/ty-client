@@ -1,0 +1,156 @@
+{"operations":
+{
+  "create":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.user.User_Blacklist"
+
+    }]
+  },
+  "disabledFields":
+  {
+    "ALL":["id"]
+  },
+  "search":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.user.User_Info",
+      "sortCondition":" id desc "
+    }]
+  }
+},
+  "baseBeanStr":"tyDatasource.user.User_Blacklist",
+  "infoFormPanel":
+  {
+    "id": "new_blacklist_panel",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "operationType":"create",
+    "title": "添加用户到黑名单",
+    "layout":"hbox",
+    "orig_fields":[{
+      "name": "信息",
+      "items":[
+
+        {"fieldLabel":"用户id",
+          "name": "user_id",
+          "notNull":true},
+        {"fieldLabel":"原因",
+          "name": "reason",
+          "xtype":"combobox",
+          "dataModel":"op_blacklist_reason",
+          "notNull":true},
+        {"fieldLabel":"状态",
+          "name": "status",
+          "xtype":"combobox",
+          "dataModel":"op_valid_status",
+          "notNull":true} ,
+        {"fieldLabel":"移出黑名单时间(设为无效的时间)",
+                  "name": "remove_time",
+                  "xtype":"datefield",
+          "format"   : "Y-m-d"}
+      ]}
+
+      ]
+
+  } ,
+  "infoFormWindow":
+  {
+    "id": "user_detail_panel",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "NONE"
+    },
+    "operationType":"update",
+    "title": "用户信息",
+    "layout":"hbox",
+    "orig_fields":[{
+      "name": "信息",
+      "items":[
+        {"fieldLabel":"id",
+          "name": "id"},
+        {"fieldLabel":"用户id",
+          "name": "user_id"},
+        {"fieldLabel":"手机号",
+                  "name": "phone"},
+        {"fieldLabel":"邮箱地址",
+                  "name": "mail"},
+        {"fieldLabel":"宝宝性别",
+                  "name": "baby_gender"},
+        {"fieldLabel":"宝宝生日",
+                  "name": "baby_birth"},
+        {"fieldLabel":"微信的唯一帐号",
+                  "name": "weichat"},
+
+      ]},{
+      "name": "信息",
+      "items":[{"fieldLabel":"微博唯一帐号",
+                        "name": "weibo"},
+              {"fieldLabel":"qq唯一帐号",
+                        "name": "qq"},
+              {"fieldLabel":"经验值",
+                        "name": "experience"},
+              {"fieldLabel":"金币",
+                        "name": "money"},
+              {"fieldLabel":"积分",
+                        "name": "point"},
+              {"fieldLabel":"最后一次登录时间",
+                        "name": "latest_login_time"},
+              {"fieldLabel":"用户创建时间",
+                        "name": "create_time"}
+      ]
+    }
+
+      ]
+
+  } ,
+
+  "searchPanel":{
+    "id": "user_searchpanel",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "title": "查询条件",
+    "orig_fields":[
+      {"fieldLabel":"id",
+        "name": "id"},
+      {"fieldLabel":"用户id",
+        "name": "user_id"},
+      {"fieldLabel":"手机号",
+                "name": "phone"},
+      {"fieldLabel":"微信的唯一帐号",
+                 "name": "weichat"},
+       {"fieldLabel":"微博唯一帐号",
+                 "name": "weibo"},
+       {"fieldLabel":"qq唯一帐号",
+                 "name": "qq"}
+    ]
+  },
+  "resultGridPanel":{
+    "id": "user_info_panel",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "title": "用户列表",
+    "orig_fields":[
+      {"fieldLabel":"id",
+        "name": "id"},
+      {"fieldLabel":"用户id",
+        "name": "user_id"},
+      {"fieldLabel":"手机号",
+                "name": "phone"},
+      {"fieldLabel":"微信的唯一帐号",
+                 "name": "weichat"},
+       {"fieldLabel":"微博唯一帐号",
+                 "name": "weibo"},
+       {"fieldLabel":"qq唯一帐号",
+                 "name": "qq"}
+    ]
+  }
+}

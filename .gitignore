@@ -8,6 +8,9 @@
 
 # production
 /build
+#uwt
+.idea
+target/
 
 # misc
 .DS_Store

@@ -1,6 +1,7 @@
-package com.songouhe.internal.uwt.action;
+package com.songouhe.internal.uwt.service;
 
 import com.songouhe.base.sso.action.SSOUserInfo;
+import com.songouhe.internal.uwt.exceptions.ServiceException;
 import flexjson.JSONDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,14 +25,14 @@ public class ReadDataManager {
 
         ViewManager vm = ViewManager.getUserViewManager(request);
         if(vm == null){
-            logger.error("error","ViewManager hasn't be built for user[" + userInfo.getsUserHandle() + "]");
-            return ("");
+            String errMsg = "ViewManager hasn't be built for user[" + userInfo.getsUserHandle() + "]";
+            throw new ServiceException(errMsg);
         }
         String result = vm.getJSONArrayPanelWorkspace(userInfo.getPrivilege(),
                 params.get("tabCategoryId"), params.get("columnID"));
         return (result);
     }
-    public String getTreeColumnMapData(HttpServletRequest request, String inSParams){
+    public String getTreeColumnMapData(HttpServletRequest request, String inSParams) throws Exception{
         Map<String,String> params = (Map) new JSONDeserializer().deserialize(inSParams, Map.class);
 
         ViewManager vm = ViewManager.getUserViewManager(request);

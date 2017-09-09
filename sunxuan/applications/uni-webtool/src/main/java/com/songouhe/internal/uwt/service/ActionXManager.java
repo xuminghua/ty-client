@@ -1,4 +1,4 @@
-package com.songouhe.internal.uwt.action;
+package com.songouhe.internal.uwt.service;
 
 import com.songouhe.base.dao.BaseDao;
 import com.songouhe.base.dao.entity.RecordWithTotalCount;
@@ -7,9 +7,13 @@ import com.songouhe.base.dao.tool.DatabaseContextHolder;
 import com.songouhe.base.sso.action.PrivilegeInfo;
 import com.songouhe.base.sso.action.SSOUserInfo;
 import com.songouhe.base.util.service.ToolUtil;
-import com.songouhe.internal.uwt.model.utils.ConfigUtil;
-import com.songouhe.internal.uwt.model.utils.JsonFileUtil;
+import com.songouhe.internal.uwt.exceptions.ServiceException;
+import com.songouhe.internal.uwt.model.enums.OperationTypeEnum;
+import com.songouhe.internal.uwt.utils.ConfigUtil;
+import com.songouhe.internal.uwt.utils.CustomizedActionHandling;
+import com.songouhe.internal.uwt.utils.JsonFileUtil;
 import com.songouhe.internal.uwt.model.viewconfig.action.ActionModel;
+import com.songouhe.internal.uwt.model.viewconfig.action.DbPreValidationModel;
 import com.songouhe.internal.uwt.view.PanelWorkspaceView;
 import com.songouhe.internal.uwt.view.TreeColumnView;
 import com.songouhe.internal.uwt.view.action.OperationSetView;
@@ -22,7 +26,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -37,6 +40,7 @@ public class ActionXManager {
     PanelWorkspaceView panelWorkspaceView;
     private PrivilegeInfo userPrivilegeInfo;
     private SSOUserInfo userInfo;
+    private String columnId;
 
 
     private ArrayList<String> setDisabledFieldsForRec(){
@@ -51,93 +55,162 @@ public class ActionXManager {
         TreeColumnView columnView = vm.getUserView().getTreeColumnView(inColumnId);
         panelWorkspaceView = columnView.getPanelWorkspaces();
         operationSetView = panelWorkspaceView.getUserOperations();
-
+        columnId = inColumnId;
     }
+
     public boolean create(HashMap fieldValues) throws Exception {
+        CustomizedActionHandling cah = new CustomizedActionHandling(
+                this.userInfo,this,OperationTypeEnum.create,fieldValues);
         BaseDao baseDao = ConfigUtil.getBaseDao();
-        String baseBeanStr = panelWorkspaceView.getBaseBeanStr();
-        if(baseBeanStr != null && baseBeanStr.indexOf(".") > 0){
-            int index = baseBeanStr.indexOf(".");
-            String strDbSource = baseBeanStr.substring(0,index);
-            DatabaseContextHolder.clearDatabaseType();
-            DatabaseContextHolder.setDateBaseType(DataBaseTypeEnum.valueOf(strDbSource));
-        }
+
         if(baseDao == null){
-            logger.error("error", "class:[ActionXManager],method:[create],user:["
-                    + userInfo.getsUserHandle() + "]: baseDao=null, 请检查数据库链接配置");
-            return false;
+            String errMsg = "class:[ActionXManager],method:[create],user:["
+                    + userInfo.getsUserHandle() + "]: baseDao=null, 请检查数据库链接配置";
+            throw new ServiceException(errMsg);
         }
         if(operationSetView == null){
-            logger.error("error", "class:[ActionXManager],method:[create],user:["
-                    + userInfo.getsUserHandle() + "]: operationSetView=null, 请检查json文件配置");
-            return false;
+            String errMsg = "class:[ActionXManager],method:[create],user:["
+                    + userInfo.getsUserHandle() + "]: operationSetView=null, 请检查json文件配置";
+            throw new ServiceException(errMsg);
         }
         ActionModel[] createOpSet = operationSetView.getDefaultCreateAction();
         try {
+            cah.preActionHandling();
+
+            String baseBeanStr = panelWorkspaceView.getBaseBeanStr();
+            if(baseBeanStr != null && baseBeanStr.indexOf(".") > 0){
+                int index = baseBeanStr.indexOf(".");
+                String strDbSource = baseBeanStr.substring(0,index);
+                DatabaseContextHolder.clearDatabaseType();
+                DatabaseContextHolder.setDateBaseType(DataBaseTypeEnum.valueOf(strDbSource));
+            }
+
             List objList = new ArrayList();
             for(ActionModel action : createOpSet) {
-                if (action.getBeanStr() == null) continue;
+                //每个action必须包含beanStr,否则报错
+                if(action.getBeanStr() == null){
+                    String errMsg = "class:[ActionXManager],method:[create],user:["
+                            + userInfo.getsUserHandle() +
+                            "]: create的action配置缺少beanStr,无法创建新纪录";
+                    throw new ServiceException(errMsg);
+                }
                 String beanName = ConfigUtil.getEntityPath() + action.getBeanStr();
                 Class c = Class.forName(beanName);
+
+
+                //组建要create的数据结构 start
                 HashMap fieldValuesForBean = action.getConditionFields();
-                if(fieldValuesForBean != null ){
+                if (fieldValuesForBean != null) {
                     fieldValuesForBean = (HashMap) fieldValuesForBean.clone();
                     fieldValuesForBean.putAll(fieldValues);
-                }else fieldValuesForBean = fieldValues;
+                } else fieldValuesForBean = fieldValues;
                 // 若table包含uuid字段，需先生成uuid
                 boolean existsField = ToolUtil.existsField(c, "uuid");
-                if(existsField &&
+                if (existsField &&
                         (!fieldValuesForBean.containsKey("uuid")
                                 || fieldValuesForBean.get("uuid") == null
-                                || fieldValuesForBean.get("uuid").equals(""))){
+                                || fieldValuesForBean.get("uuid").equals(""))) {
                     fieldValuesForBean.put("uuid", UUID.randomUUID().toString());
                 }
                 //生成create_time
                 long currentTimeMillis = System.currentTimeMillis();
                 existsField = ToolUtil.existsField(c, "create_time");
-                if(existsField && (!fieldValuesForBean.containsKey("create_time")
+                if (existsField && (!fieldValuesForBean.containsKey("create_time")
                         || fieldValuesForBean.get("create_time") == null
-                        || fieldValuesForBean.get("create_time").equals(""))){
+                        || fieldValuesForBean.get("create_time").equals(""))) {
                     fieldValuesForBean.put("create_time", new Timestamp(currentTimeMillis));
                 }
                 //生成modify_time
                 existsField = ToolUtil.existsField(c, "modify_time");
-                if(existsField && (!fieldValuesForBean.containsKey("modify_time")
+                if (existsField && (!fieldValuesForBean.containsKey("modify_time")
                         || fieldValuesForBean.get("modify_time") == null
-                        || fieldValuesForBean.get("modify_time").equals(""))){
-                    fieldValuesForBean.put("modify_time",new Timestamp(currentTimeMillis));
+                        || fieldValuesForBean.get("modify_time").equals(""))) {
+                    fieldValuesForBean.put("modify_time", new Timestamp(currentTimeMillis));
+                }
+                Object obj = JsonFileUtil.hashMapToJavaBean(fieldValuesForBean, c);
+                //组建要create的数据结构 end
+
+                //校验create的前提条件 start
+                DbPreValidationModel[] validations = action.getDbPreValidation();
+                if (validations != null && validations.length > 0) {
+                    for (DbPreValidationModel validationModel : validations) {
+                        List valuesList = new ArrayList();
+                        String[] values = validationModel.getValues();
+                        boolean stopValid = false;
+                        if (values != null && values.length > 0) {
+                            for (String value : values) {
+                                if (value.indexOf("$") != -1) {
+                                    String fieldName = value.substring(1);
+                                    if (!fieldValues.containsKey(fieldName)) {
+                                        logger.warn("上传的创建信息并未包含field[" + fieldName + "]的值,停止进行有效校验!");
+                                        stopValid = true;
+                                        break;
+                                    }
+                                    Field f = c.getDeclaredField(fieldName);
+                                    if (f != null) {
+                                        f.setAccessible(true);
+                                        valuesList.add(f.get(obj));
+                                    }
+                                } else {
+                                    valuesList.add(value);
+                                }
+                            }
+                        }
+                        if (!stopValid) {
+                            int count = baseDao.getRecordCount(validationModel.getSql(), valuesList.toArray());
+                            switch (validationModel.getValid()) {
+                                case EXIST:
+                                    if (count == 0) {
+                                        Exception e = new ServiceException(validationModel.getError_msg());
+                                        logger.error("error", e);
+                                        throw e;
+                                    }
+                                    break;
+                                case NOT_EXIST:
+                                    if (count > 0) {
+                                        Exception e = new ServiceException(validationModel.getError_msg());
+                                        logger.error("error", e);
+                                        throw e;
+                                    }
+                                    break;
+                            }
+                        }
+
+                    }
                 }
 
-                Object obj = JsonFileUtil.hashMapToJavaBean(fieldValuesForBean,c);
-
                 objList.add(obj);
-            }
-            if(objList.size() > 0)
-                baseDao.createByObj(objList.toArray());
 
+                if (objList.size() > 0)
+                    baseDao.createByObj(objList.toArray());
+            }
+            cah.postActionHandling();
+            return true;
         }catch (Exception e) {
-            logger.error("error", e);
             throw e;
         }
-        return true;
     }
 
     public boolean delete(HashMap fieldValues) throws Exception {
+        CustomizedActionHandling cah = new CustomizedActionHandling(
+                this.userInfo,this,OperationTypeEnum.delete,fieldValues);
         BaseDao baseDao = ConfigUtil.getBaseDao();
         if(baseDao == null){
-            logger.error("error","class:[ActionXManager],method:[delete],user:["
-                    + userInfo.getsUserHandle() + "]: baseDao=null, 请检查数据库链接配置");
-            return false;
+            String errMsg = "class:[ActionXManager],method:[delete],user:["
+                    + userInfo.getsUserHandle() + "]: baseDao=null, 请检查数据库链接配置";
+            throw new ServiceException(errMsg);
         }
-        String baseBeanStr = panelWorkspaceView.getBaseBeanStr();
-        if(baseBeanStr != null && baseBeanStr.indexOf(".") > 0){
-            int index = baseBeanStr.indexOf(".");
-            String strDbSource = baseBeanStr.substring(0,index);
-            DatabaseContextHolder.clearDatabaseType();
-            DatabaseContextHolder.setDateBaseType(DataBaseTypeEnum.valueOf(strDbSource));
-        }
-        ActionModel[] deleteOpSet = operationSetView.getDefaultDeleteAction();
+
         try {
+            cah.preActionHandling();
+            String baseBeanStr = panelWorkspaceView.getBaseBeanStr();
+            if(baseBeanStr != null && baseBeanStr.indexOf(".") > 0){
+                int index = baseBeanStr.indexOf(".");
+                String strDbSource = baseBeanStr.substring(0,index);
+                DatabaseContextHolder.clearDatabaseType();
+                DatabaseContextHolder.setDateBaseType(DataBaseTypeEnum.valueOf(strDbSource));
+            }
+            ActionModel[] deleteOpSet = operationSetView.getDefaultDeleteAction();
             for(ActionModel action : deleteOpSet) {
                 if (action.getBeanStr() == null) continue;
                 String beanName = ConfigUtil.getEntityPath() + action.getBeanStr();
@@ -155,31 +228,35 @@ public class ActionXManager {
                 baseDao.delete(obj, updateMap);
 
             }
-
-
+            cah.postActionHandling();
+            return true;
         }catch (Exception e) {
             logger.error("error", e);
             throw e;
         }
-        return true;
     }
 
     public boolean update(HashMap fieldValues) throws Exception {
+        CustomizedActionHandling cah = new CustomizedActionHandling(
+                this.userInfo,this,OperationTypeEnum.update,fieldValues);
         BaseDao baseDao = ConfigUtil.getBaseDao();
         if(baseDao == null){
-            logger.error("error","class:[ActionXManager],method:[update],user:["
-                    + userInfo.getsUserHandle() + "]: baseDao=null, 请检查数据库链接配置");
-            return false;
+            String errMsg = "class:[ActionXManager],method:[update],user:["
+                    + userInfo.getsUserHandle() + "]: baseDao=null, 请检查数据库链接配置";
+            throw new ServiceException(errMsg);
         }
-        String baseBeanStr = panelWorkspaceView.getBaseBeanStr();
-        if(baseBeanStr != null && baseBeanStr.indexOf(".") > 0){
-            int index = baseBeanStr.indexOf(".");
-            String strDbSource = baseBeanStr.substring(0,index);
-            DatabaseContextHolder.clearDatabaseType();
-            DatabaseContextHolder.setDateBaseType(DataBaseTypeEnum.valueOf(strDbSource));
-        }
+
         ActionModel[] updateOpSet = operationSetView.getDefaultUpdateAction();
         try {
+            cah.preActionHandling();
+
+            String baseBeanStr = panelWorkspaceView.getBaseBeanStr();
+            if(baseBeanStr != null && baseBeanStr.indexOf(".") > 0){
+                int index = baseBeanStr.indexOf(".");
+                String strDbSource = baseBeanStr.substring(0,index);
+                DatabaseContextHolder.clearDatabaseType();
+                DatabaseContextHolder.setDateBaseType(DataBaseTypeEnum.valueOf(strDbSource));
+            }
             for(ActionModel action : updateOpSet) {
                 if (action.getBeanStr() == null) continue;
 
@@ -212,26 +289,23 @@ public class ActionXManager {
                         updateMap.put(key,f.get(obj));
                     }
                 }
-                baseDao.update(obj, updateMap,condiionMap);
+                baseDao.update(obj, updateMap, condiionMap);
 
             }
-
+            cah.postActionHandling();
+            return true;
 
         }catch (Exception e) {
             logger.error("error", e);
             throw e;
         }
-        return true;
     }
 
     public String search(HashMap fieldValues) throws Exception {
+        CustomizedActionHandling cah = new CustomizedActionHandling(
+                this.userInfo,this,OperationTypeEnum.search,fieldValues);
         String result = "";
-        BaseDao baseDao = ConfigUtil.getBaseDao();
-        if(baseDao == null){
-            logger.error("error","class:[ActionXManager],method:[search],user:["
-                    + userInfo.getsUserHandle() + "]: baseDao=null, 请检查数据库链接配置");
-            return result;
-        }
+
         String baseBeanStr = panelWorkspaceView.getBaseBeanStr();
         if(baseBeanStr != null && baseBeanStr.indexOf(".") > 0){
             int index = baseBeanStr.indexOf(".");
@@ -241,12 +315,19 @@ public class ActionXManager {
         }
         ActionModel[] searchOpSet = operationSetView.getDefaultSearchAction();
         if(searchOpSet == null){
-            logger.error("error","class:[ActionXManager],method:[search],user:["
-                    + userInfo.getsUserHandle() + "]: searchOpSet=null, 请检查json文件配置");
-            return result;
+            String errMsg = "class:[ActionXManager],method:[search],user:["
+                    + userInfo.getsUserHandle() + "]: searchOpSet=null, 请检查json文件配置";
+            throw new ServiceException(errMsg);
         }
 
         try {
+            cah.preActionHandling();
+            BaseDao baseDao = ConfigUtil.getBaseDao();
+            if(baseDao == null){
+                String errMsg = "class:[ActionXManager],method:[search],user:["
+                        + userInfo.getsUserHandle() + "]: baseDao=null, 请检查数据库链接配置";
+                throw new ServiceException(errMsg);
+            }
             int i = 0;
             JSONSerializer serializer = new JSONSerializer().exclude("*.class")
                     .transform(new BasicDateTransformer(), Timestamp.class)
@@ -280,21 +361,41 @@ public class ActionXManager {
                 }
 
             }
+            cah.postActionHandling();
+            return result;
 
         }catch (Exception e) {
             logger.error("error", e);
             throw e;
         }
-        return result;
     }
     private void setItemOperationWithPriv(RecordWithTotalCount records, Class c){
         if(records.getItems() == null)return;
         for(Object item: records.getItems()){
             Map newItem = JsonFileUtil.JavaBeanToHashMap(item);
-
-
         }
 
     }
 
+
+
+    public OperationSetView getOperationSetView() {
+        return operationSetView;
+    }
+
+    public PanelWorkspaceView getPanelWorkspaceView() {
+        return panelWorkspaceView;
+    }
+
+    public PrivilegeInfo getUserPrivilegeInfo() {
+        return userPrivilegeInfo;
+    }
+
+    public SSOUserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public String getColumnId() {
+        return columnId;
+    }
 }

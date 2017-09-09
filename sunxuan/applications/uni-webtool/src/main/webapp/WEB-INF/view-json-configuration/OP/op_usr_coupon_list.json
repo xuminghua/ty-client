@@ -1,0 +1,110 @@
+{"operations":
+{
+  "disabledFields":
+  {
+    "ALL":["id"]
+  },
+  "search":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.user.User_Coupon",
+      "sortCondition":" id desc "
+    }]
+  },
+
+  "update":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.user.User_Coupon"
+    }]
+  }
+},
+  "baseBeanStr":"tyDatasource.user.User_Coupon",
+  "infoFormWindow":
+  {
+    "id": "new_user_coupon_panel",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "operationType":"create",
+    "title": "用户的优惠券信息",
+    "layout":"hbox",
+    "orig_fields":[{
+      "name": "基本信息(必填)",
+      "items":[
+        {"fieldLabel":"用户id",
+          "name": "user_id",
+          "xtype":"numberfield",
+          "notNull":true},
+        {"fieldLabel":"优惠券id",
+          "xtype":"numberfield",
+          "name": "coupon_id",
+          "notNull":true}
+      ]},
+      {
+        "name": "展示内容",
+        "items":[
+          {"fieldLabel":"商品id",
+            "xtype":"numberfield",
+            "name": "product_id"},
+          {"fieldLabel":"兑换截止时间",
+            "name": "exchange_deadline",
+            "xtype": "datefield",
+            "format"   : "Y-m-d"} ,
+          {"fieldLabel":"使用截止时间",
+            "name": "use_deadline",
+            "xtype": "datefield",
+            "format"   : "Y-m-d"},
+          {"fieldLabel":"免费卷状态",
+            "name": "status",
+            "xtype":"combobox",
+            "dataModel":"op_user_coupon_status"}
+        ]}]
+
+  } ,
+  "searchPanel":{
+    "id": "pdt_coupon_searchpanel",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "title": "查询条件",
+    "orig_fields":[
+
+      {
+        "name":"id",
+        "fieldLabel": "条目id"
+      },
+      {"fieldLabel":"用户id",
+        "xtype":"numberfield",
+        "name": "user_id"},
+      {"fieldLabel":"优惠券id",
+        "xtype":"numberfield",
+        "name": "coupon_id"},
+      {"fieldLabel":"商品id",
+        "xtype":"numberfield",
+        "name": "product_id"}
+    ]
+  },
+  "resultGridPanel":{
+    "id": "product_info_panel",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "title": "优惠券列表",
+    "orig_fields":[
+      {"name":"id",
+        "fieldLabel": "条目id"},
+      {"fieldLabel":"用户id",
+        "name": "user_id"},
+      {"fieldLabel":"优惠券id",
+        "name": "coupon_id"},
+      {"fieldLabel":"商品id",
+        "name": "product_id"}
+    ]
+  }
+}

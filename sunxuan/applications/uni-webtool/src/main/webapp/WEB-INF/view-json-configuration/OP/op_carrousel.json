@@ -1,0 +1,88 @@
+{"operations":
+{
+  "disabledFields":
+  {
+    "ALL":["id"]
+  },
+  "search":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.common.Common_Carrousel",
+      "sortCondition":" id desc "
+    }]
+  },
+  "update":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.common.Common_Carrousel"
+    }]
+  },
+  "delete":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.common.Common_Carrousel"
+    }]
+  }
+},
+  "baseBeanStr":"tyDatasource.common.Common_Carrousel",
+  "infoFormWindow":
+  {
+    "id": "carrousel_detail_win",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "operationType":"update",
+    "title": "滚动板详细信息",
+    "layout":"hbox",
+    "orig_fields":[{
+      "name": "基本信息(必填)",
+      "items":[
+
+        {"fieldLabel":"商品id",
+          "name": "object_id",
+          "notNull":true},
+        {"fieldLabel":"图片id",
+          "name": "image_id",
+          "notNull":true},
+        {"fieldLabel":"标题",
+          "name": "title",
+          "notNull":true}
+      ]},
+      {
+        "name": "其他",
+        "items":[
+          {"fieldLabel":"描述",
+            "xtype": "textareafield",
+            "name": "memo",
+            "notNull":true},
+          {"fieldLabel":"状态",
+            "name": "status",
+            "xtype":"combobox",
+            "dataModel":"op_valid_status"}
+        ]}
+
+      ]
+
+  } ,
+  "resultGridPanel":{
+    "id": "carrousel_info_panel",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "title": "滚动板信息列表",
+    "orig_fields":[
+
+      {"fieldLabel":"商品id",
+                "name": "object_id"},
+              {"fieldLabel":"标题",
+                "name": "title"},
+                {"fieldLabel":"状态",
+                  "name": "status"}
+    ]
+  }
+}

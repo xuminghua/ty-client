@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+    <display-name>Uni-Webtool ${project.version}</display-name>
+    <context-param>
+     <param-name>contextConfigLocation</param-name>
+     <param-value>
+         /WEB-INF/spring-configuration/applicationContext.xml
+     </param-value>
+   </context-param>
+    <!-- ======================== login sso starts ======================== -->
+    <!--For logout, optional config -->
+    <filter>
+        <filter-name>CAS_Single_Sign_Out_Filter</filter-name>
+        <filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CAS_Single_Sign_Out_Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--Ticket validation?must config -->
+    <filter>
+        <filter-name>CAS_Validation_Filter</filter-name>
+        <filter-class>org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter</filter-class>
+        <init-param>
+            <param-name>casServerUrlPrefix</param-name>
+            <param-value>https://sso.byou.com:8443/sso</param-value>
+        </init-param>
+        <init-param>
+            <param-name>serverName</param-name>
+            <param-value>http://www.byou.com:8080</param-value>
+        </init-param>
+        <init-param>
+            <param-name>redirectAfterValidation</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CAS_Validation_Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <filter>
+        <filter-name>CAS_Authentication_Filter</filter-name>
+        <filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>
+        <init-param>
+            <param-name>casServerLoginUrl</param-name>
+            <param-value>https://sso.byou.com:8443/sso/login</param-value>
+        </init-param>
+        <init-param>
+            <param-name>serverName</param-name>
+            <param-value>http://www.byou.com:8080</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CAS_Authentication_Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+     <!--implement HttpServletRequest request package -->
+    <!--allow throw HttpServletRequest.getRemoteUser() getting SSO username, optional config -->
+
+    <filter>
+        <filter-name>CAS_HttpServletRequest_Wrapper_Filter</filter-name>
+        <filter-class>org.jasig.cas.client.util.HttpServletRequestWrapperFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CAS_HttpServletRequest_Wrapper_Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!--allow org.jasig.cas.client.util.AssertionHolder to get username. -->
+    <!--For Emp, AssertionHolder.getAssertion().getPrincipal().getName() -->
+
+    <filter>
+        <filter-name>CAS_Assertion_Thread_Local_Filter</filter-name>
+        <filter-class>org.jasig.cas.client.util.AssertionThreadLocalFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CAS_Assertion_Thread_Local_Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- logout URL -->
+    <context-param>
+        <param-name>casServerLogoutUrl</param-name>
+        <param-value>https://sso.byou.com:8443/sso/logout</param-value>
+    </context-param>
+    <context-param>
+        <param-name>serverName</param-name>
+        <param-value>http://www.byou.com:8080</param-value>
+    </context-param>
+    <!--For logout filter, optional config -->
+    <listener>
+        <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+    </listener>
+
+    <session-config>
+        <!-- Default to 5 minute session timeouts -->
+        <!-- tys v1.0.0, change to 120 same to 2 hour in CAS server, so cowork with CAS server-->
+        <session-timeout>120</session-timeout>
+    </session-config>
+    <!-- ======================== login sso ends ======================== -->
+
+
+    <!-- ======================== encoding filter configuration ======================== -->
+    <filter>
+      <filter-name>SetCharacterEncodingFilter</filter-name>
+      <!-- encoding filter -->
+      <filter-class>
+          com.songouhe.base.util.action.EncodingFilter
+      </filter-class>
+      <init-param>
+          <description>no description</description>
+       <param-name>encode</param-name>
+       <param-value>UTF-8</param-value>
+      </init-param>
+     </filter>
+
+     <filter-mapping>
+      <filter-name>SetCharacterEncodingFilter</filter-name>
+      <url-pattern>*</url-pattern>
+     </filter-mapping>
+    <!-- ======================== encoding filter ends ======================== -->
+
+    <!-- ======================== loadListener configuration ======================== -->
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>com.songouhe.internal.uwt.listener.DataPretreater</listener-class>
+    </listener>
+    <!-- ======================== loadListener ends ======================== -->
+
+    <!-- ======================== welcome page configuration ======================== -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <error-page>
+
+        <exception-type>java.lang.Exception</exception-type>
+
+        <location>/view/errors.jsp</location>
+
+    </error-page>
+    <!-- ======================== welcome page ends ======================== -->
+
+    <!--======================== druid config ========================-->
+    <servlet>
+      <servlet-name>DruidStatView</servlet-name>
+         <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+          <init-param>
+           <param-name>resetEnable</param-name>
+           <param-value>false</param-value>
+       </init-param>
+     </servlet>
+     <servlet-mapping>
+         <servlet-name>DruidStatView</servlet-name>
+         <url-pattern>/druid/*</url-pattern>
+     </servlet-mapping>
+    <!--  ????????????????????   -->
+    <filter>
+            <filter-name>DruidWebStatFilter</filter-name>
+            <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+            <init-param>
+            <param-name>exclusions</param-name>
+            <param-value>weburi.json,.html,.js,.gif,.jpg,.png,.css,.ico,/druid/*</param-value>
+            </init-param>
+            <init-param>
+            <param-name>sessionStatMaxCount</param-name>
+            <param-value>1000</param-value>
+            </init-param>
+            <init-param>
+            <param-name>principalSessionName</param-name>
+            <param-value>FRONT_USER</param-value>
+            </init-param>
+        </filter>
+
+        <filter-mapping>
+            <filter-name>DruidWebStatFilter</filter-name>
+            <url-pattern>*.action</url-pattern>
+        </filter-mapping>
+        <filter-mapping>
+            <filter-name>DruidWebStatFilter</filter-name>
+            <url-pattern>*.jsp</url-pattern>
+        </filter-mapping>
+    <!--======================== druid config ends ========================-->
+
+    <!-- ======================== my servlet configuration ======================== -->
+    <servlet>
+      <servlet-name>getDataServ</servlet-name>
+      <servlet-class>
+          com.songouhe.internal.uwt.servlet.MainServlet
+      </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>getDataServ</servlet-name>
+      <url-pattern>/getDataServ</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <servlet-name>actionX</servlet-name>
+      <servlet-class>
+          com.songouhe.internal.uwt.servlet.ActionXServlet
+      </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>actionX</servlet-name>
+      <url-pattern>/actionX</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <servlet-name>uploadFile</servlet-name>
+      <servlet-class>
+          com.songouhe.internal.uwt.servlet.UploadFileServlet
+      </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>uploadFile</servlet-name>
+      <url-pattern>/uploadFile</url-pattern>
+    </servlet-mapping>
+    <!-- ======================== welcome page configuration ======================== -->
+
+</web-app>

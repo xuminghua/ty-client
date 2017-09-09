@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="false">
+	<property name="base.dir" value="${catalina.base}/logfile/" />
+	<property name="base.file" value="uwt-api" />
+	<property name="schedules.timelog" value="uwt-api-timelog" />
+	<property name="schedules.msg" value="uwt-api-msg" />
+	<property name="schedules.error" value="uwt-api-error" />
+
+	<!-- 控制台配置 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+	    <encoder>
+	      <pattern>%date %level [%thread] [%logger:%line] - %msg%n</pattern>
+	    </encoder>
+  	</appender>
+
+	<!-- 完整文件配置 -->
+	<appender name="BASEFILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<File>${base.dir}${base.file}.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${base.dir}${base.file}.%d{yyyy-MM-dd}.zip</fileNamePattern>
+			<!-- keep 60 days worth of history -->
+			<maxHistory>60</maxHistory>
+		</rollingPolicy>
+	    <encoder>
+	      <pattern>%date %level [%thread] [%logger:%line] - %msg%n</pattern>
+	    </encoder>
+	</appender>
+
+	<!-- ETl ST 任务普通信息文件 -->
+	<appender name="MSGFILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<File>${base.dir}${schedules.msg}.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${base.dir}${schedules.msg}.%d{yyyy-MM-dd}.zip</fileNamePattern>
+			<!-- keep 60 days worth of history -->
+			<maxHistory>60</maxHistory>
+		</rollingPolicy>
+	    <encoder>
+	      <pattern>%date %level [%thread] [%logger:%line] - %msg%n</pattern>
+	    </encoder>
+	</appender>
+
+
+	<!-- ETl ST 同步时间日志 -->
+	<appender name="TIMELOGFILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<File>${base.dir}${schedules.timelog}.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${base.dir}${schedules.timelog}.%d{yyyy-MM-dd}.zip</fileNamePattern>
+			<!-- keep 60 days worth of history -->
+			<maxHistory>60</maxHistory>
+		</rollingPolicy>
+	    <encoder>
+	      <pattern>%date %level [%thread] [%logger:%line] - %msg%n</pattern>
+	    </encoder>
+	</appender>
+
+	<!-- ETl ST 任务错误信息文件 -->
+	<appender name="ERRORFILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<File>${base.dir}${schedules.error}.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${base.dir}${schedules.error}.%d{yyyy-MM-dd}.zip</fileNamePattern>
+			<!-- keep 60 days worth of history -->
+			<maxHistory>60</maxHistory>
+		</rollingPolicy>
+	    <encoder>
+	      <pattern>%date %level [%thread] [%logger:%line] - %msg%n</pattern>
+	    </encoder>
+	</appender>
+
+	<logger name="java.sql" level="DEBUG" />
+	<logger name="org.springframework" level="WARN" />
+	<!--<logger name="com.ibatis" level="DEBUG" />-->
+	<!--<logger name="org.mybatis" level="DEBUG" />-->
+	<logger name="com.songouhe" level="DEBUG" />
+	<logger name="org.apache" level="INFO" />
+	<logger name="ch.qos" level="INFO" />
+
+	<logger name="TIMELOG" level="INFO">
+		<appender-ref ref="TIMELOGFILE" />
+	</logger>
+
+	<logger name="MSG" level="INFO">
+		<appender-ref ref="MSGFILE" />
+	</logger>
+	<logger name="ERROR" level="WARN">
+		<appender-ref ref="ERRORFILE" />
+	</logger>
+
+	<root>
+		<level value="INFO" />
+		<!-- 控制台日志记录器,方便日常调试,上线后可注释掉 -->
+		<appender-ref ref="STDOUT" />
+		<!-- 完整文件 -->
+		<appender-ref ref="BASEFILE" />
+	</root>
+</configuration>
+

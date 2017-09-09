@@ -1,9 +1,10 @@
-package com.songouhe.internal.uwt.action;
+package com.songouhe.internal.uwt.service;
 
 import com.songouhe.base.sso.action.PrivilegeInfo;
 import com.songouhe.base.sso.action.SSOUserInfo;
-import com.songouhe.internal.uwt.model.utils.ConfigUtil;
-import com.songouhe.internal.uwt.model.utils.JsonFileUtil;
+import com.songouhe.internal.uwt.exceptions.ServiceException;
+import com.songouhe.internal.uwt.utils.ConfigUtil;
+import com.songouhe.internal.uwt.utils.JsonFileUtil;
 import com.songouhe.internal.uwt.model.viewconfig.TabCategoryModel;
 import com.songouhe.internal.uwt.view.MainView;
 import com.songouhe.internal.uwt.view.PanelWorkspaceView;
@@ -50,19 +51,19 @@ public class ViewManager {
     /*
     验证ConfigUtil是否已经加载MainView的配置模版，并验证当前实例是否创建了用户的MainView object
      */
-    private synchronized boolean validate() {
+    private synchronized boolean validate() throws Exception{
         if(this.userView == null || this.userView.getTabCategories().size() == 0){
             if(ConfigUtil.getMainViewModel() == null || ConfigUtil.getMainViewModel().getTabCategories().size() == 0){
                 ViewManager.setMainViewModelFromPath(ConfigUtil.getViewConfigPath());
                 if(ConfigUtil.getMainViewModel() == null || ConfigUtil.getMainViewModel().getTabCategories().size() == 0){
-                    logger.error("MainView配置失败!");
-                    return (false);
+                    String errMsg = "MainView配置失败!";
+                    throw new ServiceException(errMsg);
                 }
             }
             this.createUserMainView();
             if(this.userView == null || this.userView.getTabCategories().size() == 0){
-                logger.error("无法从MainView模版中提取正确的用户MainView");
-                return (false);
+                String errMsg = "无法从MainView模版中提取正确的用户MainView";
+                throw new ServiceException(errMsg);
             }
             return (true);
         }
@@ -70,7 +71,11 @@ public class ViewManager {
     }
 
     public ViewManager() {
-        this.validate();
+        try {
+            this.validate();
+        }catch (Exception e){
+            logger.error(e.getMessage());
+        }
     }
 
     //===========创建和验证 ends=============/
@@ -84,7 +89,7 @@ public class ViewManager {
      *根据MainView的原型获取一个new MainView object，来配置当前用户的view信息
      *深层复制函数，以序列化和反序列化来copy一个新的实例MainView
      */
-    private MainView createUserMainView() {
+    private MainView createUserMainView() throws Exception{
         try {
             //将对象写入string中再转换为class
             JSONSerializer serializer = new JSONSerializer();
@@ -92,14 +97,14 @@ public class ViewManager {
             this.userView = new JSONDeserializer<MainView>().deserialize(temp1,MainView.class);
 
         } catch (Exception e) {
-            logger.error("error", e);
+            throw e;
         }
         return (this.userView);
     }
     /*
     根据权限编写当前用户的MainView
      */
-    public void setUserViewFromPrivilege(SSOUserInfo ui) {
+    public void setUserViewFromPrivilege(SSOUserInfo ui) throws Exception{
         if(!this.validate() || this.isModifyByPriv)return;
         List privileges = ui.getPrivilege().getPrivileges();
         this.userView.setSubNodesReadAndWrite(privileges,this.userView);
@@ -116,7 +121,7 @@ public class ViewManager {
     /*
     获取tabCategories的数组信息，传到前端用于页面tab的显示
      */
-    public String getJSONArrayTabCategories() {
+    public String getJSONArrayTabCategories() throws Exception{
         String result = "[]";
         if(!this.validate())return(result);
 
@@ -133,7 +138,7 @@ public class ViewManager {
     /*
     获取tabCategory的columnMap信息，传到前端用于页面tree的显示
      */
-    public String getJSONArrayTreeColumnMap(String inSTabCategoryId) {
+    public String getJSONArrayTreeColumnMap(String inSTabCategoryId) throws Exception{
         String result = "[]";
         if(!this.validate())return result;
         //inSTabCategoryId为空的判断已经在getTabOperationView()中调用
@@ -169,7 +174,9 @@ public class ViewManager {
     /**
      *获取PanelWorkspace的view信息,包括用户权限过滤的处理
      */
-    public PanelWorkspaceView getPanelWorkspaceView(PrivilegeInfo inPrivilegeInfo, String inSTabCategoryId, String inSTreeColumnId) {
+    public PanelWorkspaceView getPanelWorkspaceView(
+            PrivilegeInfo inPrivilegeInfo, String inSTabCategoryId, String inSTreeColumnId)
+            throws Exception{
         PanelWorkspaceView result = null;
         if(!this.validate())return(result);
 
@@ -225,7 +232,7 @@ public class ViewManager {
 
     //===========静态工具方法 =============/
 
-    public static void setMainViewModelFromPath(String path){
+    public static void setMainViewModelFromPath(String path) throws Exception{
         logger.info("view config from[" + path + "]");
         HashMap jsonFiles = JsonFileUtil.getJsonFiles(path);
 
@@ -263,7 +270,7 @@ public class ViewManager {
             JSONSerializer serializer = new JSONSerializer();
             logger.debug("mainViewModel:" + serializer.exclude("class", "*.class").deepSerialize(mainViewModel));
         } catch (Exception e) {
-            logger.error("error", e);
+            throw e;
         }
 
     }
