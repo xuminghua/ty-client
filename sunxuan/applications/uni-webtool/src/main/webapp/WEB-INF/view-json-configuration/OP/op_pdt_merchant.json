@@ -1,133 +1,159 @@
+{"operations":
 {
-  "htmlPanel":
+  "create":
   {
-    "id": "merchant_op_html_panel",
-    "privilege":
-    {
-      "readPrivilege": "ALL", "writePrivilege": "ALL"
-    },
-    "html":"敬请期待"
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.merchant.Merchant_Info"
+
+    }]
   },
+  "delete":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.merchant.Merchant_Info"
+    }]
+  },
+  "disabledFields":
+  {
+    "ALL":["id"]
+  },
+  "search":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.merchant.Merchant_Info",
+      "sortCondition":" id desc "
+    }]
+  },
+  "update":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.merchant.Merchant_Info"
+    }]
+  }
+},
+  "baseBeanStr":"tyDatasource.merchant.Merchant_Info",
   "infoFormPanel":
   {
-    "id": "panel12",
+    "id": "new_mct_panel",
     "privilege":
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"
     },
-    "title": "infoForm面板3",
+    "operationType":"create",
+    "title": "新商户添加",
     "layout":"hbox",
     "orig_fields":[{
-      "name":"基本信息",
+      "name": "基本信息(必填)",
       "items":[
-        {"fieldLabel":"FID",
-          "name": "FID"},
-        {"fieldLabel": "标题",
-          "xtype":"textareafield",
-          "name": "F_Title"},
-        {"fieldLabel": "当前状态",
-          "name": "F_Status"},
-        {"fieldLabel":"版本",
-          "name": "F_Release"},
-        {"fieldLabel": "创建日期",
-          "name": "F_CreatedDay"},
-        {"fieldLabel": "UT截止日期",
-          "name": "F_UT_DeadlineDay"},
-        {"fieldLabel": "DFT截止日期",
-          "name": "F_DFT_DeadlineDay"},
-        {"fieldLabel": "上线日期",
-          "name": "F_DeliverDay"},
-        {"fieldLabel":"E0",
-          "name": "F_E0"}
-
+        {"fieldLabel":"商户名称",
+          "name": "name",
+          "notNull":true},
+        {"fieldLabel":"地址",
+          "name": "address",
+          "notNull":true},
+        {"fieldLabel":"地址坐标码",
+          "name": "address_point",
+          "xtype":"numberfield"},
+        {"fieldLabel":"城市",
+          "name": "city",
+          "xtype":"combobox",
+          "dataModel":"common_city",
+          "notNull":true}
       ]},
-      {"name":"成员信息", "items":[
-        {"fieldLabel":"Dev MGER",
-          "name": "F_Dev_MGER"},
-        {"fieldLabel":"PE MGER",
-          "name": "F_PE_MGER"},
-        {"fieldLabel":"TE MGER",
-          "name": "F_TE_MGER"},
-        {"fieldLabel":"NLE",
-          "name": "F_NLE"},
-        {"fieldLabel":"PE",
-          "name": "F_PE"},
-        {"fieldLabel":"FE",
-          "name": "F_FE"},
-        {"fieldLabel":"FTE",
-          "name": "F_FTE"},
-        {"fieldLabel":"Producters",
-          "xtype":"textareafield",
-          "name": "F_Producters"},
-        {"fieldLabel":"Devs",
-          "xtype":"textareafield",
-          "name": "F_Devs"},
-        {"fieldLabel":"Testers",
-          "xtype":"textareafield",
-          "name": "F_Testers"},
-        {"fieldLabel":"Others",
-          "xtype":"textareafield",
-          "name": "F_Others"}
+      {
+        "name": "展示内容",
+        "items":[
+          {"fieldLabel":"商户详情",
+            "name": "info",
+            "xtype": "textareafield"} ,
+                    {"fieldLabel":"电话",
+                      "name": "phone",
+                      "xtype":"numberfield"},
+                    {"fieldLabel":"客服电话",
+                      "xtype":"numberfield",
+                      "name": "service_phone"}
+        ]}]
 
-
-      ]}]
+  } ,
+  "infoFormWindow":
+  {
+    "id": "mct_detail_win",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "operationType":"update",
+    "title": "商户详细信息",
+    "layout":"hbox",
+    "orig_fields":[{
+          "name": "基本信息(必填)",
+          "items":[
+            {"fieldLabel":"商户名称",
+              "name": "name",
+              "notNull":true},
+            {"fieldLabel":"地址",
+              "name": "address",
+              "notNull":true},
+            {"fieldLabel":"地址坐标码",
+              "name": "address_point",
+              "xtype":"numberfield"},
+            {"fieldLabel":"城市",
+              "name": "city",
+              "xtype":"combobox",
+              "dataModel":"common_city",
+              "notNull":true}
+          ]},
+          {
+            "name": "展示内容",
+            "items":[
+              {"fieldLabel":"商户详情",
+                "name": "info",
+                "xtype": "textareafield"} ,
+                        {"fieldLabel":"电话",
+                          "name": "phone",
+                          "xtype":"numberfield"},
+                        {"fieldLabel":"客服电话",
+                          "xtype":"numberfield",
+                          "name": "service_phone"}
+            ]}]
 
   } ,
   "searchPanel":{
-    "id": "panel14",
+    "id": "mct_op_searchpanel",
     "privilege":
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"
     },
-    "title": "search面板4",
+    "title": "查询条件",
     "orig_fields":[
 
       {
-        "name":"FID",
-        "fieldLabel": "Feature ID"
+        "name":"id",
+        "fieldLabel": "商户id"
       },
       {
-        "name":"FE_Handle",
-        "fieldLabel": "FE Handle"
-      },
-      {
-        "name":"Manager_Handle",
-        "fieldLabel": "Manager Handle"
-      },
-      {
-        "name":"Feature_Status",
-        "fieldLabel": "Feature状态" ,
-        "store":["c","d"],
-        "xtype":"combobox"
-      }]
+        "name":"name",
+        "fieldLabel": "商户名称"
+      }
+    ]
   },
   "resultGridPanel":{
-    "id": "panel15",
+    "id": "mct_info_panel",
     "privilege":
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"
     },
-    "title": "result面板5",
+    "title": "商品列表",
     "orig_fields":[
-      {"fieldLabel":"FID",
-      "name": "FID"},
-      {"fieldLabel": "标题",
-        "name": "F_Title"},
-      {"fieldLabel": "当前状态",
-        "name": "F_Status"},
-      {"fieldLabel":"版本",
-        "name": "F_Release"},
-      {"fieldLabel": "创建日期",
-        "xtype"    : "datecolumn",
-        "format"   : "Y/m/d",
-        "name": "F_CreatedDay"},
-      {"fieldLabel": "上线日期",
-        "xtype"    : "datecolumn",
-        "format"   : "Y/m/d",
-        "name": "F_DeliverDay"},
-      {"fieldLabel":"E0",
-        "name": "F_E0"}
 
+      {"fieldLabel": "商户id",
+        "name": "id"},
+      {"fieldLabel":"商户名称",
+        "name": "name"}
     ]
   }
 }

@@ -9,6 +9,7 @@ import java.sql.Timestamp;
  */
 public class Product_Info {
     private int id;
+    private String uuid;
     private String name;
     private String title;
     private String content;
@@ -80,7 +81,13 @@ public class Product_Info {
         this.discount = discount;
     }
 
+    public String getUuid() {
+        return uuid;
+    }
 
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getAges() {
         return ages;

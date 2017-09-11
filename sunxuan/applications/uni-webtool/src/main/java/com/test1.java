@@ -3,12 +3,10 @@ package com;
 import com.songouhe.base.dao.entity.RecordWithTotalCount;
 import com.songouhe.base.sso.action.PrivilegeInfo;
 import com.songouhe.base.sso.action.SSOUserInfo;
-import com.songouhe.base.util.service.SohDateTimeConverter;
-import com.songouhe.internal.uwt.action.ViewManager;
+import com.songouhe.internal.uwt.service.ViewManager;
 import com.songouhe.internal.uwt.model.entity.daoentity.tyDatasource.product.Product_Info;
 import com.songouhe.internal.uwt.model.entity.daoentity.uwtDatasource.hr_Columns.User_Base_Info;
-import com.songouhe.internal.uwt.model.utils.ConfigUtil;
-import com.songouhe.internal.uwt.model.utils.JsonFileUtil;
+import com.songouhe.internal.uwt.utils.ConfigUtil;
 import com.songouhe.internal.uwt.model.viewconfig.MainViewModel;
 import com.songouhe.internal.uwt.model.viewconfig.PanelWorkspaceModel;
 import com.songouhe.internal.uwt.model.viewconfig.TabCategoryModel;
@@ -20,7 +18,6 @@ import com.songouhe.internal.uwt.view.TreeColumnView;
 import flexjson.JSONDeserializer;
 import flexjson.JSONSerializer;
 import flexjson.transformer.BasicDateTransformer;
-import flexjson.transformer.BooleanTransformer;
 import flexjson.transformer.DateTransformer;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
@@ -145,10 +142,16 @@ public class test1 {
     }
 
     public static void testUserMainView() {
-        //build
+         //build
         ConfigUtil.setViewConfigPath("./src/main/webapp/WEB-INF/view-json-configuration");
         ViewManager vm = new ViewManager();
+        try {
+
               String s = vm.getJSONArrayTreeColumnMap("HR");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         //tab get
 //        System.out.println(s);
@@ -162,10 +165,16 @@ public class test1 {
 
         PrivilegeInfo pi = new PrivilegeInfo(pris,utilPrivs);
         ui.setPrivilege(pi);
-        vm.setUserViewFromPrivilege(ui);
+        try {
+
+            vm.setUserViewFromPrivilege(ui);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 //        s = vm.getJSONArrayPanelWorkspace(pris, "HR", "hr_Clm_newstaff");
         try {
-            s = vm.getJSONArrayPanelWorkspace(pi, "HR", "hr_Clm_newstaff");
+            String s = vm.getJSONArrayPanelWorkspace(pi, "HR", "hr_Clm_newstaff");
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -1,5 +1,5 @@
-<%@ page import="com.songouhe.internal.uwt.model.utils.ConfigUtil" %>
-<%@ page import="com.songouhe.internal.uwt.action.ViewManager" %>
+<%@ page import="com.songouhe.internal.uwt.utils.ConfigUtil" %>
+<%@ page import="com.songouhe.internal.uwt.service.ViewManager" %>
 <%--
   Created by IntelliJ IDEA.
   User: wangwentao

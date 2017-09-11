@@ -1,6 +1,6 @@
 package com.songouhe.base.sso.action;
 
-import com.songouhe.internal.uwt.model.utils.ConfigUtil;
+import com.songouhe.internal.uwt.utils.ConfigUtil;
 import flexjson.JSONSerializer;
 import org.jasig.cas.client.authentication.AttributePrincipal;
 

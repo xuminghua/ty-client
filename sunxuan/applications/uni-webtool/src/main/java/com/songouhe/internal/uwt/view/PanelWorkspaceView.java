@@ -4,7 +4,7 @@ import com.songouhe.base.sso.action.PrivilegeInfo;
 import com.songouhe.internal.uwt.model.PrivilegeModel;
 import com.songouhe.internal.uwt.model.enums.OperationTypeEnum;
 import com.songouhe.internal.uwt.model.enums.SubPanelXTypeEnum;
-import com.songouhe.internal.uwt.model.utils.ConfigUtil;
+import com.songouhe.internal.uwt.utils.ConfigUtil;
 import com.songouhe.internal.uwt.model.viewconfig.action.OperationSetModel;
 import com.songouhe.internal.uwt.view.action.OperationSetView;
 

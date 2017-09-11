@@ -11,9 +11,7 @@ import com.songouhe.internal.uwt.view.detailField.GridField;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author sunxuan
@@ -187,15 +185,22 @@ public class PanelWorkcakeView  extends AbstractView implements Serializable {
         if(this.orig_fields == null || this.orig_fields.size() == 0)return;
         List columns = new ArrayList();
         List fields = new ArrayList();
+        Set<String> fields_from_orig = new HashSet<String>();
         //组成columns
         for(UniFieldView orig_field: orig_fields){
             GridField gridField = new GridField(orig_field);
             columns.add(gridField);
-
+            HashMap fm = new HashMap();
+            fm.put("name",orig_field.getName());
+            fields.add(fm);
+            fields_from_orig.add(orig_field.getName())  ;
         }
+
         //组成fields
         Field[] classFields = beanClass.getDeclaredFields();
         for(Field f: classFields){
+            if(fields_from_orig.contains(f.getName()))
+                continue;
             HashMap fm = new HashMap();
             fm.put("name",f.getName());
             fields.add(fm);
@@ -209,6 +214,7 @@ public class PanelWorkcakeView  extends AbstractView implements Serializable {
 
 
     }
+
     private void setFormView(){
         if(this.orig_fields == null || this.orig_fields.size() == 0)return;
         List fields = new ArrayList();

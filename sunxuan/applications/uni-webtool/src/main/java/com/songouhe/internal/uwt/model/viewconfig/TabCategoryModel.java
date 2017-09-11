@@ -1,7 +1,7 @@
 package com.songouhe.internal.uwt.model.viewconfig;
 
 import com.songouhe.internal.uwt.model.PrivilegeModel;
-import com.songouhe.internal.uwt.model.utils.JsonFileUtil;
+import com.songouhe.internal.uwt.utils.JsonFileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

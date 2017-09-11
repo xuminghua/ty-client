@@ -6,11 +6,10 @@ import com.songouhe.base.dao.impl.BaseDaoImpl;
 import com.songouhe.base.dao.tool.DataBaseTypeEnum;
 import com.songouhe.base.dao.tool.DatabaseContextHolder;
 import com.songouhe.base.util.model.EnvironmentVariable;
-import com.songouhe.internal.uwt.action.CommonPrepareAction;
-import com.songouhe.internal.uwt.action.ViewManager;
+import com.songouhe.internal.uwt.service.CommonPrepareAction;
+import com.songouhe.internal.uwt.service.ViewManager;
 import com.songouhe.internal.uwt.model.entity.daoentity.classes.Class_Privilege;
-import com.songouhe.internal.uwt.model.utils.ConfigUtil;
-import org.apache.log4j.LogManager;
+import com.songouhe.internal.uwt.utils.ConfigUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +93,6 @@ public class DataPretreater
             ApplicationContext applicationContext = (WebApplicationContext)sce.getServletContext()
                     .getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
             baseDao = applicationContext.getBean("baseDao",BaseDaoImpl.class );
-            baseDao.setAutoCommit(false);  //支持回滚
             ConfigUtil.setBaseDao(baseDao);
 //          dao用法
 //            DatabaseContextHolder.clearDatabaseType();
@@ -170,7 +168,6 @@ public class DataPretreater
         try {
             DriverManager.deregisterDriver(DriverManager.getDrivers().nextElement());
             System.out.println("**********stopping UWT*************");
-            LogManager.shutdown();
             for(Thread t:Thread.getAllStackTraces().keySet()){
 
               if(t.getName().equals("FileWatchdog")  ||

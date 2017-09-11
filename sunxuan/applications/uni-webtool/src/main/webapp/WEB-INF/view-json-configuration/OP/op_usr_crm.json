@@ -1,133 +1,104 @@
+{"operations":
 {
-  "htmlPanel":
+  "disabledFields":
   {
-    "id": "customer_serv_html_panel",
-    "privilege":
-    {
-      "readPrivilege": "ALL", "writePrivilege": "ALL"
-    },
-    "html":"敬请期待"
+    "ALL":["id"]
   },
-  "infoFormPanel":
+  "search":
   {
-    "id": "panel12",
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.common.Common_Comment",
+      "sortCondition":" status, id desc "
+    }]
+  },
+  "update":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.common.Common_Comment"
+    }]
+  }
+},
+  "baseBeanStr":"tyDatasource.common.Common_Comment",
+  "infoFormWindow":
+  {
+    "id": "comment_detail_win",
     "privilege":
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"
     },
-    "title": "infoForm面板3",
+    "operationType":"update",
+    "title": "comment详细信息",
     "layout":"hbox",
     "orig_fields":[{
-      "name":"基本信息",
+      "name": "基本信息(不可修改)",
       "items":[
-        {"fieldLabel":"FID",
-          "name": "FID"},
-        {"fieldLabel": "标题",
-          "xtype":"textareafield",
-          "name": "F_Title"},
-        {"fieldLabel": "当前状态",
-          "name": "F_Status"},
-        {"fieldLabel":"版本",
-          "name": "F_Release"},
-        {"fieldLabel": "创建日期",
-          "name": "F_CreatedDay"},
-        {"fieldLabel": "UT截止日期",
-          "name": "F_UT_DeadlineDay"},
-        {"fieldLabel": "DFT截止日期",
-          "name": "F_DFT_DeadlineDay"},
-        {"fieldLabel": "上线日期",
-          "name": "F_DeliverDay"},
-        {"fieldLabel":"E0",
-          "name": "F_E0"}
+        {"fieldLabel":"反馈信息内容",
+          "name": "content",
+          "readOnly":true},
+        {"fieldLabel":"用户id",
+          "name": "user_id",
+          "readOnly":true},
 
+        {"fieldLabel":"产品链接",
+          "name": "link",
+          "readOnly":true}
       ]},
-      {"name":"成员信息", "items":[
-        {"fieldLabel":"Dev MGER",
-          "name": "F_Dev_MGER"},
-        {"fieldLabel":"PE MGER",
-          "name": "F_PE_MGER"},
-        {"fieldLabel":"TE MGER",
-          "name": "F_TE_MGER"},
-        {"fieldLabel":"NLE",
-          "name": "F_NLE"},
-        {"fieldLabel":"PE",
-          "name": "F_PE"},
-        {"fieldLabel":"FE",
-          "name": "F_FE"},
-        {"fieldLabel":"FTE",
-          "name": "F_FTE"},
-        {"fieldLabel":"Producters",
-          "xtype":"textareafield",
-          "name": "F_Producters"},
-        {"fieldLabel":"Devs",
-          "xtype":"textareafield",
-          "name": "F_Devs"},
-        {"fieldLabel":"Testers",
-          "xtype":"textareafield",
-          "name": "F_Testers"},
-        {"fieldLabel":"Others",
-          "xtype":"textareafield",
-          "name": "F_Others"}
-
-
-      ]}]
+      {
+        "name": "回复内容",
+        "items":[
+          {"fieldLabel":"回复内容",
+            "name": "reply",
+            "xtype": "textareafield"},
+          {"fieldLabel":"回复用户id",
+                    "name": "reply_user_id"},
+          {"fieldLabel":"处理状态",
+            "name": "status",
+            "xtype":"combobox",
+                      "dataModel":"op_comments_status"}
+        ]}
+    ]
 
   } ,
   "searchPanel":{
-    "id": "panel14",
+    "id": "pdt_op_searchpanel",
     "privilege":
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"
     },
-    "title": "search面板4",
+    "title": "查询条件",
     "orig_fields":[
 
       {
-        "name":"FID",
-        "fieldLabel": "Feature ID"
+        "name":"user_id",
+        "fieldLabel": "用户id"
       },
       {
-        "name":"FE_Handle",
-        "fieldLabel": "FE Handle"
+        "name":"reply_user_id",
+        "fieldLabel": "处理人员id"
       },
       {
-        "name":"Manager_Handle",
-        "fieldLabel": "Manager Handle"
-      },
-      {
-        "name":"Feature_Status",
-        "fieldLabel": "Feature状态" ,
-        "store":["c","d"],
-        "xtype":"combobox"
-      }]
+        "name":"status",
+        "fieldLabel": "处理状态",
+        "xtype":"combobox",
+        "dataModel":"op_comments_status"
+      }
+    ]
   },
   "resultGridPanel":{
-    "id": "panel15",
+    "id": "product_info_panel",
     "privilege":
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"
     },
-    "title": "result面板5",
+    "title": "反馈列表",
     "orig_fields":[
-      {"fieldLabel":"FID",
-      "name": "FID"},
-      {"fieldLabel": "标题",
-        "name": "F_Title"},
-      {"fieldLabel": "当前状态",
-        "name": "F_Status"},
-      {"fieldLabel":"版本",
-        "name": "F_Release"},
-      {"fieldLabel": "创建日期",
-        "xtype"    : "datecolumn",
-        "format"   : "Y/m/d",
-        "name": "F_CreatedDay"},
-      {"fieldLabel": "上线日期",
-        "xtype"    : "datecolumn",
-        "format"   : "Y/m/d",
-        "name": "F_DeliverDay"},
-      {"fieldLabel":"E0",
-        "name": "F_E0"}
 
+      {"fieldLabel": "用户id",
+        "name": "user_id"},
+      {"fieldLabel":"处理状态",
+        "name": "status"}
     ]
   }
 }

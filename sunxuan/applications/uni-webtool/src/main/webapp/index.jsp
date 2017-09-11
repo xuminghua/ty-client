@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="com.songouhe.base.sso.action.SSOUserInfo" %>
-<%@ page import="com.songouhe.internal.uwt.action.ViewManager" %>
+<%@ page import="com.songouhe.internal.uwt.service.ViewManager" %>
 
 <html>
 <head>

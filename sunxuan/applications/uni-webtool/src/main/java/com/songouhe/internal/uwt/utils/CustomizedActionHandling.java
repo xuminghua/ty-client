@@ -43,8 +43,7 @@ public class CustomizedActionHandling {
                     case "op_pdt_coupon":
                         this.preCreateOpPdtCoupon();
                         break;
-                    case "op_usr_coupon_add":
-                        this.preCreateOpUserCoupon();
+
                 }
 
                 break;
@@ -65,6 +64,11 @@ public class CustomizedActionHandling {
         if(columnId == null)return;
         switch (action){
             case create:
+                switch (columnId){
+                    case "op_usr_coupon_add":
+                        this.postCreateOpUserCoupon();
+                        break;
+                }
                 break;
             case search:
                 break;
@@ -81,24 +85,23 @@ public class CustomizedActionHandling {
             String errMsg = getErrorMsg("preCreateOpPdtCoupon","total不能为空!");
             throw new ServiceException(errMsg);
         }
-        Integer total = Integer.parseInt((String) fieldValues.get("total"));
+        Long total = Long.parseLong((String) fieldValues.get("total"));
         if(total > 0)
             this.fieldValues.put("reserved",total);
     }
 
-    private void preCreateOpUserCoupon() throws Exception{
+    private void postCreateOpUserCoupon() throws Exception{
         BaseDao baseDao = ConfigUtil.getBaseDao();
         if(fieldValues.get("coupon_id") == null){
-            String errMsg = getErrorMsg("preCreateOpUserCoupon","coupon_id不能为空!");
+            String errMsg = getErrorMsg("postCreateOpUserCoupon","coupon_id不能为空!");
             throw new ServiceException(errMsg);
         }
-        Integer couponId = Integer.parseInt((String) fieldValues.get("coupon_id"));
+        Long couponId = Long.parseLong((String) fieldValues.get("coupon_id"));
         if( couponId == 0){
-            String errMsg = getErrorMsg("preCreateOpUserCoupon","coupon_id不能为空!");
+            String errMsg = getErrorMsg("postCreateOpUserCoupon","coupon_id不能为空!");
             throw new ServiceException(errMsg);
         }
         Object[] values = {couponId};
-
         DatabaseContextHolder.clearDatabaseType();
         DatabaseContextHolder.setDateBaseType(DataBaseTypeEnum.tyDatasource);
         baseDao.updateBySql("update product_coupon set reserved=reserved-1 where id=?",values);
@@ -106,12 +109,12 @@ public class CustomizedActionHandling {
 
     private String getErrorMsg(String method, String reason){
         String strObj = "";
-        		if(this.fieldValues != null){
-        			JSONSerializer serializer = new JSONSerializer().exclude("*.class")
-        					.transform(new BasicDateTransformer(), Timestamp.class)
-        					.transform(new DateTransformer("yyyy-MM-dd"), Timestamp.class);
-        			strObj = serializer.deepSerialize(fieldValues) ;
-        		}
+        if(this.fieldValues != null){
+            JSONSerializer serializer = new JSONSerializer().exclude("*.class")
+                    .transform(new BasicDateTransformer(), Timestamp.class)
+                    .transform(new DateTransformer("yyyy-MM-dd"), Timestamp.class);
+            strObj = serializer.deepSerialize(fieldValues) ;
+        }
         return "class:[ActionXManager-CustomizedActionHandling]," +
                 "method:[" + this.action + "-" + method + "],user:["
                 + userInfo.getsUserHandle() + "]: " + reason + "\n" +

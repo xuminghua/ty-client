@@ -1,6 +1,6 @@
 package com.songouhe.internal.uwt.view.detailField;
 
-import com.songouhe.internal.uwt.model.utils.ConfigUtil;
+import com.songouhe.internal.uwt.utils.ConfigUtil;
 import com.songouhe.internal.uwt.view.UniFieldView;
 
 import java.util.List;

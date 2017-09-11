@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class ActionModel implements Serializable {
     private String sql;
     private String beanStr;
-    private UniqueValidationModel[] uniqueValidation;
+    private DbPreValidationModel[] dbPreValidation;
     /*
     conditionFields
     create action:格式是Map(field,value);
@@ -18,6 +18,8 @@ public class ActionModel implements Serializable {
     即令field=主表字段的value.只用于subAction.
      */
     private HashMap conditionFields;
+    private String[] values;
+
     private String sortCondition;
     private ActionModel[] subAction;
 
@@ -64,11 +66,19 @@ public class ActionModel implements Serializable {
         this.beanStr = beanStr;
     }
 
-    public UniqueValidationModel[] getUniqueValidation() {
-        return uniqueValidation;
+    public DbPreValidationModel[] getDbPreValidation() {
+        return dbPreValidation;
     }
 
-    public void setUniqueValidation(UniqueValidationModel[] uniqueValidation) {
-        this.uniqueValidation = uniqueValidation;
+    public void setDbPreValidation(DbPreValidationModel[] dbPreValidation) {
+        this.dbPreValidation = dbPreValidation;
+    }
+
+    public String[] getValues() {
+        return values;
+    }
+
+    public void setValues(String[] values) {
+        this.values = values;
     }
 }

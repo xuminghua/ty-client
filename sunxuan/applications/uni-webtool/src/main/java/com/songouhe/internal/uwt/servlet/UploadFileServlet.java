@@ -3,8 +3,8 @@ package com.songouhe.internal.uwt.servlet;
 
 import com.songouhe.base.dao.BaseDao;
 import com.songouhe.internal.uwt.model.entity.daoentity.uwtDatasource.common.Common_File_Info;
-import com.songouhe.internal.uwt.model.utils.ConfigUtil;
-import com.songouhe.internal.uwt.model.utils.JsonFileUtil;
+import com.songouhe.internal.uwt.utils.ConfigUtil;
+import com.songouhe.internal.uwt.utils.JsonFileUtil;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;

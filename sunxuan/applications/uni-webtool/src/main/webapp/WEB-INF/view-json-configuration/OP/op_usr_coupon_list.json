@@ -24,12 +24,12 @@
   "baseBeanStr":"tyDatasource.user.User_Coupon",
   "infoFormWindow":
   {
-    "id": "new_user_coupon_panel",
+    "id": "user_coupon_panel",
     "privilege":
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"
     },
-    "operationType":"create",
+    "operationType":"update",
     "title": "用户的优惠券信息",
     "layout":"hbox",
     "orig_fields":[{
@@ -66,7 +66,7 @@
 
   } ,
   "searchPanel":{
-    "id": "pdt_coupon_searchpanel",
+    "id": "usr_coupon_searchpanel",
     "privilege":
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"
@@ -90,7 +90,7 @@
     ]
   },
   "resultGridPanel":{
-    "id": "product_info_panel",
+    "id": "usr_coupon_panel",
     "privilege":
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AntConfiguration">
-    <buildFile url="file://$PROJECT_DIR$/src/main/java/build.xml" />
-  </component>
   <component name="ArtifactManager">
     <artifact type="war" name="uni-webtool:war">
       <output-path>$PROJECT_DIR$/target</output-path>
@@ -19,14 +16,15 @@
           </element>
           <element id="directory" name="lib">
             <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
-            <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.7.1" />
-            <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.1" />
-            <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
+            <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.1.2" />
+            <element id="library" level="project" name="Maven: ch.qos.logback:logback-access:1.1.2" />
+            <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.1.2" />
+            <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.6" />
+            <element id="library" level="project" name="Maven: org.slf4j:log4j-over-slf4j:1.7.7" />
             <element id="library" level="project" name="Maven: org.jasig.cas.client:cas-client-core:3.3.3" />
             <element id="library" level="project" name="Maven: org.opensaml:opensaml:2.5.1-1" />
             <element id="library" level="project" name="Maven: org.opensaml:openws:1.4.2-1" />
             <element id="library" level="project" name="Maven: org.opensaml:xmltooling:1.3.2-1" />
-            <element id="library" level="project" name="Maven: org.slf4j:log4j-over-slf4j:1.6.1" />
             <element id="library" level="project" name="Maven: org.slf4j:jul-to-slf4j:1.6.1" />
             <element id="library" level="project" name="Maven: joda-time:joda-time:1.6.2" />
             <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15:1.45" />
@@ -115,19 +113,19 @@
         <module name="tys-dao" />
         <module name="util" />
       </profile>
-      <profile default="false" name="Annotation profile for uni-webtool" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="uni-webtool" />
-      </profile>
       <profile default="false" name="Annotation profile for tys-util" enabled="true">
         <sourceOutputDir name="../util/target/generated-sources/annotations" />
         <sourceTestOutputDir name="../util/target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="tys-util" />
+      </profile>
+      <profile default="false" name="Annotation profile for uni-webtool" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="uni-webtool" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -148,8 +146,8 @@
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/view/includes/top.jsp" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/test" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../../../components/base-dao" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../../../components/base-util" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../components/base-dao" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../components/base-util" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
   <component name="EntryPointsManager">
@@ -185,6 +183,8 @@
         <option value="$PROJECT_DIR$/../../../components/dao/pom.xml" />
         <option value="$PROJECT_DIR$/../../../components/base-dao/pom.xml" />
         <option value="$PROJECT_DIR$/../../../components/base-util/pom.xml" />
+        <option value="$PROJECT_DIR$/../../components/base-dao/pom.xml" />
+        <option value="$PROJECT_DIR$/../../components/base-util/pom.xml" />
       </list>
     </option>
   </component>
@@ -325,7 +325,9 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../components/base-dao/base-dao.iml" filepath="$PROJECT_DIR$/../../components/base-dao/base-dao.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../components/base-dao/base-dao.iml" filepath="$PROJECT_DIR$/../../../components/base-dao/base-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../components/base-util/base-util.iml" filepath="$PROJECT_DIR$/../../components/base-util/base-util.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../components/base-util/base-util.iml" filepath="$PROJECT_DIR$/../../../components/base-util/base-util.iml" />
       <module fileurl="file://$PROJECT_DIR$/uni-webtool.iml" filepath="$PROJECT_DIR$/uni-webtool.iml" />
     </modules>
@@ -338,6 +340,12 @@
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/target" />
+  </component>
+  <component name="ResourceBundleManager">
+    <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/properties-dir/common_local.properties" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/properties-dir/common_online.properties" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/properties-dir/jdbc_local.properties" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/properties-dir/jdbc_online.properties" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="VcsDirectoryMappings">
@@ -372,6 +380,39 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/ca/juliusdavies/not-yet-commons-ssl/0.3.9/not-yet-commons-ssl-0.3.9-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: ch.qos.logback:logback-access:1.1.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-access/1.1.2/logback-access-1.1.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-access/1.1.2/logback-access-1.1.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-access/1.1.2/logback-access-1.1.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: ch.qos.logback:logback-classic:1.1.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.1.2/logback-classic-1.1.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.1.2/logback-classic-1.1.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.1.2/logback-classic-1.1.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: ch.qos.logback:logback-core:1.1.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.1.2/logback-core-1.1.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.1.2/logback-core-1.1.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.1.2/logback-core-1.1.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.alibaba:druid:1.0.9">
@@ -550,17 +591,6 @@
         <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: log4j:log4j:1.2.17">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.17/log4j-1.2.17.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.17/log4j-1.2.17-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.17/log4j-1.2.17-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Maven: mysql:mysql-connector-java:5.1.34">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.34/mysql-connector-java-5.1.34.jar!/" />
@@ -726,37 +756,26 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/jul-to-slf4j/1.6.1/jul-to-slf4j-1.6.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.slf4j:log4j-over-slf4j:1.6.1">
+    <library name="Maven: org.slf4j:log4j-over-slf4j:1.7.7">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/log4j-over-slf4j/1.6.1/log4j-over-slf4j-1.6.1.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/log4j-over-slf4j/1.7.7/log4j-over-slf4j-1.7.7.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/log4j-over-slf4j/1.6.1/log4j-over-slf4j-1.6.1-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/log4j-over-slf4j/1.7.7/log4j-over-slf4j-1.7.7-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/log4j-over-slf4j/1.6.1/log4j-over-slf4j-1.6.1-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/log4j-over-slf4j/1.7.7/log4j-over-slf4j-1.7.7-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.slf4j:slf4j-api:1.7.1">
+    <library name="Maven: org.slf4j:slf4j-api:1.7.6">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.1/slf4j-api-1.7.1.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.1/slf4j-api-1.7.1-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.1/slf4j-api-1.7.1-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.slf4j:slf4j-log4j12:1.7.1">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-log4j12/1.7.1/slf4j-log4j12-1.7.1.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-log4j12/1.7.1/slf4j-log4j12-1.7.1-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-log4j12/1.7.1/slf4j-log4j12-1.7.1-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-aop:3.2.6.RELEASE">

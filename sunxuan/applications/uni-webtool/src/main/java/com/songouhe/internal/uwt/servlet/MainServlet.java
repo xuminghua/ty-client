@@ -5,7 +5,7 @@ package com.songouhe.internal.uwt.servlet;
  * Created by sunxuan on 16-11-24.
  */
 
-import com.songouhe.internal.uwt.model.utils.ConfigUtil;
+import com.songouhe.internal.uwt.utils.ConfigUtil;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
@@ -17,7 +17,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.Method;
 
 public class MainServlet extends HttpServlet {
-    private static final String defaultPackage = "com.songouhe.internal.uwt.action.";
+    private static final String defaultPackage = "com.songouhe.internal.uwt.service.";
     private static org.slf4j.Logger logger
                 = LoggerFactory.getLogger(MainServlet.class);
 

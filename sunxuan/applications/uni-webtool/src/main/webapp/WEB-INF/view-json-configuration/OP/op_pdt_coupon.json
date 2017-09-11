@@ -1,132 +1,220 @@
+{"operations":
 {
-  "htmlPanel":
+  "create":
   {
-    "id": "coupon_op_panel",
-    "privilege":
-    {
-      "readPrivilege": "ALL", "writePrivilege": "ALL"
-    },
-    "html":"敬请期待"
+    "ALL":
+    [{
+      "dbPreValidation":[
+        {"sql":"select count(0) from product_info where id=?",
+          "values":["$product_id"],"valid":"EXIST",
+          "error_msg":"商品id并不存在!请重新到'商品管理'->'商品操作'->'商品列表'中确认!"}],
+      "beanStr":"tyDatasource.product.Product_Coupon"
+
+    }]
   },
+  "delete":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.product.Product_Coupon"
+    }]
+  },
+  "disabledFields":
+  {
+    "ALL":["id"]
+  },
+  "search":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.product.Product_Coupon",
+      "sortCondition":" id desc "
+    }]
+  },
+  "update":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.product.Product_Coupon"
+    }]
+  }
+},
+  "baseBeanStr":"tyDatasource.product.Product_Coupon",
   "infoFormPanel":
   {
-    "id": "panel12",
+    "id": "new_coupon_panel",
     "privilege":
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"
     },
-    "title": "infoForm面板3",
+    "operationType":"create",
+    "title": "新优惠券添加",
     "layout":"hbox",
     "orig_fields":[{
-      "name":"基本信息",
+      "name": "基本信息(必填)",
       "items":[
-        {"fieldLabel":"FID",
-          "name": "FID"},
-        {"fieldLabel": "标题",
+        {"fieldLabel":"标题",
+          "name": "title",
+          "notNull":true},
+        {"fieldLabel":"优惠券类型",
+          "name": "type",
+          "xtype":"combobox",
+          "dataModel":"op_coupon_type",
+          "notNull":true},
+        {"fieldLabel":"详细描述",
+          "name": "info",
           "xtype":"textareafield",
-          "name": "F_Title"},
-        {"fieldLabel": "当前状态",
-          "name": "F_Status"},
-        {"fieldLabel":"版本",
-          "name": "F_Release"},
-        {"fieldLabel": "创建日期",
-          "name": "F_CreatedDay"},
-        {"fieldLabel": "UT截止日期",
-          "name": "F_UT_DeadlineDay"},
-        {"fieldLabel": "DFT截止日期",
-          "name": "F_DFT_DeadlineDay"},
-        {"fieldLabel": "上线日期",
-          "name": "F_DeliverDay"},
-        {"fieldLabel":"E0",
-          "name": "F_E0"}
+          "notNull":true},
+        {"fieldLabel":"总数量",
+          "name": "total",
+          "xtype":"numberfield",
+          "notNull":true},
+
+        {"fieldLabel":"免费券状态",
+          "name": "status",
+          "xtype":"combobox",
+          "dataModel":"op_valid_status",
+          "notNull":true}
 
       ]},
-      {"name":"成员信息", "items":[
-        {"fieldLabel":"Dev MGER",
-          "name": "F_Dev_MGER"},
-        {"fieldLabel":"PE MGER",
-          "name": "F_PE_MGER"},
-        {"fieldLabel":"TE MGER",
-          "name": "F_TE_MGER"},
-        {"fieldLabel":"NLE",
-          "name": "F_NLE"},
-        {"fieldLabel":"PE",
-          "name": "F_PE"},
-        {"fieldLabel":"FE",
-          "name": "F_FE"},
-        {"fieldLabel":"FTE",
-          "name": "F_FTE"},
-        {"fieldLabel":"Producters",
-          "xtype":"textareafield",
-          "name": "F_Producters"},
-        {"fieldLabel":"Devs",
-          "xtype":"textareafield",
-          "name": "F_Devs"},
-        {"fieldLabel":"Testers",
-          "xtype":"textareafield",
-          "name": "F_Testers"},
-        {"fieldLabel":"Others",
-          "xtype":"textareafield",
-          "name": "F_Others"}
+      {
+        "name": "展示内容",
+        "items":[
+          {"fieldLabel":"秒杀开始时间",
+            "name": "pick_start_time",
+            "xtype": "datefield",
+            "format"   : "Y-m-d"} ,
+          {"fieldLabel":"秒杀截止时间",
+            "name": "pick_end_time",
+            "xtype": "datefield",
+            "format"   : "Y-m-d"} ,
+          {"fieldLabel":"兑换截止时间",
+            "name": "exchange_deadline",
+            "xtype": "datefield",
+            "format"   : "Y-m-d"} ,
+          {"fieldLabel":"使用截止时间",
+            "name": "use_deadline",
+            "xtype": "datefield",
+            "format"   : "Y-m-d"},
+          {"fieldLabel":"兑换所需金币",
+            "name": "exchange_price",
+            "xtype":"numberfield"},
+          {"fieldLabel":"商品ID(为空则不限商品)",
+            "name": "product_id"}
+        ]}]
 
+  } ,
+  "infoFormWindow":
+  {
+    "id": "coupon_detail_win",
+    "privilege":
+    {
+      "readPrivilege": "ALL", "writePrivilege": "ALL"
+    },
+    "operationType":"update",
+    "title": "优惠券详细信息",
+    "layout":"hbox",
+    "orig_fields":[{
+      "name": "基本信息(必填)",
+      "items":[
+        {"fieldLabel":"标题",
+          "name": "title",
+          "notNull":true},
+        {"fieldLabel":"免费券类型",
+          "name": "type",
+          "notNull":true,
+          "xtype":"combobox",
+          "dataModel":"op_coupon_type"
+        },
+        {"fieldLabel":"详细描述",
+          "name": "info",
+          "xtype": "textareafield",
+          "notNull":true},
+        {"fieldLabel":"总数量",
+          "name": "total",
+          "xtype":"numberfield",
+          "notNull":true},
 
-      ]}]
+        {"fieldLabel":"免费券状态",
+          "name": "status",
+          "xtype":"combobox",
+          "dataModel":"op_valid_status",
+          "notNull":true}
+
+      ]},
+      {
+        "name": "展示内容",
+        "items":[
+          {"fieldLabel":"秒杀开始时间",
+            "name": "pick_start_time",
+            "xtype": "datefield",
+            "format"   : "Y-m-d"} ,
+          {"fieldLabel":"秒杀截止时间",
+            "name": "pick_end_time",
+            "xtype": "datefield",
+            "format"   : "Y-m-d"} ,
+          {"fieldLabel":"兑换截止时间",
+            "name": "exchange_deadline",
+            "xtype": "datefield",
+            "format"   : "Y-m-d"} ,
+          {"fieldLabel":"使用截止时间",
+            "name": "use_deadline",
+            "xtype": "datefield",
+            "format"   : "Y-m-d"},
+          {"fieldLabel":"兑换所需金币",
+            "name": "exchange_price",
+            "xtype":"numberfield"},
+          {"fieldLabel":"商品ID(为空则不限商品)",
+            "name": "product_id"}
+        ]}]
 
   } ,
   "searchPanel":{
-    "id": "panel14",
+    "id": "coupon_op_searchpanel",
     "privilege":
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"
     },
-    "title": "search面板4",
+    "title": "查询条件",
     "orig_fields":[
 
       {
-        "name":"FID",
-        "fieldLabel": "Feature ID"
+        "name":"id",
+        "fieldLabel": "券id"
       },
       {
-        "name":"FE_Handle",
-        "fieldLabel": "FE Handle"
+        "name":"type",
+        "fieldLabel": "优惠卷类型",
+        "xtype":"combobox",
+        "dataModel":"op_coupon_type"
       },
-      {
-        "name":"Manager_Handle",
-        "fieldLabel": "Manager Handle"
-      },
-      {
-        "name":"Feature_Status",
-        "fieldLabel": "Feature状态" ,
-        "store":["c","d"],
-        "xtype":"combobox"
-      }]
+      {"fieldLabel":"商品ID",
+        "name": "product_id"}
+    ]
   },
   "resultGridPanel":{
-    "id": "panel15",
+    "id": "coupon_info_panel",
     "privilege":
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"
     },
-    "title": "result面板5",
+    "title": "活动券列表",
     "orig_fields":[
-      {"fieldLabel":"FID",
-      "name": "FID"},
-      {"fieldLabel": "标题",
-        "name": "F_Title"},
-      {"fieldLabel": "当前状态",
-        "name": "F_Status"},
-      {"fieldLabel":"版本",
-        "name": "F_Release"},
-      {"fieldLabel": "创建日期",
-        "xtype"    : "datecolumn",
-        "format"   : "Y/m/d",
-        "name": "F_CreatedDay"},
-      {"fieldLabel": "上线日期",
-        "xtype"    : "datecolumn",
-        "format"   : "Y/m/d",
-        "name": "F_DeliverDay"},
-      {"fieldLabel":"E0",
-        "name": "F_E0"}
+
+      {"fieldLabel": "券id",
+        "name": "id"},
+      {"fieldLabel":"标题",
+        "name": "title"},
+      {"fieldLabel":"优惠卷类型",
+        "name": "type"},
+      {"fieldLabel":"商品ID",
+        "name": "product_id"},
+      {"fieldLabel":"总数量",
+        "name": "total"},
+      {"fieldLabel":"剩余数量",
+        "name": "reserved"},
+      {"fieldLabel":"创建时间",
+        "name": "create_time"}
 
     ]
   }

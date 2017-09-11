@@ -1,77 +1,88 @@
+{"operations":
 {
-  "htmlPanel":
+  "create":
   {
-    "id": "travel_op_html_panel",
-    "privilege":
-    {
-      "readPrivilege": "ALL", "writePrivilege": "ALL"
-    },
-    "title": "游记操作",
-    "html":"敬请期待"
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.travel.Travel_Info"
+
+    }]
   },
-  "infoFormPanel":
+  "disabledFields":
   {
-    "id": "panel12",
+    "ALL":["id"]
+  },
+  "search":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.travel.Travel_Info",
+      "sortCondition":" is_top desc,likes desc, views desc, create_time desc "
+    }]
+  },
+  "update":
+  {
+    "ALL":
+    [{
+      "beanStr":"tyDatasource.travel.Travel_Info"
+    }]
+  }
+},
+  "baseBeanStr":"tyDatasource.travel.Travel_Info",
+
+  "infoFormWindow":
+  {
+    "id": "trl_detail_win",
     "privilege":
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"
     },
-    "title": "infoForm面板3",
+    "operationType":"update",
+    "title": "详细信息",
     "layout":"hbox",
     "orig_fields":[{
-      "name":"基本信息",
+      "name": "基本信息(无法修改)",
       "items":[
-        {"fieldLabel":"FID",
-          "name": "FID"},
-        {"fieldLabel": "标题",
-          "xtype":"textareafield",
-          "name": "F_Title"},
-        {"fieldLabel": "当前状态",
-          "name": "F_Status"},
-        {"fieldLabel":"版本",
-          "name": "F_Release"},
-        {"fieldLabel": "创建日期",
-          "name": "F_CreatedDay"},
-        {"fieldLabel": "UT截止日期",
-          "name": "F_UT_DeadlineDay"},
-        {"fieldLabel": "DFT截止日期",
-          "name": "F_DFT_DeadlineDay"},
-        {"fieldLabel": "上线日期",
-          "name": "F_DeliverDay"},
-        {"fieldLabel":"E0",
-          "name": "F_E0"}
+        {"fieldLabel":"标题",
+          "name": "title",
+          "readOnly":true},
+        {"fieldLabel":"圈内容",
+          "name": "content",
+          "xtype": "textareafield",
+          "readOnly":true},
+        {"fieldLabel":"发布者",
+          "name": "author_id",
+          "readOnly":true},
+        {"fieldLabel":"浏览量",
+          "name": "views",
+          "readOnly":true},
+
+        {"fieldLabel":"点赞量",
+          "name": "	likes"},
+        {"fieldLabel":"浏览权限",
+          "name": "	type"}
 
       ]},
-      {"name":"成员信息", "items":[
-        {"fieldLabel":"Dev MGER",
-          "name": "F_Dev_MGER"},
-        {"fieldLabel":"PE MGER",
-          "name": "F_PE_MGER"},
-        {"fieldLabel":"TE MGER",
-          "name": "F_TE_MGER"},
-        {"fieldLabel":"NLE",
-          "name": "F_NLE"},
-        {"fieldLabel":"PE",
-          "name": "F_PE"},
-        {"fieldLabel":"FE",
-          "name": "F_FE"},
-        {"fieldLabel":"FTE",
-          "name": "F_FTE"},
-        {"fieldLabel":"Producters",
-          "xtype":"textareafield",
-          "name": "F_Producters"},
-        {"fieldLabel":"Devs",
-          "xtype":"textareafield",
-          "name": "F_Devs"},
-        {"fieldLabel":"Testers",
-          "xtype":"textareafield",
-          "name": "F_Testers"},
-        {"fieldLabel":"Others",
-          "xtype":"textareafield",
-          "name": "F_Others"}
-
-
-      ]}]
+      {
+        "name": "审核操作",
+        "items":[
+          {
+            "name":"product_id",
+            "fieldLabel": "商品id"
+          },
+          {"fieldLabel":"审核状态",
+            "name": "status",
+                    "dataModel":"op_travel_status",
+                    "xtype":"combobox"} ,
+          {"fieldLabel":"置顶",
+            "name": "is_top",
+            "dataModel":"common_boolean_status",
+            "xtype":"combobox"},
+          {"fieldLabel":"审核comments(审核状态为不通过时填写原因)",
+            "name": "audit_comments",
+            "xtype": "textareafield"
+          }
+        ]}]
 
   } ,
   "searchPanel":{
@@ -80,26 +91,37 @@
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"
     },
-    "title": "search面板4",
+    "title": "查询条件",
     "orig_fields":[
 
       {
-        "name":"FID",
-        "fieldLabel": "Feature ID"
+        "name":"id",
+        "fieldLabel": "圈条目id"
       },
       {
-        "name":"FE_Handle",
-        "fieldLabel": "FE Handle"
+        "name":"product_id",
+        "fieldLabel": "商品id"
       },
       {
-        "name":"Manager_Handle",
-        "fieldLabel": "Manager Handle"
+        "name":"author_id",
+        "fieldLabel": "发布者"
       },
       {
-        "name":"Feature_Status",
-        "fieldLabel": "Feature状态" ,
-        "store":["c","d"],
+        "name":"type",
+        "fieldLabel": "浏览权限" ,
+        "dataModel":"op_travel_type",
         "xtype":"combobox"
+      },
+      {"fieldLabel":"状态",
+        "name": "status",
+        "dataModel":"op_travel_status",
+        "xtype":"combobox"} ,
+      {
+        "name":"is_top",
+        "fieldLabel": "是否置顶",
+        "dataModel":"common_boolean_status",
+        "xtype":"combobox"
+
       }]
   },
   "resultGridPanel":{
@@ -108,27 +130,29 @@
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"
     },
-    "title": "result面板5",
+    "title": "圈列表",
     "orig_fields":[
-      {"fieldLabel":"FID",
-      "name": "FID"},
+      {"fieldLabel":"圈条目id",
+        "name": "id"},
       {"fieldLabel": "标题",
-        "name": "F_Title"},
-      {"fieldLabel": "当前状态",
-        "name": "F_Status"},
-      {"fieldLabel":"版本",
-        "name": "F_Release"},
-      {"fieldLabel": "创建日期",
-        "xtype"    : "datecolumn",
-        "format"   : "Y/m/d",
-        "name": "F_CreatedDay"},
-      {"fieldLabel": "上线日期",
-        "xtype"    : "datecolumn",
-        "format"   : "Y/m/d",
-        "name": "F_DeliverDay"},
-      {"fieldLabel":"E0",
-        "name": "F_E0"}
+        "name": "title"},
+      {"fieldLabel": "商品id",
+        "name": "	product_id"},
+      {"fieldLabel":"发布者",
+        "name": "author_id"},
+      {"fieldLabel": "浏览量",
+        "name": "views"},
+      {"fieldLabel": "点赞量",
+        "name"    : "likes"},
+      {"fieldLabel":"浏览权限",
+        "name": "type"} ,
+      {"fieldLabel":"状态",
+        "name": "status"} ,
+      {"fieldLabel":"是否置顶",
+
+        "name": "is_top"}
 
     ]
   }
+
 }

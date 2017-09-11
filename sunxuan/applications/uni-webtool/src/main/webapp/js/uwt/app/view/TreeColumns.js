@@ -12,7 +12,7 @@ Ext.define('UWTWorks.view.TreeColumns', {
     listeners: {
         select: function (selModel, record, index, eOpts) {
             if (!record.data.leaf) {
-                Windows.msg(dictionary.pub_infomation, dictionary.map_selectLeaf);
+                Ext.bubblebox.msg(dictionary.pub_infomation, dictionary.map_selectLeaf);
                 return (false);
             }
             var columnID = record.data.columnId;

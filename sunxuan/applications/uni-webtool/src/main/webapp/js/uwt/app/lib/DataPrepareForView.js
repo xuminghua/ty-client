@@ -120,7 +120,7 @@ Ext.define('UWTWorks.lib.DataPrepareForView', {
                 text: dictionary.center_searchBtn,
                 handler: function() {
                     var form = this.up('form').getForm();
-                    if(form.isDirty() && form.isValid()){
+                    if( form.isValid()){
                         var condition =
                             Ext.JSON.encode(this.up('form').getForm().getFieldValues(true));
                         var gridStore = controller.getResultGridStore();
@@ -177,7 +177,7 @@ Ext.define('UWTWorks.lib.DataPrepareForView', {
                                 tooltip: dictionary.pub_delete,
                                 handler: function(grid, rowIndex, colIndex) {
                                     var columnId = UWTConfiguration.getCurrentColumn();
-                                    var panelcakeId = UWTConfiguration.getInfoFormData().id;
+                                    var panelcakeId = UWTConfiguration.getResultGridData().id;
                                     var rec = grid.getStore().getAt(rowIndex);
 
                                     Ext.Msg.confirm(dictionary.pub_warn, dictionary.win_deleteconfirm,function(btn){
@@ -318,7 +318,7 @@ Ext.define('UWTWorks.lib.DataPrepareForView', {
         if(!InfoFormData.operationType)return true;
 
         var columnId = UWTConfiguration.getCurrentColumn();
-        var panelcakeId = UWTConfiguration.getInfoFormData().id;
+        var panelcakeId = InfoFormData.id;
         var actionX = InfoFormData.operationType;
         var operationBtn;
         switch (InfoFormData.operationType){
@@ -394,7 +394,7 @@ Ext.define('UWTWorks.lib.DataPrepareForView', {
         if(closeBtn)closeBtn.setVisible(true);
 
         var columnId = UWTConfiguration.getCurrentColumn();
-        var panelcakeId = UWTConfiguration.getInfoFormData().id;
+        var panelcakeId = InfoFormData.id;
         var actionX = InfoFormData.operationType;
         var operationBtn;
         switch (InfoFormData.operationType){

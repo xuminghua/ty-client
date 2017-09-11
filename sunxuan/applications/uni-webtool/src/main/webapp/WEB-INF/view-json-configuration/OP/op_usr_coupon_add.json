@@ -150,7 +150,7 @@
 
   } ,
   "searchPanel":{
-    "id": "pdt_coupon_searchpanel",
+    "id": "add_coupon_searchpanel",
     "privilege":
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"

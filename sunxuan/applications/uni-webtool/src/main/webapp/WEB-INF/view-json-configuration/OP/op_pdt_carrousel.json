@@ -4,7 +4,13 @@
   {
     "ALL":
     [{
-      "uniqueValidation":[{"dbField":"object_id","valueField":"id"}],
+      "dbPreValidation":[
+        {"sql":"select count(0) from product_info where id=?",
+          "values":["$object_id"],"valid":"EXIST",
+          "error_msg":"商品id并不存在!请重新到商品列表确认!"},
+        {"sql":"select count(0) from common_carrousel where object_id=?",
+          "values":["$object_id"],"valid":"NOT_EXIST",
+          "error_msg":"动态板已存在当前插入的商品!"}],
       "conditionFields":{"type":1},
       "beanStr":"tyDatasource.common.Common_Carrousel"
 
@@ -26,7 +32,7 @@
   "baseBeanStr":"tyDatasource.product.Product_Info",
   "infoFormPanel":
   {
-    "id": "new_pdt_panel",
+    "id": "new_carrousel_panel",
     "privilege":
     {
       "readPrivilege": "ALL", "writePrivilege": "ALL"
@@ -58,10 +64,10 @@
           {"fieldLabel":"状态",
             "name": "status",
             "xtype":"combobox",
-            "dataModel":"op_carrousel_status"}
+            "dataModel":"op_valid_status"}
         ]}
 
-      ]
+    ]
 
   } ,
   "infoFormWindow":
@@ -137,27 +143,27 @@
 
       ]},
       {"name":"其他操作","items":[
-              {"fieldLabel":"置顶",
-                "name": "is_top",
-                "xtype":"combobox",
-                "dataModel":"common_boolean_status"
-              },
+        {"fieldLabel":"置顶",
+          "name": "is_top",
+          "xtype":"combobox",
+          "dataModel":"common_boolean_status"
+        },
         {
-                "name":"is_self",
-                "fieldLabel": "是否自营",
-                "xtype":"combobox",
-                "dataModel":"common_oppo_boolean_status"
-              },
-              {"fieldLabel":"审核状态",
-                "name": "audit_status",
-                        "xtype":"combobox",
-                        "dataModel":"op_audit_status"
-              },
-              {"fieldLabel":"views",
-                "name": "views"
-              }
+          "name":"is_self",
+          "fieldLabel": "是否自营",
+          "xtype":"combobox",
+          "dataModel":"common_oppo_boolean_status"
+        },
+        {"fieldLabel":"审核状态",
+          "name": "audit_status",
+          "xtype":"combobox",
+          "dataModel":"op_audit_status"
+        },
+        {"fieldLabel":"views",
+          "name": "views"
+        }
 
-            ]}
+      ]}
     ]
 
   } ,
@@ -234,8 +240,6 @@
         "name": "id"},
       {"fieldLabel":"商品名称",
         "name": "name"},
-      {"fieldLabel": "商品类型",
-        "name": "type"},
       {"fieldLabel":"销售标题",
         "name": "title"},
       {"fieldLabel":"价格",
@@ -245,9 +249,7 @@
       {"fieldLabel":"置顶",
         "name": "is_top"},
       {"fieldLabel":"自营",
-        "name": "is_self"},
-      {"fieldLabel": "审核状态",
-        "name": "audit_status"}
+        "name": "is_self"}
     ]
   }
 }

@@ -1,10 +1,8 @@
 package com.songouhe.internal.uwt.servlet;
 
-import com.songouhe.internal.uwt.action.ActionXManager;
-import com.songouhe.internal.uwt.action.ViewManager;
+import com.songouhe.internal.uwt.service.ActionXManager;
 import com.songouhe.internal.uwt.model.enums.OperationTypeEnum;
-import com.songouhe.internal.uwt.model.utils.ConfigUtil;
-import flexjson.JSONSerializer;
+import com.songouhe.internal.uwt.utils.ConfigUtil;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
@@ -13,9 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 /**
