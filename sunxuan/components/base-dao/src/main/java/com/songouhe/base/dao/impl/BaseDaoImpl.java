@@ -78,13 +78,13 @@ public class BaseDaoImpl implements BaseDao{
 	 * @throws Exception
 	 */
 	public boolean createByObj(Object[] obj_array) throws DaoSysException{
-		// 获取数据库连接
-		DataSource dataSource = jdbcTemplate.getDataSource();
-		Connection dbCon = DataSourceUtils.getConnection(dataSource);
 		String tableName = "";
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		try {
-			dbCon.setAutoCommit(this.isAutoCommit());
+			// 获取数据库连接
+//			DataSource dataSource = jdbcTemplate.getDataSource();
+//			Connection dbCon = DataSourceUtils.getConnection(dataSource);
+//			dbCon.setAutoCommit(this.isAutoCommit());
 			for(Object obj: obj_array){
 				// 构建sql语句
 				map = getObjectFieldValue(obj);
@@ -101,19 +101,23 @@ public class BaseDaoImpl implements BaseDao{
 				Object[] sqlValues = getSqlValue( map,false);
 				int count = jdbcTemplate.update(sb.toString(),sqlValues);
 				if(count>0){
-					printLoggerMsg("info", "insert", tableName, null, map);
+					printLoggerMsg("info", "insert", tableName, "", map);
 				}
 				else{
-					String errorMsg = printLoggerMsg("error", "insert", tableName, null, map);
-					throw new Exception(errorMsg);
+					String errorMsg = printLoggerMsg("error", "insert", tableName, "count=0", map);
+					logger.error("DaoSysException - BaseDaoImpl error :" + errorMsg);
+					throw new DaoSysException("DaoSysException - BaseDaoImpl error:" +
+							"更新不成功,请联系管理员进行系统检测");
 				}
 			}
-			dbCon.commit();
+//			dbCon.commit();
 			return true;
 
 		} catch (Exception e) {
 			String errorMsg = printLoggerMsg("error", "insert", tableName, e.getMessage(), map);
-			throw new DaoSysException("DaoSysException - BaseDaoImpl error :",e);
+			logger.error("DaoSysException - BaseDaoImpl error :" + errorMsg);
+			throw new DaoSysException("DaoSysException - BaseDaoImpl error:" +
+					"更新不成功,请联系管理员进行系统检测");
 		}
 	}
 	/**
@@ -131,16 +135,16 @@ public class BaseDaoImpl implements BaseDao{
 		//组建sql
 		String tableName = obj.getClass().getName();
 		tableName = tableName.substring(tableName.lastIndexOf(".") + 1);
-		StringBuilder sb = new StringBuilder("update " + tableName );
-		addSetString(sb,map);
-		addConditionString(sb, condition);
-		System.out.println(sb.toString());
 		try {
+			StringBuilder sb = new StringBuilder("update " + tableName );
+			addSetString(sb,map);
+			addConditionString(sb, condition);
+			System.out.println(sb.toString());
 			// 获取数据库连接
-			DataSource dataSource = jdbcTemplate.getDataSource();
-			Connection dbCon = DataSourceUtils.getConnection(dataSource);
-
-			dbCon.setAutoCommit(this.isAutoCommit());
+//			DataSource dataSource = jdbcTemplate.getDataSource();
+//			Connection dbCon = DataSourceUtils.getConnection(dataSource);
+//
+//			dbCon.setAutoCommit(this.isAutoCommit());
 			List<Object> values =  new ArrayList<Object>();
 			getValuesToList(values,map);
 			getValuesToList(values, condition);
@@ -149,16 +153,20 @@ public class BaseDaoImpl implements BaseDao{
 			int count = jdbcTemplate.update(sb.toString(),valuesArray);
 
 			if(count > 0){
-				printLoggerMsg("info", "update", tableName, null, map);
+				printLoggerMsg("info", "update", tableName, "", map);
 				return true;
 			}
 			else{
-				String errorMsg = printLoggerMsg("error", "update", tableName, null, map);
-				throw new Exception(errorMsg);
+				String errorMsg = printLoggerMsg("error", "update", tableName, "count=0", map);
+				logger.error("DaoSysException - BaseDaoImpl error :" + errorMsg);
+				throw new DaoSysException("DaoSysException - BaseDaoImpl error:" +
+						"更新不成功,请联系管理员进行系统检测");
 			}
 		} catch ( Exception e) {
-			printLoggerMsg("error", "update", tableName, e.getMessage(), map);
-			throw new DaoSysException("DaoSysException - BaseDaoImpl error :",e);
+			String errorMsg = printLoggerMsg("error", "update", tableName, e.getMessage(), map);
+			logger.error("DaoSysException - BaseDaoImpl error :" + errorMsg);
+			throw new DaoSysException("DaoSysException - BaseDaoImpl error:" +
+					"更新不成功,请联系管理员进行系统检测");
 		}
 
 	}
@@ -184,26 +192,30 @@ public class BaseDaoImpl implements BaseDao{
 		//构建sql语句
 		String tableName = obj.getClass().getName();
 		tableName = tableName.substring(tableName.lastIndexOf(".") + 1);
-		StringBuilder sb = new StringBuilder("delete from "+tableName.toLowerCase());
-		addConditionString(sb, condition);
 		try {
-			DataSource dataSource = jdbcTemplate.getDataSource();
-			Connection dbCon = DataSourceUtils.getConnection(dataSource);
-			dbCon.setAutoCommit(this.isAutoCommit());
+			StringBuilder sb = new StringBuilder("delete from "+tableName.toLowerCase());
+			addConditionString(sb, condition);
+//			DataSource dataSource = jdbcTemplate.getDataSource();
+//			Connection dbCon = DataSourceUtils.getConnection(dataSource);
+//			dbCon.setAutoCommit(this.isAutoCommit());
 			Object[] sqlValues = getSqlValue( condition,false);
 			int count = jdbcTemplate.update(sb.toString(), sqlValues);
 
 			if(count > 0){
-				String errorMsg = printLoggerMsg("info", "delete", tableName, null, condition);
+				String errorMsg = printLoggerMsg("info", "delete", tableName, "", condition);
 				return true;
 			}
 			else{
-				String errorMsg = printLoggerMsg("error", "delete", tableName, null, condition);
-				throw new Exception(errorMsg);
+				String errorMsg = printLoggerMsg("error", "delete", tableName, "count=0", condition);
+				logger.error("DaoSysException - BaseDaoImpl error :" + errorMsg);
+				throw new DaoSysException("DaoSysException - BaseDaoImpl error:" +
+						"更新不成功,请联系管理员进行系统检测");
 			}
 		} catch (Exception e) {
-			printLoggerMsg("error", "delete", tableName, e.getMessage(), condition);
-			throw new DaoSysException("DaoSysException - BaseDaoImpl error :",e);
+			String errorMsg = printLoggerMsg("error", "delete", tableName, e.getMessage(), condition);
+			logger.error("DaoSysException - BaseDaoImpl error :" + errorMsg);
+			throw new DaoSysException("DaoSysException - BaseDaoImpl error:" +
+					"更新不成功,请联系管理员进行系统检测");
 		}
 	}
 
@@ -224,16 +236,19 @@ public class BaseDaoImpl implements BaseDao{
 	 * RowMapper接口封装返回集合，可自定义
 	 * */
 	public List getQueryByObj(Object obj) throws DaoSysException {
+		// 构建sql语句
+		String tableName = obj.getClass().getName();
+		tableName = tableName.substring(tableName.lastIndexOf(".") + 1).toLowerCase();
+		String sql = "select * from " + tableName;
 		try{
-			// 构建sql语句
-			String tableName = obj.getClass().getName();
-			tableName = tableName.substring(tableName.lastIndexOf(".") + 1).toLowerCase();
-			String sql = "select * from " + tableName;
 			return jdbcTemplate.query(sql,
 					new BeanPropertyRowMapper(obj.getClass()));
 
 		}catch(Exception e){
-			throw new DaoSysException("DaoSysException - BaseDaoImpl error :",e);
+			String errorMsg = printLoggerMsg("error", "query", tableName, e.getMessage(), obj);
+			logger.error("DaoSysException - BaseDaoImpl error :" + errorMsg);
+			throw new DaoSysException("DaoSysException - BaseDaoImpl error:" +
+					"查询不成功,请联系管理员进行系统检测");
 		}
 	}
 
@@ -254,9 +269,11 @@ public class BaseDaoImpl implements BaseDao{
 			return jdbcTemplate.query(query,
 					new BeanPropertyRowMapper(obj.getClass()));
 		} catch (Exception e) {
+			String errorMsg = printLoggerMsg("error", "query", query, e.getMessage(), obj);
+			logger.error("DaoSysException - BaseDaoImpl error :" + errorMsg);
 			// TODO Auto-generated catch block
-			throw new DaoSysException("DaoSysException - BaseDaoImpl error :",e);
-
+			throw new DaoSysException("DaoSysException - BaseDaoImpl error:" +
+					"查询不成功,请联系管理员进行系统检测");
 		}
 
 	}
@@ -277,11 +294,10 @@ public class BaseDaoImpl implements BaseDao{
 											String order, boolean isFuzzy) throws DaoSysException {
 		List<Object> list = new ArrayList<Object>();
 
-
+		String tableName = obj.getClass().getName();
+		tableName = tableName.substring(tableName.lastIndexOf(".") + 1).toLowerCase();
 
 		try {
-			String tableName = obj.getClass().getName();
-			tableName = tableName.substring(tableName.lastIndexOf(".") + 1).toLowerCase();
 			StringBuilder sb = new StringBuilder("select * from " + tableName);
 			PreparedStatement state = null;
 			if(isFuzzy){
@@ -300,17 +316,20 @@ public class BaseDaoImpl implements BaseDao{
 					new BeanPropertyRowMapper(obj.getClass()));
 
 		} catch (Exception e) {
+			String errorMsg = printLoggerMsg("error", "query", tableName, e.getMessage(), obj);
+			logger.error("DaoSysException - BaseDaoImpl error :" + errorMsg);
 			// TODO Auto-generated catch block
-			throw new DaoSysException("DaoSysException - BaseDaoImpl error :",e);
+			throw new DaoSysException("DaoSysException - BaseDaoImpl error:" +
+					"查询不成功,请联系管理员进行系统检测");
 		}
 	}
 	public RecordWithTotalCount getQueryAndCountByCondition(Object obj, Map<Object, Object> condition, String start, String limit,
 															String order, boolean isFuzzy) throws DaoSysException {
 		RecordWithTotalCount result = new RecordWithTotalCount();
+		String tableName = obj.getClass().getName();
+		tableName = tableName.substring(tableName.lastIndexOf(".") + 1).toLowerCase();
 
 		try {
-			String tableName = obj.getClass().getName();
-			tableName = tableName.substring(tableName.lastIndexOf(".") + 1).toLowerCase();
 			StringBuilder sb = new StringBuilder("select ");
 			addFieldString(sb, obj.getClass());
 			sb.append(" from " + tableName);
@@ -333,11 +352,31 @@ public class BaseDaoImpl implements BaseDao{
 			return result;
 
 		} catch (Exception e) {
+			String errorMsg = printLoggerMsg("error", "query", tableName, e.getMessage(), obj);
+			logger.error("DaoSysException - BaseDaoImpl error :" + errorMsg);
 			// TODO Auto-generated catch block
-			throw new DaoSysException("DaoSysException - BaseDaoImpl error :",e);
+			throw new DaoSysException("DaoSysException - BaseDaoImpl error:" +
+					"查询不成功,请联系管理员进行系统检测");
 		}
 	}
 
+	public int getRecordCount(String sql, Object[] values) throws DaoSysException{
+		try {
+			int result = 0;
+			if(values.length > 0)
+				result = jdbcTemplate.queryForObject(sql, values,
+						Integer.class);
+			else
+				result = jdbcTemplate.queryForObject(sql, Integer.class);
+			return result;
+		} catch (Exception e) {
+			String errorMsg = printLoggerMsg("error", "query", sql, e.getMessage(), values);
+			logger.error("DaoSysException - BaseDaoImpl error :" + errorMsg);
+			// TODO Auto-generated catch block
+			throw new DaoSysException("DaoSysException - BaseDaoImpl error:" +
+					"查询不成功,请联系管理员进行系统检测");
+		}
+	}
 //=======================================search end=============================================
 
 	public javax.sql.DataSource getDatasource(){
@@ -356,7 +395,11 @@ public class BaseDaoImpl implements BaseDao{
 				logger.info("Open DataSource '" + databaseType + "', current connections number is " +
 						pds.getConnectCount());
 			}catch(Exception e){
-				throw new DaoSysException("DataSource " + databaseType + " open error :",e);
+				logger.error("DaoSysException - BaseDaoImpl error : DataSource "
+						+ databaseType + " open error :" + e.getMessage());
+				// TODO Auto-generated catch block
+				throw new DaoSysException("DaoSysException - BaseDaoImpl error:" +
+						"DataSource出错,请联系管理员进行系统检测");
 			}
 		}
 	}
@@ -374,13 +417,21 @@ public class BaseDaoImpl implements BaseDao{
 				}
 
 			}catch(Exception e){
-				throw new DaoSysException("DataSource " + databaseType + " close error :",e);
+				logger.error("DaoSysException - BaseDaoImpl error : DataSource "
+						+ databaseType + " close error :" + e.getMessage());
+				// TODO Auto-generated catch block
+				throw new DaoSysException("DaoSysException - BaseDaoImpl error:" +
+						"DataSource close出错,请联系管理员进行系统检测");
 			}
 		}
 		try {
 			AbandonedConnectionCleanupThread.shutdown();
 		} catch (InterruptedException e) {
-			throw new DaoSysException("AbandonedConnectionCleanupThread shutdown error :",e);
+			logger.error("DaoSysException - BaseDaoImpl error: " +
+					"AbandonedConnectionCleanupThread shutdown error :" + e.getMessage());
+			// TODO Auto-generated catch block
+			throw new DaoSysException("DaoSysException - BaseDaoImpl error:" +
+					"DataSource shutdown出错,请联系管理员进行系统检测");
 		}
 
 		Enumeration<Driver> drivers = DriverManager.getDrivers();
@@ -389,8 +440,11 @@ public class BaseDaoImpl implements BaseDao{
 				Driver driver = drivers.nextElement();
 				DriverManager.deregisterDriver(driver);
 			} catch (SQLException e) {
-				throw new DaoSysException("DAO destroy driver error :",e);
-
+				logger.error("DaoSysException - BaseDaoImpl error: " +
+						"DAO destroy driver error :" + e.getMessage());
+				// TODO Auto-generated catch block
+				throw new DaoSysException("DaoSysException - BaseDaoImpl error:" +
+						"DataSource shutdown出错,请联系管理员进行系统检测");
 			}
 		}
 
@@ -630,7 +684,8 @@ public class BaseDaoImpl implements BaseDao{
 		return sb.toString();
 	}
 
-	private String printLoggerMsg(String logType, String operation, String tableName, String errorMsg, Object obj){
+	private String printLoggerMsg(String logType, String operation,
+								  String tableName, String errorMsg, Object obj){
 		String result,strObj = "";
 		if(obj != null){
 			JSONSerializer serializer = new JSONSerializer().exclude("*.class")
@@ -642,13 +697,9 @@ public class BaseDaoImpl implements BaseDao{
 		if("error".equals(logType)){
 			result = "***********" + operation + " 1 record false:table:["
 					+ tableName + "],error msg:[" +errorMsg +"],params:[" + strObj +  "]*************";
-			logger.error(logType, result);
-
 		}else {
 			result = "***********"+ operation + " record :table:[" +
-					tableName + "], params:[" + obj+ "]*************";
-			logger.info(result);
-
+					tableName + "], params:[" + strObj + "]*************";
 		}
 		return result;
 	}

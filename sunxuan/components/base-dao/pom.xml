@@ -34,11 +34,27 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
-        <!-- slf4j用于和log4j适配的jar包，slf4j被spring引入 -->
+        <!-- slf4j用于和logback适配的jar包，slf4j被spring引入 -->
+        <!-- logback日志配置开始 -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-access</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.2</version>
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.1</version>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>1.7.7</version>
         </dependency>
         <!-- cas的客户端jar包 -->
         <dependency>
