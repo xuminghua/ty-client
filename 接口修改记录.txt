@@ -1,0 +1,173 @@
+接口comments
+1. 3.1.1.获取游记列表
+createDate": "2017-06-01”,改为createTime，直接返回timestamp类型(便于计算显示：几分钟前，1天前，几小时前，等等)，来自于travel_info的create_time
+并添加是否置顶flag: isTop
+另外：UI设计中有分享量统计，第一期先去掉，保留点赞和浏览量
+
+结构改为：
+{    "code": "0000",    "msg": "",    "data": [	  {
+                travelId: "1",
+                imgArr: ["https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1447596376,3861306435&fm=26&gp=0.jpg"],
+                title: "西岸的亡灵河东岸的你·埃及",
+                content: "沙漠的夜晚，我的眼中，将东西两岸分开的不是尼罗河...",
+                views: 2000,
+                likes: 1500,
+                createTime: "刚刚",
+                authorName: "cathy",
+                authorId: "11111",
+                isFriend:false,
+                isTop:false
+            }    ]}2.在3.3.1返回数据带一个hasMore字段，用于标示是否还有data可以加载和刷新；若没有，当前页面不在做增量刷新。
+结构改为：
+{    "code": "0000",    "msg": "",
+    "hasMore": true,    "data": [	  {
+                travelId: "1",
+                imgArr: ["https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1447596376,3861306435&fm=26&gp=0.jpg"],
+                title: "西岸的亡灵河东岸的你·埃及",
+                content: "沙漠的夜晚，我的眼中，将东西两岸分开的不是尼罗河...",
+                views: 2000,
+                likes: 1500,
+                time: "刚刚",
+                authorName: "cathy",
+                authorId: "11111",
+                isFriend:false,
+                isTop:false
+            }    ]}同理，3.4.1.商品列表也添加一个hasMore字段
+
+3.
+
+所有用户数据中的"gender”,”birth”能否都改为“babygender”,”babybirth”,以后可能会有为父母提供的字段“gender”(当前账号是父亲还是母亲，用于做推荐算法)，
+3.8章节，“money”改为“coin”，另外保留money作为日后充值功能的字段用户信息数据的结构改为
+    userInfo:{
+        userId: "1001",
+        userName: "username",
+        phone: "13811111111",
+        mail: "",
+        babyGender: "女",
+        babyBirth: "2014-06-01",
+        experience: "0",
+        coin: "1",
+        point: "2",
+        weichat: "weichat11",
+        weibo: "weibo11",
+        qq: "10098",
+        createTime: "2017-01-02"
+    }
+
+#17/10/10
+4.添加1个获取系统消息的接口，能分页加载。
+{    "code": "0000",    "msg": "",    "hasMore": true,    "data": [        {            "id": "1",            "message": "添加1个获取系统消息的接口，能分页加载",            "type": "1",            "status": "2",            "createTime": ""    //timestamp类型	}	]
+}
+
+#17/10/15
+5. 章节3.7.5	获取我的免费卷，添加几个field：
+{
+                "id": "1",
+                "couponId": "11",
+                "productId": "121",
+                "exchangeDeadline": "2017-11-31",
+                "useDeadline": "2017-12-31",
+                "status": "0",
+//添加开始
+                "createTime":"2017-09-31",	//创建日期
+                "productName": "商品名称",		//商品名称
+                "merchantId": "店铺id",		//店铺id
+                "merchantName": "店铺名称",		//店铺名称
+                "couponAbstract": "使用摘要",		//使用摘要
+//添加结束
+            }
+
+6.  章节3.8，添加4个接口：修改qq，修改邮箱，修改微博，修改用户信息
+6.1.修改qq接口参数
+{    "userId": "",    "qq": "",}6.2.修改邮箱接口参数
+{    "userId": "",    "mail": "",}
+6.3.修改微博接口参数
+{    "userId": "",    "weibo": "",}
+6.4.修改用户信息接口参数
+{    "userId": "",    "babyGender": "",    "babyBirth": "",}
+
+另外：由于第一版用微信登陆，userId都从用户表的weichat字段读取
+
+7. 章节3.7  添加 使用优惠券 接口
+url:/usecoupon
+参数为
+{    "userId": "",    "id": "",  //对应user_coupon 的 id    "orderId": "",   //订单号ID，目前应该是填写有赞的订单号，用户手动填写}
+只有当用户的优惠券status=0且exchangeDeadLine不过期的情况下可以用
+
+
+8.章节3.9.1 意见反馈
+返回信息改为 
+{    "code": "0000",    "msg": ""}
+#17/10/179.章节3.7.2	获取我收藏的游记列表
+返回参数的结构改为和章节3.3.1一致，即
+{    "code": "0000",    "msg": "",    "data": [        {            "travelId": "1",            "imgUrl": "http://127.0.0.1/img/1.jpg",            "title": "西岸的亡灵河东岸的你·埃及",            "content": "沙漠的夜晚，我的眼中，将东西两岸分开的不是尼罗河...",            "views": 2000,            "likes": 1500,            "createDate": "2017-06-01",            "authorName": "cathy",            "authorId": "11111",            "isFriend":false        }    ]}
+
+
+10.所有带分页的接口，分页参数改为pageNo和limit，包括：
+3.3.1	获取游记列表-游客状态
+3.3.2	获取游记列表-登录状态
+3.3.3	只查看朋友游记
+3.4.1	获取商品列表
+3.6.1	获取专题列表
+3.7.1	获取我的游记列表
+3.7.2	获取我收藏的游记列表
+3.7.3	获取我收藏的商品
+3.7.4	获取我的免费卷
+
+
+11.章节3.8.2	帐户登录 和章节 3.8.5	修改密码
+接口参数的    "loginId": "",
+改为    "userId": "",     以和其他接口的描述一致。
+
+12.章节2.3	响应码说明
+http://blog.csdn.net/wangfayinn/article/details/7719704  
+根据规范，
+（1）code改为数字形式。
+（2）成功改为200。
+（3）没有权限访问改为403.1
+
+
+#17/10/20
+1.圈列表中，未保存的圈只能是1条,增加保存圈的接口
+数据结构同3.3.7	游记发布，接口地址为/travel/save
+
+#17/11/04
+1.章节3.3.7 游记发布
+接口改为
+      "req":{
+        "title":"概要",
+        "content": "内容",
+        "type":true,
+        "productUUID":"pdtUUid",
+        "link": "http://www.tongyoushu.com/aaa/bbb/ccc",
+        "authorId": "weichatID",
+        "imageNames": "['1.jpg','2.png']",
+        "travelUUID":"UUid",
+        "travelDate":"2017-11-01"
+      },
+返回改为
+      "res":{
+        "code": 200,
+        "msg": ""
+      }
+
+2.新添加1个接口，用户添加新商品
+接口地址为
+      "url":"/product/add",
+请求参数为
+      "req":{
+        "userId": "weichatID",
+        "merchantName": "merchantName",
+        "productName":"productName",
+        "productUUid":"productUUid",
+        "price":1000,
+        "discountPrice":0,
+        "number":1,
+        "category":0,       //对应一个新添加的field category
+        "link": "http://www.tongyoushu.com/aaa/bbb/ccc"
+      },
+ 返回为
+     "res":{
+        "code": 200,
+        "msg": ""
+      }
