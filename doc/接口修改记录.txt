@@ -130,3 +130,44 @@ http://blog.csdn.net/wangfayinn/article/details/7719704
 #17/10/20
 1.圈列表中，未保存的圈只能是1条,增加保存圈的接口
 数据结构同3.3.7	游记发布，接口地址为/travel/save
+
+#17/11/04
+1.章节3.3.7 游记发布
+接口改为
+      "req":{
+        "title":"概要",
+        "content": "内容",
+        "type":true,
+        "productUUID":"pdtUUid",
+        "link": "http://www.tongyoushu.com/aaa/bbb/ccc",
+        "authorId": "weichatID",
+        "imageNames": "['1.jpg','2.png']",
+        "travelUUID":"UUid",
+        "travelDate":"2017-11-01"
+      },
+返回改为
+      "res":{
+        "code": 200,
+        "msg": ""
+      }
+
+2.新添加1个接口，用户添加新商品
+接口地址为
+      "url":"/product/add",
+请求参数为
+      "req":{
+        "userId": "weichatID",
+        "merchantName": "merchantName",
+        "productName":"productName",
+        "productUUid":"productUUid",
+        "price":1000,
+        "discountPrice":0,
+        "number":1,
+        "category":0,       //对应一个新添加的field category
+        "link": "http://www.tongyoushu.com/aaa/bbb/ccc"
+      },
+ 返回为
+     "res":{
+        "code": 200,
+        "msg": ""
+      }
