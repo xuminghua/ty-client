@@ -92,7 +92,25 @@ alter table user_message modify column user_id  varchar(50) default  'all';
 
 
 alter table user_info modify column user_id varchar(50);
-alter table user_info add coumn coin integer;
-alter table user_info add latest_read_time timestamp;
+alter table user_info add column coin integer;
+alter table user_info add column latest_read_time timestamp;
 alter table user_info modify column baby_birth varchar(10);
 
+
+--
+-- 20171104
+--
+--
+-- 修改原因：product_info添加新field category，存储商品类别
+-- 
+
+ALTER TABLE `product_info` ADD `category` int(11) NOT NULL DEFAULT 0 COMMENT '商品类别: 0 未知，1 演出，2 展览，3 探索体验，4 教育课程，5 团体游，6 游乐场所，7 其他' AFTER `content`;
+
+--
+-- 20171106
+--
+--
+-- 修改原因：product_info添加新field origin_user，存储商品信息的添加者
+-- 
+
+ALTER TABLE `product_info` ADD `origin_user` varchar(255) DEFAULT NULL COMMENT '上传用户名称' AFTER `content`;
