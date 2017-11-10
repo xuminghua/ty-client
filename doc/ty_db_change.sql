@@ -123,5 +123,6 @@ ALTER TABLE `product_info` ADD `origin_user` varchar(255) DEFAULT NULL COMMENT '
 -- 
 
 ALTER TABLE `common_carrousel` CHANGE `type` `type` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '类型： 0：游记 1：商品 2：专题 3：免费资格 4：信息度';
+ALTER TABLE `common_carrousel` ADD `font_type` tinyint(4) NOT NULL DEFAULT 0 COMMENT '对应title和memo的显示模式: 0 白色，1 红色' AFTER `content`;
 
 
