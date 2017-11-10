@@ -171,3 +171,9 @@ http://blog.csdn.net/wangfayinn/article/details/7719704
         "code": 200,
         "msg": ""
       }
+
+
+#17/11/08
+1.章节3.1.1.获取动态轮转信息
+➢	返回信息改为{    "code": 200,    "msg": "",    "data": [        {            "id": "111",
+            "fontType": 0,   //新增字段，对应title和memo的模式：0为白色，1为红色，这个需要添加到运营平台中设置，根据图片的底色选突出字体的颜色：比如图片为深色则fontType为0，图片为浅白色则fontType为1            "imgUrl": "http://127.0.0.1/img/1.jpg",            "title": "尚沐浴水世界",            "memo": "儿童票9.9疯抢",            "isLinked": true,            "link": "http://localhost/product/111"        }]

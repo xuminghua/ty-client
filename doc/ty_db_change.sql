@@ -114,3 +114,14 @@ ALTER TABLE `product_info` ADD `category` int(11) NOT NULL DEFAULT 0 COMMENT '�
 -- 
 
 ALTER TABLE `product_info` ADD `origin_user` varchar(255) DEFAULT NULL COMMENT '上传用户名称' AFTER `content`;
+
+--
+-- 20171108
+--
+--
+-- 修改原因：common_carrousel的type改为tinyint(4)
+-- 
+
+ALTER TABLE `common_carrousel` CHANGE `type` `type` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '类型： 0：游记 1：商品 2：专题 3：免费资格 4：信息度';
+
+
