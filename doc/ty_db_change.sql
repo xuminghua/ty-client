@@ -126,3 +126,16 @@ ALTER TABLE `common_carrousel` CHANGE `type` `type` TINYINT(4) NOT NULL DEFAULT 
 ALTER TABLE `common_carrousel` ADD `font_type` tinyint(4) NOT NULL DEFAULT 0 COMMENT '对应title和memo的显示模式: 0 白色，1 红色' AFTER `content`;
 
 
+--
+-- 20171114
+--
+--
+-- 修改原因：product_info的audit_status改为tinyint(4),并且增加几种审核结果
+-- 
+
+ALTER TABLE `product_info` CHANGE `audit_status` `audit_status` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '审核状态: 0：待审核（风险未知） 1：审核通过（安全） 2：有风险 3：违规';
+
+-- 修改原因：travel_info的增加baby_age，类型为int，存储当用户写游记时baby的年龄
+-- 
+ALTER TABLE `travel_info` ADD `baby_age` int(11) NOT NULL DEFAULT '-1' COMMENT '游记时baby年龄' AFTER `content`;
+

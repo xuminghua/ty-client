@@ -176,4 +176,50 @@ http://blog.csdn.net/wangfayinn/article/details/7719704
 #17/11/08
 1.章节3.1.1.获取动态轮转信息
 ➢	返回信息改为{    "code": 200,    "msg": "",    "data": [        {            "id": "111",
-            "fontType": 0,   //新增字段，对应title和memo的模式：0为白色，1为红色，这个需要添加到运营平台中设置，根据图片的底色选突出字体的颜色：比如图片为深色则fontType为0，图片为浅白色则fontType为1            "imgUrl": "http://127.0.0.1/img/1.jpg",            "title": "尚沐浴水世界",            "memo": "儿童票9.9疯抢",            "isLinked": true,            "link": "http://localhost/product/111"        }]
+            "fontType": 0,   //新增字段，对应title和memo的模式：0为白色，1为红色，这个需要添加到运营平台中设置，根据图片的底色选突出字体的颜色：比如图片为深色则fontType为0，图片为浅白色则fontType为1            "imgUrl": "http://127.0.0.1/img/1.jpg",            "title": "尚沐浴水世界",            "memo": "儿童票9.9疯抢",            "isLinked": true,            "link": "http://localhost/product/111"        }]#17/11/13
+1.章节3.4.2	获取商品详情
+接口参数为{productId：101}
+返回信息修改为
+{    "code": 200,    "msg": "",    "data": [        {            "id": "",            "title": "",            "content": "",            "price": "",            "discount": "",            "ages": "",            "likes": "",            "address": "",            "address_point": "",            "city": "",            "expiryTime": "",            "type": 1,            "images": [                {                    "id": "",                    "imgUrl": ""                },                {                    "id": "",                    "imgUrl": ""                }            ],
+############增加字段
+        createTime: "2017-01-02 20:30",
+        startTime: "2017-01-02 20:30",
+        endTime: "2017-01-02 20:30",
+        status:1, //0：正常 1：促销 2：秒杀 3：下架
+        audit_status:1,//审核状态: 0：待审核（风险未知） 1：审核通过（安全） 2：有风险 3：违规
+        is_self:true,
+        solds:'198或者未知',//销量
+        views:4391,
+        greats:982,
+        stamps:24,
+        link:'http://.com',
+############增加字段结束            "merchant": {                "id": "",                "name": "",############删除其他字段
+                "address": "",                "address_point": "",                "desc": "",                "phone": "",                "images": [                    {                        "id": "",                        "imgUrl": ""                    },                    {                        "id": "",                        "imgUrl": ""                    }                ]
+############删除其他字段结束            }        }    ]}
+2.获取游记详情
+调用参数为{travelId：101}
+返回参数改为
+{    "code": 200,    "msg": "",    "data": {        "travelId": "",        "title": "",        "authorId": "",        "authorName": "",        "createDate": "",  //改为createTime，格式为2017-01-02 20:30
+        "content": "",        "views": 111,        "likes": 49,
+#########删除以下2个：        "productId": "",        "productName": "",
+#########替换为product的object        product:{
+            id:201,
+            name:'童话世界99元亲子套餐',
+            image:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1447596376,3861306435&fm=26&gp=10.jpg',
+        }
+#########替换结束
+        babyAge: 7,  //增加这个字段，游记时baby年龄
+        "images": [            {                "id": "",                "imgUrl": ""            },            {                "id": "",                "imgUrl": ""            }        ]    }}同时修改3.3.7 游记发布
+接口增加babyAge: 7这个字段，请求参数变成
+      "req":{
+        "title":"概要",
+        "content": "内容",
+        "type":true,
+        "babyAge": 7,  //新增字段，若是-1表示未知年龄
+        "productUUID":"pdtUUid",
+        "link": "http://www.tongyoushu.com/aaa/bbb/ccc",
+        "authorId": "weichatID",
+        "imageNames": "['1.jpg','2.png']",
+        "travelUUID":"UUid",
+        "travelDate":"2017-11-01"
+      },
