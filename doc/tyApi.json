@@ -1,0 +1,510 @@
+{
+  "Demo": [
+    {
+      "url":"/changeuserinfo",
+      "method":"post",
+      "desc":"4个接口：修改qq，修改mail，修改weibo，修改baby信息",
+      "mock":true,
+      "req":{
+        "userId": "weichatID",
+        "qq": "10098",
+        "mail": "sxb@163.com",
+        "weibo": "sxb",
+        "babyGender": "女",
+        "babyBirth": "2014-01-01"
+      },
+      "res":{
+        "code": 200,
+        "msg": "OK"
+      }
+    },
+    {
+      "url":"/user",
+      "method":"get",
+      "desc":"获取用户自己的信息",
+      "mock":true,
+      "req":    {
+        "userId": "weichatID"
+      },
+      "res":{
+        "code": 200,
+        "msg": "",
+        "result":{
+          "data": {
+            "id": 2,
+            "userId": "1001",
+            "userName": "username",
+            "phone": "13811111111",
+            "babyGender": "女",
+            "babyBirth": "2014-06-01",
+            "experience": "0",
+            "coin": "1",
+            "point": "2",
+            "weichat": "weichat11",
+            "weibo": "weibo11",
+            "qq": "10098",
+            "createTime": "2017-01-02"
+          }
+        }
+      }
+
+    },
+    {
+      "url":"/my/message",
+      "method":"get",
+      "desc":"获取消息列表",
+      "mock":true,
+      "req":    {
+        "userId": "",
+        "pageNo":1,
+        "limit":20
+      },
+      "res":{
+        "code": 200,
+        "msg": "",
+        "result":{
+          "hasMore": true,
+          "data|20":[{
+            "id": "@id",
+            "message": "@cparagraph(1,6)",
+            "type": "1",
+            "status": "2",
+            "createTime":"@integer(1483200000,1508427848)"
+          }]
+        }
+      }
+    },
+    {
+      "url":"/feedback",
+      "method":"post",
+      "desc":"意见和建议",
+      "mock":true,
+      "req":{
+        "userId": "weichatID",
+        "content": "意见和建议的内容",
+        "link": "http://www.tongyoushu.com/aaa/bbb/ccc"
+      },
+      "res":{
+        "code": 200,
+        "msg": ""
+      }
+    },
+    {
+      "url":"/my/coupon",
+      "method":"get",
+      "desc":"获取我的优惠券",
+      "mock":true,
+      "req": {
+        "userId": "",
+        "pageNo":1,
+        "limit":20
+      },
+      "res":{
+        "code": 200,
+        "msg": "",
+        "result":{
+          "hasMore": true,
+          "data|20":[{
+            "id": "@id",
+            "couponId": "@id",
+            "productId": "@id",
+            "exchangeDeadline": "2017-11-30",
+            "useDeadline": "2017-12-31",
+            "createTime":"@date",
+            "status": "@natural(0,4)",
+            "productName": "@ctitle(5,12)",
+            "merchantId": "@id",
+            "merchantName": "@ctitle(5,12)",
+            "couponAbstract": "@csentence(5,30)"
+          }
+          ]
+        }
+      }
+    },
+    {
+      "url":"/usecoupon",
+      "method":"post",
+      "desc":"使用我的优惠券",
+      "mock":true,
+      "req":{
+        "userId": "weichatID",
+        "couponId":22,
+        "orderId":"@word(5,20)"
+
+      },
+      "res":  {
+        "code": 200,
+        "msg": ""
+      }
+    },
+    {
+      "url":"/my/favorite/travel",
+      "method":"get",
+      "desc":"获取我收藏的游记",
+      "mock":true,
+      "req": {
+        "userId": "",
+        "pageNo":1,
+        "limit":20
+      },
+      "res":{
+        "code": 200,
+        "msg": "",
+        "result":{
+          "hasMore": false,
+          "data|8":[{
+            "travelId": "@id",
+            "imgArr": ["@image"],
+            "title": "@ctitle(5,12)",
+            "content": "@csentence(5,30)",
+            "views": "@integer(0,1000000)",
+            "likes": "@integer(0,1000000)",
+            "createTime":"@integer(1483200000,1508427848)",
+            "authorName": "@cname",
+            "authorId": "@id",
+            "isFriend":"@boolean",
+            "isTop":"@boolean"
+          }
+          ]
+        }
+      }
+    },
+    {
+      "url":"/my/travel",
+      "method":"get",
+      "desc":"获取我发布的游记",
+      "mock":true,
+      "req": {
+        "userId": "",
+        "pageNo":1,
+        "limit":20
+      },
+      "res":{
+        "code": 200,
+        "msg": "",
+        "result":{
+          "hasMore": "@boolean",
+          "data|20":[{
+            "travelId": "@id",
+            "imgArr": ["@image"],
+            "title": "@ctitle(5,12)",
+            "content": "@csentence(5,30)",
+            "views": "@integer(0,1000000)",
+            "likes": "@integer(0,1000000)",
+            "createTime":"@integer(1483200000,1508427848)",
+            "authorName": "@cname",
+            "authorId": "@id",
+            "isFriend":"@boolean",
+            "isTop":"@boolean"
+          }
+          ]
+        }
+      }
+    },
+    {
+      "url":"/travels",
+      "method":"get",
+      "desc":"获取主页的游记列表",
+      "mock":true,
+      "req": {
+        "userId": "",
+        "pageNo":1,
+        "limit":20
+      },
+      "res":{
+        "code": 200,
+        "msg": "",
+        "result":{
+          "hasMore": "@boolean",
+          "data|20":[{
+            "travelId": "@id",
+            "imgArr": ["@image"],
+            "title": "@ctitle(5,12)",
+            "content": "@csentence(5,30)",
+            "views": "@integer(0,1000000)",
+            "likes": "@integer(0,1000000)",
+            "createTime":"@integer(1483200000,1508427848)",
+            "authorName": "@cname",
+            "authorId": "@id",
+            "isFriend":"@boolean",
+            "isTop":"@boolean"
+          }
+          ]
+        }
+      }
+    },
+    {
+      "url":"/travel/add",
+      "method":"post",
+      "desc":"发布新童友圈",
+      "mock":true,
+      "req":{
+        "title":"概要",
+        "content": "内容",
+        "type":true,
+        "productUUID":"pdtUUid",
+        "link": "http://www.tongyoushu.com/aaa/bbb/ccc",
+        "authorId": "weichatID",
+        "imageNames": ["1.jpg","2.png"],
+        "travelUUID":"UUid",
+        "travelDate":"2017-11-01"
+      },
+      "res":{
+        "code": 200,
+        "msg": ""
+      }
+    },
+    {
+      "url":"/product/add",
+      "method":"post",
+      "desc":"发布新商品",
+      "mock":true,
+      "req":{
+        "userId": "weichatID",
+        "merchantName": "merchantName",
+        "productName":"productName",
+        "productUUid":"productUUid",
+        "content":"product info",
+        "price":1000,
+        "discountPrice":0,
+        "number":1,
+        "category":0,
+        "link": "http://www.tongyoushu.com/aaa/bbb/ccc"
+      },
+      "res":{
+        "code": 200,
+        "msg": ""
+      }
+    },
+    {
+      "url":"/merchant",
+      "method":"get",
+      "desc":"获取商家信息",
+      "mock":true,
+      "req":{
+        "merchantId": 1022
+      },
+      "res":{
+        "code": 200,
+        "msg": "",
+        "result":{
+          "data":{
+            "id": 1022,
+            "name": "@ctitle(5,12)",
+            "address": "@ctitle(10,20)",
+            "addressPoint": "@float(10,200)",
+            "city": "北京",
+            "info": "@cparagraph(2,15)",
+            "phone": "@integer(13000000000,18900000000)",
+            "servicePhone": "010-@integer()",
+            "createTime": ""
+          }
+        }
+      }
+    },
+    {
+      "url":"/product",
+      "method":"get",
+      "desc":"获取商品信息",
+      "mock":true,
+      "req":{
+        "productId": 1009
+      },
+      "res":{
+        "code": 200,
+        "msg": "",
+        "result":{
+
+          "data":{
+            "id":283,
+            "title":"@ctitle(1,50)",
+            "content":"@cparagraph(2,15)",
+            "price":300,
+            "discount":159.9,
+            "ages": "3-8",
+            "likes":"@integer(0,1000)",
+            "address":"@csentence(1,50)",
+            "address_point":109,
+            "city":"北京",
+            "expiryTime":"2017-12-30 23:59",
+            "type":"@integer(0,3)",
+            "images|5":[{
+              "id": "@id",
+              "imgUrl": "@image"
+            }],
+            "createTime": "2017-01-02 20:30",
+            "startTime": "2017-01-02 20:30",
+            "endTime": "2017-01-02 20:30",
+            "status":"@integer(0,4)",
+            "auditStatus":"@integer(0,4)",
+            "isSelf":"@boolean",
+            "solds":"@natural(0,9999)",
+            "views":"@natural(0,99999999)",
+            "greats":"@natural(0,9999)",
+            "stamps":"@natural(0,9999)",
+            "link":"@url",
+            "originUserId":"@id",
+
+            "merchant": {
+              "id": 1123,
+              "name": "@cword(2,20)",
+              "image":"@image",
+              "address":"@cword"
+            },
+            "coupons":[{
+              "uuid":"uuid1",
+              "title":"免费评测券",
+              "type":0,
+              "info":"免费评测券具体信息，免费评测券具体信息免费评测券具体信息免费评测券具体信息。",
+              "abstract":"免费评测券概要",
+              "total":100,
+              "reserved":39,
+              "exchangePrice":5,
+              "pickEndTime":"2017-12-30 23:59",
+              "exchangeDeadline":"2017-12-30 23:59",
+              "useDeadline":"2017-12-30 23:59",
+              "status":0,
+              "createTime":"2017-10-01 00:00",
+              "pickStartTime":"2017-11-01 00:00"
+            }]
+
+          }
+        }
+      }
+    },
+    {
+      "url":"/travel",
+      "method":"get",
+      "desc":"获取商家信息",
+      "mock":true,
+      "req":{
+        "travelId": 1022
+      },
+      "res":{
+        "code": 200,
+        "msg": "",
+        "result":{
+          "data":{
+            "travelId":101,
+            "title":"@ctitle",
+            "authorId":"dashi",
+            "authorName":"@cname",
+            "authorIcon":"@image",
+            "createTime": "2017-01-02 20:30",
+            "content":"@cparagraph",
+            "likes":"@natural(0,9999999)",
+            "views":"@natural(0,99999999)",
+            "type":"@natural(0,2)",
+            "status":"@natural(0,3)",
+            "images|4":[{
+              "id": "@id",
+              "imgUrl": "@image"
+            }],
+            "babyAge": "@natural(0,14)",
+
+            "product":{
+              "id":"@id",
+              "name":"@ctitle",
+              "image":"@image"
+            }
+          }
+        }
+      }
+    },
+    {
+      "url":"/carousels",
+      "method":"get",
+      "desc":"获取滚动板信息",
+      "mock":true,
+      "req":{
+        "limit": 7
+      },
+      "res":{
+        "code": 200,
+        "msg": "",
+        "result":{
+          "data|7":[
+            {
+              "id": "@id",
+              "imgUrl": "@image",
+              "title": "@ctitle(5,20)",
+              "memo": "@ctitle(5,20)",
+              "link": "@url",
+              "type": "@integer(0,3)"
+            }]
+        }
+      }
+    },
+    {
+      "url":"/travel/collect",
+      "method":"post",
+      "desc":"收藏游记",
+      "mock":true,
+      "req":{
+        "userId": "weichatID",
+        "travelId":1922
+      },
+      "res":  {
+        "code": 200,
+        "msg": ""
+      }
+    },
+    {
+      "url":"/travel/public",
+      "method":"post",
+      "desc":"公开当前的游记",
+      "mock":true,
+      "req":{
+        "userId": "weichatID",
+        "travelId":1922
+      },
+      "res":  {
+        "code": 200,
+        "msg": ""
+      }
+    },
+    {
+      "url":"/product/collect",
+      "method":"post",
+      "desc":"收藏当前商品",
+      "mock":true,
+      "req":{
+        "userId": "weichatID",
+        "productId": 1922
+      },
+      "res":  {
+        "code": 200,
+        "msg": ""
+      }
+    },
+    {
+      "url":"/product/checkin",
+      "method":"post",
+      "desc":"签到当前商品",
+      "mock":true,
+      "req":{
+        "userId": "weichatID",
+        "productId": 1922,
+        "isGreat":false
+      },
+      "res":  {
+        "code": 200,
+        "msg": ""
+      }
+    },
+    {
+      "url":"/coupon/seckill",
+      "method":"post",
+      "desc":"兑换某商品的免费券",
+      "mock":true,
+      "req":{
+        "userId": "weichatID",
+        "couponId": 19
+      },
+      "res":  {
+        "code": 200,
+        "msg": ""
+      }
+    }
+  ]
+}

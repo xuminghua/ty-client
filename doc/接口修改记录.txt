@@ -143,7 +143,8 @@ http://blog.csdn.net/wangfayinn/article/details/7719704
         "authorId": "weichatID",
         "imageNames": "['1.jpg','2.png']",
         "travelUUID":"UUid",
-        "travelDate":"2017-11-01"
+        "travelDate":"2017-11-01",
+        "linkProduct":true/false #17/11/24
       },
 返回改为
       "res":{
@@ -176,9 +177,13 @@ http://blog.csdn.net/wangfayinn/article/details/7719704
 #17/11/08
 1.章节3.1.1.获取动态轮转信息
 ➢	返回信息改为{    "code": 200,    "msg": "",    "data": [        {            "id": "111",
-            "fontType": 0,   //新增字段，对应title和memo的模式：0为白色，1为红色，这个需要添加到运营平台中设置，根据图片的底色选突出字体的颜色：比如图片为深色则fontType为0，图片为浅白色则fontType为1            "imgUrl": "http://127.0.0.1/img/1.jpg",            "title": "尚沐浴水世界",            "memo": "儿童票9.9疯抢",            "isLinked": true,            "link": "http://localhost/product/111"        }]#17/11/13
+            "fontType": 0,   //新增字段，对应title和memo的模式：0为白色，1为红色，这个需要添加到运营平台中设置，根据图片的底色选突出字体的颜色：比如图片为深色则fontType为0，图片为浅白色则fontType为1            "imgUrl": "http://127.0.0.1/img/1.jpg",            "title": "尚沐浴水世界",            "memo": "儿童票9.9疯抢",            "link": "/product",
+            "type": 1  //enum:0:纯链接；1:商品；2:圈   #17/11/27
+        }]#17/11/13
+#17/11/14
+#17/11/22
 1.章节3.4.2	获取商品详情
-接口参数为{productId：101}
+➢	接口地址：/product/{productId}➢	接口参数：{productId}
 返回信息修改为
 {    "code": 200,    "msg": "",    "data": [        {            "id": "",            "title": "",            "content": "",            "price": "",            "discount": "",            "ages": "",            "likes": "",            "address": "",            "address_point": "",            "city": "",            "expiryTime": "",            "type": 1,            "images": [                {                    "id": "",                    "imgUrl": ""                },                {                    "id": "",                    "imgUrl": ""                }            ],
 ############增加字段
@@ -186,21 +191,48 @@ http://blog.csdn.net/wangfayinn/article/details/7719704
         startTime: "2017-01-02 20:30",
         endTime: "2017-01-02 20:30",
         status:1, //0：正常 1：促销 2：秒杀 3：下架
-        audit_status:1,//审核状态: 0：待审核（风险未知） 1：审核通过（安全） 2：有风险 3：违规
-        is_self:true,
+        auditStatus:1,//审核状态: 0：待审核（风险未知） 1：审核通过（安全） 2：有风险 3：违规
+        isSelf:true,
         solds:'198或者未知',//销量
         views:4391,
         greats:982,
         stamps:24,
         link:'http://.com',
-############增加字段结束            "merchant": {                "id": "",                "name": "",############删除其他字段
-                "address": "",                "address_point": "",                "desc": "",                "phone": "",                "images": [                    {                        "id": "",                        "imgUrl": ""                    },                    {                        "id": "",                        "imgUrl": ""                    }                ]
-############删除其他字段结束            }        }    ]}
+	originUser:'authorDashi',   //新字段，本商品的上传用户name
+############增加字段结束            "merchant": {            id: "",
+            name: "店名店名店名",
+            image:"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1447596376,3861306435&fm=26&gp=10.jpg",
+            address:'address1111'############删除其他字段
+                "address_point": "",                "desc": "",                "phone": "",                "images": [                    {                        "id": "",                        "imgUrl": ""                    },                    {                        "id": "",                        "imgUrl": ""                    }                ]
+############删除其他字段结束            }
+############增加字段coupons #17/11/22        coupons:[{
+            uuid:'',
+            title:'免费评测券',
+            type:0,
+            info:'免费评测券具体信息，免费评测券具体信息免费评测券具体信息免费评测券具体信息。',
+            abstract:'免费评测券概要',
+            total:100,
+            reserved:39,
+            exchangePrice:5,
+            pickEndTime:'2017-12-30 23:59',
+            exchangeDeadline:'2017-12-30 23:59',
+            useDeadline:'2017-12-30 23:59',
+            status:0,
+            createTime:'2017-10-01 00:00',
+            pickStartTime:'2017-11-01 00:00'
+        }],############增加字段coupons结束        }    ]}
 2.获取游记详情
-调用参数为{travelId：101}
+➢	接口地址：/travel/{travelId}➢	接口参数：{travelId}
 返回参数改为
 {    "code": 200,    "msg": "",    "data": {        "travelId": "",        "title": "",        "authorId": "",        "authorName": "",        "createDate": "",  //改为createTime，格式为2017-01-02 20:30
         "content": "",        "views": 111,        "likes": 49,
+#########增加以下2个#17/12/01
+        "type":0,//0：私人 1：公开
+        "status":1,//0：草稿 1：待审核 2：审核通过
+        "authorName": "大师",        				#17/12/01 作者名称
+        "authorIcon": "http://www.tongyoushu.com/aaa/bbb/ccc",  #17/12/01，作者icon
+        "authorId": "weichatID",   				#17/12/01，作者id
+#########增加结束
 #########删除以下2个：        "productId": "",        "productName": "",
 #########替换为product的object        product:{
             id:201,
@@ -216,6 +248,9 @@ http://blog.csdn.net/wangfayinn/article/details/7719704
         "content": "内容",
         "type":true,
         "babyAge": 7,  //新增字段，若是-1表示未知年龄
+#17/12/01删除authorIcon
+        "authorIcon": "http://www.tongyoushu.com/aaa/bbb/ccc",  //20171114新增字段，作者icon 
+#17/12/01删除结束
         "productUUID":"pdtUUid",
         "link": "http://www.tongyoushu.com/aaa/bbb/ccc",
         "authorId": "weichatID",
@@ -223,3 +258,60 @@ http://blog.csdn.net/wangfayinn/article/details/7719704
         "travelUUID":"UUid",
         "travelDate":"2017-11-01"
       },
+
+
+#17/11/24
+1.章节3.4添加1节获取商家信息的接口
+➢	接口地址：/merchant/{merchantId}➢	接口参数：{merchantId}➢	返回信息：{    "code": 200,    "msg": "",    "data": [        {            "id": 1231,            "name": "",            "address": "",
+            "addressPoint": "",
+            "city": "",
+            "info": "",
+            "phone": "",
+            "servicePhone": "",
+            "createTime": "",}
+]
+
+#17/12/01
+1.增加一个发布商品的接口
+➢	接口地址：/product/add➢	接口参数：{merchantId}➢	返回信息：{    "code": 200,    "msg": "",    "data": [
+	{
+        "userId": "weichatID",//必填
+        "merchantName": "merchantName",//必填
+        "productName":"productName",//必填
+        "productUUid":"productUUid",//必填
+        "content":"product info",
+        "price":1000,
+        "discountPrice":0,
+        "number":1,
+        "category":0,
+        "link": "http://www.tongyoushu.com/aaa/bbb/ccc"
+      }
+]
+
+#17/12/04
+1.章节3.3.8.游记公开
+	•	接口地址：/travel/public
+接口参数：{
+                        "userId": userId,     //添加以校验操作权限
+                        "travelId": travelId
+                    }
+	•	返回信息：
+{
+    "code": "0000",
+    "msg": "",
+    "result": ""
+}
+
+2.章节3.4.添加新接口：签到商品
+	•	接口地址：/product/checkin
+接口参数：{
+        "userId": "weichatID",
+        "productId": 1922,
+        "isGreat":false
+      }
+	•	返回信息：
+{
+    "code": "0000",
+    "msg": "",
+    "result": ""
+}
