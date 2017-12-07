@@ -193,7 +193,7 @@ http://blog.csdn.net/wangfayinn/article/details/7719704
         status:1, //0：正常 1：促销 2：秒杀 3：下架
         auditStatus:1,//审核状态: 0：待审核（风险未知） 1：审核通过（安全） 2：有风险 3：违规
         isSelf:true,
-        solds:'198或者未知',//销量
+        sales:'198或者未知',//销量
         views:4391,
         greats:982,
         stamps:24,
@@ -315,3 +315,29 @@ http://blog.csdn.net/wangfayinn/article/details/7719704
     "msg": "",
     "result": ""
 }
+
+@17/12/07
+1.http调用的method修改,添加put，delete等。
+2.url修改建议
+（1）用户登陆信息维护用token，url上带的userId都可以去掉
+（2）目录层次尽量少（深一点的页面，蜘蛛都很可能不会去爬行的，所以要尽量的做到使目录层次减少，URL缩短。）
+基于此，我建议依据各大平台的方式，对get型url做缩减（如百度，新浪等做法）：
+3.3.1	获取游记列表-游客状态和 3.3.2	获取游记列表-登录状态
+➢	接口地址 ：/t
+3.3.4	获取游记详情➢	接口地址：/t/{travelId}
+3.4.1	获取商品列表➢	接口地址：/p
+3.4.2	获取商品详情➢	接口地址：/p/{productId}
+3.4.4	获取商品评论➢	接口地址：/p/{productId}/comments3.5.1	获取商户信息➢	接口地址：/m/{merchantId}
+（3）3.3.3 节的 二级目录的顺序/friends/travels改为/travels/friends，和3.3.4,3.3.5，3.3.7，3.3.8统一起来呢
+同样对于3.3.6 /collect/travels/{travelId}，3.4.3 这2节也同样修改。
+
+3.3.4.1	获取商品列表返回信息修改：
+  {    "code": "200",    "msg": "","result": {    “hasMore”:true,        "data": [            {                "id": "",                "name": "",                "title": "",                "imageUrl": "",                "content": "",                "price": "",                "discount": "",                "likes": "",                "expiryDate": "",                "isSelf": 1,     	 #实际为boolean                "isTop": 1,		 #实际为boolean
+########删除                "link": "",########删除结束                "status": "促销"		 #实际为int， 0：正常 1：促销 2：秒杀 3：下架########添加
+              "sales":456,
+              "ages":"3-8",
+              "category":"@integer(0,8)", #商品类别: 0 未知，1 演出，2 展览，3 探索体验，4 教育课程，5 团体游，6 游乐场所，7 其他
+              "city":"北京",
+              "type":"@integer(0,3)"	#商品类型： 0：用户上传 1：自有 2:第三方########添加结束
+            }        ]
+    }}

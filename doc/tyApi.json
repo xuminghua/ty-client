@@ -1,8 +1,8 @@
 {
   "Demo": [
     {
-      "url":"/changeuserinfo",
-      "method":"post",
+      "url":"/accounts",
+      "method":"put",
       "desc":"4个接口：修改qq，修改mail，修改weibo，修改baby信息",
       "mock":true,
       "req":{
@@ -19,7 +19,7 @@
       }
     },
     {
-      "url":"/user",
+      "url":"/my/users",
       "method":"get",
       "desc":"获取用户自己的信息",
       "mock":true,
@@ -50,7 +50,7 @@
 
     },
     {
-      "url":"/my/message",
+      "url":"/messages",
       "method":"get",
       "desc":"获取消息列表",
       "mock":true,
@@ -75,7 +75,7 @@
       }
     },
     {
-      "url":"/feedback",
+      "url":"/feedbacks",
       "method":"post",
       "desc":"意见和建议",
       "mock":true,
@@ -90,7 +90,7 @@
       }
     },
     {
-      "url":"/my/coupon",
+      "url":"/my/coupons",
       "method":"get",
       "desc":"获取我的优惠券",
       "mock":true,
@@ -122,8 +122,8 @@
       }
     },
     {
-      "url":"/usecoupon",
-      "method":"post",
+      "url":"/coupons",
+      "method":"put",
       "desc":"使用我的优惠券",
       "mock":true,
       "req":{
@@ -170,7 +170,7 @@
       }
     },
     {
-      "url":"/my/travel",
+      "url":"/my/travels",
       "method":"get",
       "desc":"获取我发布的游记",
       "mock":true,
@@ -202,7 +202,7 @@
       }
     },
     {
-      "url":"/travels",
+      "url":"/t",
       "method":"get",
       "desc":"获取主页的游记列表",
       "mock":true,
@@ -234,7 +234,7 @@
       }
     },
     {
-      "url":"/travel/add",
+      "url":"/travels",
       "method":"post",
       "desc":"发布新童友圈",
       "mock":true,
@@ -255,7 +255,7 @@
       }
     },
     {
-      "url":"/product/add",
+      "url":"/products",
       "method":"post",
       "desc":"发布新商品",
       "mock":true,
@@ -277,7 +277,7 @@
       }
     },
     {
-      "url":"/merchant",
+      "url":"/m/",
       "method":"get",
       "desc":"获取商家信息",
       "mock":true,
@@ -303,7 +303,7 @@
       }
     },
     {
-      "url":"/product",
+      "url":"/p/",
       "method":"get",
       "desc":"获取商品信息",
       "mock":true,
@@ -338,7 +338,7 @@
             "status":"@integer(0,4)",
             "auditStatus":"@integer(0,4)",
             "isSelf":"@boolean",
-            "solds":"@natural(0,9999)",
+            "sales":"@natural(0,9999)",
             "views":"@natural(0,99999999)",
             "greats":"@natural(0,9999)",
             "stamps":"@natural(0,9999)",
@@ -373,7 +373,7 @@
       }
     },
     {
-      "url":"/travel",
+      "url":"/t/",
       "method":"get",
       "desc":"获取商家信息",
       "mock":true,
@@ -436,8 +436,8 @@
       }
     },
     {
-      "url":"/travel/collect",
-      "method":"post",
+      "url":"/travels/collect",
+      "method":"put",
       "desc":"收藏游记",
       "mock":true,
       "req":{
@@ -450,8 +450,8 @@
       }
     },
     {
-      "url":"/travel/public",
-      "method":"post",
+      "url":"/travels",
+      "method":"put",
       "desc":"公开当前的游记",
       "mock":true,
       "req":{
@@ -464,8 +464,8 @@
       }
     },
     {
-      "url":"/product/collect",
-      "method":"post",
+      "url":"/products/collect",
+      "method":"put",
       "desc":"收藏当前商品",
       "mock":true,
       "req":{
@@ -478,7 +478,7 @@
       }
     },
     {
-      "url":"/product/checkin",
+      "url":"/products/checkin",
       "method":"post",
       "desc":"签到当前商品",
       "mock":true,
@@ -495,7 +495,7 @@
     {
       "url":"/coupon/seckill",
       "method":"post",
-      "desc":"兑换某商品的免费券",
+      "desc":"获取某商品的免费券",
       "mock":true,
       "req":{
         "userId": "weichatID",
@@ -504,6 +504,85 @@
       "res":  {
         "code": 200,
         "msg": ""
+      }
+    },
+    {
+      "url":"/p",
+      "method":"get",
+      "desc":"获取商品列表",
+      "mock":true,
+      "req": {
+        "userId": "",
+        "pageNo":1,
+        "limit":20
+      },
+      "res":{
+        "code": 200,
+        "msg": "",
+        "result":{
+          "hasMore": "@boolean",
+          "data|20":[
+            {
+              "id": "@id",
+              "name": "@cword",
+              "title": "@ctitle",
+              "imageUrl": "@image",
+              "content": "@csentence(5,30)",
+              "price": 199,
+              "discount": 99.9,
+              "likes": "@integer(0,1000000)",
+              "expiryDate": "2018-01-01",
+              "isSelf": "@boolean",
+              "isTop": "@boolean",
+              "status": "@integer(0,4)",
+              "ages":"3-8",
+              "city":"北京",
+              "sales":"@integer(0,1000)",
+              "type":"@integer(0,3)"
+            }
+          ]
+        }
+
+          }
+    },
+    {
+      "url":"/my/favorite/product",
+      "method":"get",
+      "desc":"获取我收藏的商品",
+      "mock":true,
+      "req": {
+        "userId": "",
+        "pageNo":1,
+        "limit":20
+      },
+      "res":{
+        "code": 200,
+        "msg": "",
+        "result":{
+          "hasMore": false,
+          "data|8":[
+            {
+              "id": "@id",
+              "name": "@cword",
+              "title": "@ctitle",
+              "imageUrl": "@image",
+              "content": "@csentence(5,30)",
+              "price": 199,
+              "discount": 99.9,
+              "likes": "@integer(0,1000000)",
+              "expiryDate": "2018-01-01",
+              "isSelf": "@boolean",
+              "isTop": "@boolean",
+              "status": "@integer(0,4)",
+              "sales":"@integer(0,1000)",
+              "ages":"3-8",
+              "category":"@integer(0,8)",
+              "city":"北京",
+              "type":"@integer(0,3)"
+            }
+          ]
+        }
+
       }
     }
   ]
