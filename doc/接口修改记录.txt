@@ -340,4 +340,161 @@ http://blog.csdn.net/wangfayinn/article/details/7719704
               "city":"北京",
               "type":"@integer(0,3)"	#商品类型： 0：用户上传 1：自有 2:第三方########添加结束
             }        ]
-    }}
+    }}#171213
+1.章节3.3.1, 3.8.1, 3.8.2改为
+返回数据：
+ "res":{
+        "code": 200,
+        "msg": "",
+        "result":{data:[{
+            "travelId": "@id",
+            "imgArr": ["@image"],
+            "title": "@ctitle(5,12)",
+            "content": "@csentence(5,30)",
+            "views": "@integer(0,1000000)",
+            "likes": "@integer(0,1000000)",
+            "createTime":"@integer(1483200000,1508427848)",
+            "authorName": "@cname",
+            "authorId": "@id",
+            "isFriend":"@boolean",
+            "isTop":"@boolean",
+#####增加 用于标记游记城市，游记类别，游记撰写时的宝宝年龄
+            "city":"北京",
+            "category":"@integer(0,8)",
+            "babyAge":"@integer(0,13)"
+#####增加结束
+}]
+}}
+
+2.章节3.9.3改为
+返回信息：
+ "res":{
+        "code": 200,
+        "msg": "",
+        "result":{
+          "data": {
+            "id": 2,
+            "userId": "1001",
+            "userName": "username",
+            "phone": "13811111111",
+            "babyGender": "女",
+            "babyBirth": "2014-06-01",
+            "experience": "0",
+            "coin": "1",
+            "point": "2",
+            "weichat": "weichat11",
+            "weibo": "weibo11",
+            "qq": "10098",
+            "createTime": "2017-01-02",
+##########添加 用于标记用户所在城市，用户已领取过的券
+            "city": "北京",
+            "coupons": [111,32,142]
+          }
+        }
+      }
+
+3.章节3.4.2 获取商品详情
+返回数据
+      "res":{
+        "code": 200,
+        "msg": "",
+        "result":{
+
+          "data":{
+            "id":283,
+            "title":"@ctitle(1,50)",
+            "content":"@cparagraph(2,15)",
+            "price":300,
+            "discount":159.9,
+            "ages": "3-8",
+            "likes":"@integer(0,1000)",
+            "address":"@csentence(1,50)",
+            "address_point":109,
+            "city":"北京",
+            "expiryTime":"2017-12-30 23:59",
+            "type":"@integer(0,3)",
+###########添加  用于标记用户是否已收藏
+            "isCollected":"@boolean",
+###########添加结束
+
+            "images|5":[{
+              "id": "@id",
+              "imgUrl": "@image"
+            }],
+            "createTime": "2017-01-02 20:30",
+            "startTime": "2017-01-02 20:30",
+            "endTime": "2017-01-02 20:30",
+            "status":"@integer(0,4)",
+            "auditStatus":"@integer(0,4)",
+            "isSelf":"@boolean",
+            "sales":"@natural(0,9999)",
+            "views":"@natural(0,99999999)",
+            "greats":"@natural(0,9999)",
+            "stamps":"@natural(0,9999)",
+            "link":"@url",
+            "originUserId":"@id",
+
+            "merchant": {
+              "id": 1123,
+              "name": "@ctitle(2,20)",
+              "image":"@image",
+              "address":"@ctitle"
+            },
+            "coupons":[{
+              "uuid":"uuid1",
+              "title":"免费评测券",
+              "type":0,
+              "info":"免费评测券具体信息，免费评测券具体信息免费评测券具体信息免费评测券具体信息。",
+              "abstract":"免费评测券概要",
+              "total":100,
+              "reserved":39,
+              "exchangePrice":5,
+              "pickEndTime":"2017-12-30 23:59",
+              "exchangeDeadline":"2017-12-30 23:59",
+              "useDeadline":"2017-12-30 23:59",
+              "status":0,
+              "createTime":"2017-10-01 00:00",
+              "pickStartTime":"2017-11-01 00:00"
+            }]
+
+          }
+        }
+      }
+
+4.章节3.3.4. 获取游记详情
+返回数据
+      "res":{
+        "code": 200,
+        "msg": "",
+        "result":{
+          "data":{
+            "travelId":101,
+            "title":"@ctitle",
+            "authorId":"dashi",
+            "authorName":"@cname",
+            "authorIcon":"@image",
+            "createTime": "2017-01-02 20:30",
+            "content":"@cparagraph",
+            "likes":"@natural(0,9999999)",
+            "views":"@natural(0,99999999)",
+            "type":"@natural(0,2)",
+            "status":"@natural(0,3)",
+###########添加  用于标记用户是否已收藏
+            "isCollected":"@boolean",
+###########添加结束
+            "images|4":[{
+              "id": "@id",
+              "imgUrl": "@image"
+            }],
+            "babyAge": "@natural(0,14)",
+
+            "product":{
+              "id":"@id",
+              "name":"@ctitle",
+              "image":"@image"
+            }
+          }
+        }
+      }
+
+

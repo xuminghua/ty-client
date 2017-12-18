@@ -138,4 +138,18 @@ ALTER TABLE `product_info` CHANGE `audit_status` `audit_status` TINYINT(4) NOT N
 -- 修改原因：travel_info的增加baby_age，类型为int，存储当用户写游记时baby的年龄
 -- 
 ALTER TABLE `travel_info` ADD `baby_age` int(11) NOT NULL DEFAULT '-1' COMMENT '游记时baby年龄' AFTER `content`;
+--
+-- 20171127
+--
+--
+-- 修改原因：common_carrousel的type enum 0改为其他
+-- 
+ALTER TABLE `common_carrousel` CHANGE `type` `type` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '类型： 0：其他 1：游记 2：商品 3：专题 4：免费资格 5：信息度';
+--
+-- 20171213
+--
+--
+-- 修改原因：product_info的status enum 增加1个值：4：售完
+-- 
+ALTER TABLE `product_info` CHANGE `status` `status` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '商品状态： 0：正常 1：促销 2：秒杀 3：下架 4：售完';
 
